@@ -1,0 +1,77 @@
+						EXERCISE 3: VIEWS & BUILT-IN FUNCTIONS
+
+
+1.	VIEWS
+	53_Noel Mathen Eldho
+	create table Employee(
+		EmpId Varchar(20) primary key,
+		EmpName Varchar(20),
+		Job Varchar(15),
+		Manager Varchar(20));
+
+	insert into Employee values('E0001', 'Abey', 'Tester', 'E0004');
+	insert into Employee values('E0002', 'Jesto', 'Analyst', 'E0001');
+	insert into Employee values('E0003', 'Adarsh', 'Clerk', 'E0004');
+	insert into Employee values('E0004', 'Kevin', 'Admin', 'E0005');
+	insert into Employee values('E0005', 'Bony', 'Manager', 'E0005');
+	insert into Employee values('E0006', 'Manu', 'Supplier', 'E0001');
+
+
+a.	53_Noel Mathen Eldho
+	create view CUST_VW as select * from Employee;
+
+b.	53_Noel Mathen Eldho
+	update CUST_VW set Job= 'Senior Clerk' where EmpID = 'E0003';
+
+c.	53_Noel Mathen Eldho
+	delete from CUST_VW where EmpID = 'E0004';
+
+d.	53_Noel Mathen Eldho
+	drop view CUST_VW;
+
+
+2.	BUILT IN FUNCTIONS
+
+a.	53_Noel Mathen Eldho
+	select power(16,5) from DUAL;
+
+b.	53_Noel Mathen Eldho
+	select length('Application') from DUAL;
+	
+c.	53_Noel Mathen Eldho
+	select sysdate, last_day(sysdate) as last_day_curr_month from dual;
+
+d.	53_Noel Mathen Eldho
+	select to_char(65432 ,'$99999') from dual;
+
+e.	53_Noel Mathen Eldho
+	select systimestamp from dual;
+
+f.	create table Employee(
+		EmpId Varchar(20) primary key,
+		EmpName Varchar(20),
+		Job Varchar(15),
+		Manager Varchar(20),
+		HIRE_DATE date);
+
+	insert into Employee values('E0001', 'Abey', 'Tester', 'E0004','15-DEC-12');
+	insert into Employee values('E0002', 'Jesto', 'Analyst', 'E0001','24-MAR-11');
+	insert into Employee values('E0003', 'Adarsh', 'Clerk', 'E0004','10-JAN-13');
+	insert into Employee values('E0004', 'Kevin', 'Admin', 'E0005','14-MAY-11');
+	insert into Employee values('E0005', 'Bony', 'Manager', 'E0005','11-APR-11');
+	insert into Employee values('E0006', 'Manu', 'Supplier', 'E0001',' 19-JUN-13');
+
+	53_Noel Mathen Eldho
+	select HIRE_DATE from Employee;
+
+g.	53_Noel Mathen Eldho
+	select trunc(months_between(sysdate,to_date(HIRE_DATE))) as HIRE_DATE from employee;
+
+h.	53_Noel Mathen Eldho
+	select count(distinct(Deptname)) from dept;
+
+i.	53_Noel Mathen Eldho
+	select to_char(HIRE_DATE, 'DAY,DDth MONTH,YYYY') from Employee;
+
+
+

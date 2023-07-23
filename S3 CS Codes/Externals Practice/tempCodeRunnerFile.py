@@ -1,0 +1,1 @@
+ttn = pd.pivot_table(data=titanic)

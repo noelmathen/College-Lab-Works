@@ -1,0 +1,93 @@
+			EXERCISE 7:  FUNCTIONS
+
+1.	53_Noel Mathen Eldho
+	CREATE OR REPLACE FUNCTION findName(x in varchar)
+		RETURN varchar;
+	IS
+		name varchar(10);
+	BEGIN
+		SELECT Empname into name from employee where Empid in (select manager from employee where empid = x);
+		RETURN name;
+	END;
+	/
+
+	DECLARE
+		n varchar(5);
+		mname varchar(12);
+	
+	BEGIN
+		n:='&n';
+		mname:=findName(n);
+		dbms_output.put_line('Manager name is: ' || mname); 
+	END;
+	/
+
+2.	create table product (
+		product_id varchar(3),
+		product_name varchar(5),
+		grade varchar(5)
+					);
+
+	insert into product values('P01','ABC','A');
+	insert into product values('P02','XYZ','B');	
+
+	create table sales (
+		pid varchar(3),
+		sale_num number,
+		sales_date date,
+		sales_day varchar(10)
+						);
+
+	insert into sales VALUES('P01',234,'1-JAN-2023','Monday');
+	insert into sales VALUES('P01',456,'2-JAN-2023','Tuesday');
+	insert into sales VALUES('P01',555,'3-JAN-2023','Wednesday');
+	insert into sales VALUES('P01',677,'4-JAN-2023','Thursday');
+	insert into sales VALUES('P01',457,'5-JAN-2023','Friday');
+	insert into sales VALUES('P01',600,'6-JAN-2023','Saturday');
+	insert into sales VALUES('P02',234,'8-JAN-2023','Monday');
+	insert into sales VALUES('P02',786,'9-JAN-2023','Tuesday');
+	insert into sales VALUES('P02',234,'10-JAN-2023','Wednesday');
+	insert into sales VALUES('P02',657,'11-JAN-2023','Thusrday');
+	insert into sales VALUES('P02',345,'12-JAN-2023','Friday');
+	insert into sales VALUES('P02',867,'13-JAN-2023','Saturday');
+
+	select * from sales;
+
+
+A)	53_Noel Mathen Eldho
+	CREATE OR REPLACE FUNCTION prod_info (id varchar)
+		RETURN VARCHAR2
+	AS
+	  name VARCHAR2(20);
+	  pgrade varchar2(10);
+	BEGIN
+	  SELECT product_name, grade INTO name, pgrade FROM Product WHERE product_id = id;
+	  RETURN name || '-grade='||pgrade;
+	END;
+	/
+	select prod_info('P01') from dual;
+
+B)	53_Noel Mathen Eldho
+	CREATE or REPLACE FUNCTION sale (target in number, s in number) 
+		RETURN VARCHAR2
+	IS
+		grade VARCHAR2(2);
+	BEGIN
+		IF s>target THEN
+		grade:= 'A'; 
+		ELSE
+		grade:= 'B';
+		END IF; 
+	RETURN grade;
+	END;
+	/
+
+	DECLARE
+		s number;
+		gr varchar2(2);
+	BEGIN
+		select sum(sales) into s from sales;
+		gr:=sale(5000, s);
+		dbms_output.put_line('Grade is:'||gr);
+	END;
+	/

@@ -1,0 +1,140 @@
+							EXERCISE 5: PROCEDURES
+
+1.	53_Noel Mathen Eldho
+	CREATE OR REPLACE PROCEDURE salincrement(id IN varchar2, sal_incr IN number)
+	IS
+	BEGIN
+		update EMPLOYEE set salary=salary+sal_incr where empid=id;
+	END;
+	/
+
+	DECLARE
+		id varchar2(6);
+		sal_incr number(5);
+	BEGIN
+  		id:='&Empid';
+		sal_incr:='&Increment';
+		salincrement(id, sal_incr);
+	END;
+	/
+
+
+2.	53_Noel Mathen Eldho
+	CREATE OR REPLACE PROCEDURE inc(id IN varchar2)
+	IS
+	BEGIN
+		update EMPLOYEE set comm=0.05*comm+comm where empid=id;
+	END;
+	/
+	DECLARE
+		id varchar2(6);
+	BEGIN
+		id:='&Empid';
+		inc(id);
+	END;
+	/
+
+
+3.	create table bank(
+		username varchar2(12), 
+		accid number(4), 
+		balance number(6,2));
+
+	insert into bank values('Shruti', 1234, 2000.5);
+	insert into bank values('Minal', 1235, 1590.7);
+	insert into bank values('Nirupama', 1236, 2908.5);
+	insert into bank values('Roshni', 1238, 2560.4);
+	insert into bank values('Noel', 1239, 1245.2);
+
+	
+	CREATE OR REPLACE PROCEDURE withdraw(wamt IN number, id IN number)
+	IS
+	BEGIN
+		select balance into balamt from bank where id=accid;
+		bal:=balamt-wamt;
+		if(bal<1000) then
+		  dbms_output.put_line('LOW BALANCE!!');
+		else
+		  update bank set balance=bal where id=accid;
+		  dbms_output.put_line('Money withdrawn! Balance: '|| bal);
+		end if;
+	END;
+	/
+
+	DECLARE
+		id number(4);
+		wamt number(6,2);
+		balamt number(6,2);
+		bal number(6,2);
+
+	BEGIN
+		id:='&id';
+		wamt:='&wamt';
+		withdraw(wamt, id);
+	END;
+	/
+
+4. 	53_Noel Mathen Eldho
+	CREATE OR REPLACE PROCEDURE find_lcm_gcd (n1 IN NUMBER, n2 IN NUMBER)
+	AS
+		gcd NUMBER;
+		lcm NUMBER;
+		t1 NUMBER;
+		t2 NUMBER;
+	BEGIN
+	  t1:= n1;
+	  t2:=n2;
+	  gcd := n1;
+	  WHILE mod(t2,t1)!=0 
+	  LOOP
+	    gcd := t2;
+	    t2 := mod(t1,t2);
+	    t1 := gcd;
+	  END LOOP;
+	  lcm := (n1 * n2) / gcd;
+	  dbms_output.put_line('gcd: '||gcd);
+	  dbms_output.put_line('lcm: '||lcm);
+	END;
+	/
+
+	BEGIN
+	  find_lcm_gcd(n1 => 10, n2 => 15);
+	END;
+	/
+
+5.
+a)	53_Noel Mathen Eldho
+	CREATE TABLE Student (
+  		RegNo number PRIMARY KEY,
+		name VARCHAR(10),
+		marks NUMBER(4));
+	insert into student values(123, 'Ram', 100);
+	insert into student values(123456, 'Shyam', 50);
+
+	CREATE OR REPLACE PROCEDURE display_average_mark
+	AS 
+	  v_average NUMBER;
+	BEGIN
+	  SELECT AVG(marks) INTO v_average FROM Student;
+	  DBMS_OUTPUT.PUT_LINE('Average mark: ' || v_average);
+	END;
+	/
+	BEGIN
+	  display_average_mark;
+	END;
+	/
+
+b)	53_Noel Mathen Eldho
+	CREATE OR REPLACE PROCEDURE display_student_mark (p_reg_no IN INTEGER)
+	AS
+	  v_mark NUMBER;
+	BEGIN
+	  SELECT marks INTO v_mark FROM Student WHERE RegNo = p_reg_no;
+	  DBMS_OUTPUT.PUT_LINE('Mark: ' || v_mark);
+	END;
+	/
+
+	BEGIN
+	  display_student_mark(p_reg_no => 123456);
+	END;
+	/

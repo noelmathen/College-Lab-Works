@@ -1,0 +1,149 @@
+
+create table employee711(Id Number Primary Key,Name Varchar2(20),Sal  number);
+create table xemployee7(Id Number Primary Key,Name Varchar2(20),Sal  number);
+create table nemployee7(Id Number Primary Key,Name Varchar2(20),Sal  number);
+create table cemployee7(Id Number Primary Key,Name Varchar2(20),Sal  number);
+
+
+CREATE OR REPLACE TRIGGER empl
+AFTER INSERT OR UPDATE OR DELETE ON employee711
+FOR EACH ROW
+DECLARE
+BEGIN
+  IF INSERTING THEN
+    INSERT INTO nemployee7 VALUES (:new.id, :new.name, :new.sal);
+  ELSIF UPDATING THEN
+    INSERT INTO cemployee7 VALUES (:new.id, :new.name, :new.sal);
+  ELSIF DELETING THEN
+    INSERT INTO xemployee7 VALUES (:old.id, :old.name, :old.sal);
+  END IF;
+END;
+/
+
+INSERT INTO EMPLOYEE711 VALUES(103,'Abey',300000);
+ select * from nemployee7;
+update employee711 set sal=100000 where id=102;
+ select * from cemployee7;
+delete from  employee711 where id=102;
+ select * from xemployee7;
+-------------------------------------------------------------------
+
+create or replace trigger tr_restrict
+before
+delete or insert or update on employee711
+begin
+if(rtrim(to_char(sysdate,'DAY')) in ('saturday', 'sunday')) or 
+(to_char(sysdate, 'hh24:mi') not between '08:30' and '18:30') then
+	dbms_output.put_line('table unaccessible');
+end if;
+end;
+
+---------------------------------------------------------------
+
+Create table Bookrec(BookName varchar2(20) Primary key, author varchar2(20), TotalCopies number, Availablecopies number);
+
+create table Membershiprec1(MemberID number Primary key, Name varchar2(20));
+
+create table BookDetails1 (BookID number Primary key, BookName varchar2(20), MemberID number,FOREIGN KEY (MemberID) REFERENCES Membershiprec1(MemberID));
+
+create table CirculationRec(BookID number,
+ MemberID number,
+ IssueDate date,
+ ReturnDate date,
+FOREIGN KEY (BookID) REFERENCES BookDetails1(BookID),
+FOREIGN KEY (MemberID) REFERENCES Membershiprec1(MemberID));
+
+
+
+
+CREATE OR REPLACE FUNCTION issue_book (book_name IN VARCHAR2, member_id IN NUMBER)
+RETURN DATE
+IS
+  l_issue_date DATE;
+  l_return_date DATE;
+  l_available_copies NUMBER;
+  id number;
+BEGIN
+  SELECT Availablecopies INTO l_available_copies FROM Bookrec WHERE BookName = book_name;
+  SELECT BookID INTO id FROM BookDetails1 WHERE BookName = book_name;
+  IF l_available_copies > 0 THEN
+    l_issue_date := SYSDATE;
+    l_return_date := l_issue_date + INTERVAL '30' DAY;
+	INSERT INTO CirculationRec VALUES (id,member_id, l_issue_date, l_return_date);
+	
+	UPDATE BookDetails1 SET MemberID=member_id WHERE bookname=book_name;
+	
+	
+  RETURN l_return_date;
+  ELSE
+    RAISE_APPLICATION_ERROR(-20001, 'Book not available');
+  END IF;
+END issue_book;
+/
+CREATE OR REPLACE TRIGGER updateavailable_copies
+AFTER update ON BookDetails1
+FOR EACH ROW
+BEGIN
+  UPDATE bookrec
+  SET availablecopies = availablecopies - 1
+  WHERE bookname = :NEW.bookname;
+END update_available_copies;
+/
+
+DECLARE
+  return_date DATE;
+BEGIN
+  return_date := issue_book('Life',1);
+  DBMS_OUTPUT.PUT_LINE('Return date: ' || return_date);
+END;
+/
+
+
+
+INSERT INTO Membershiprec1 VALUES(0,'Librarian');
+INSERT INTO Membershiprec1 VALUES(1,'John');
+INSERT INTO Membershiprec1 VALUES(2,'Clark');
+
+INSERT INTO Bookrec VALUES('hello','Peter',120,120);
+INSERT INTO Bookrec VALUES('Life','Denny',100,100);
+INSERT INTO BookDetails1 VALUES(101,'hello',1);
+INSERT INTO BookDetails1 VALUES(102,'Life',1);
+
+
+----------------------------------------------------
+CREATE OR REPLACE PROCEDURE addBook( bname IN varchar2, aut IN varchar2,tot IN number)
+IS
+BEGIN
+
+  INSERT INTO Bookrec VALUES(bname,aut,tot,tot);
+  
+END;
+/
+
+
+
+CREATE OR REPLACE TRIGGER BOOKIN
+AFTER INSERT ON Bookrec
+FOR EACH ROW
+DECLARE
+  ID NUMBER;
+BEGIN
+	SELECT BookID INTO ID FROM BookDetails1 WHERE ROWNUM=1 ORDER BY BookID DESC;
+	IF ID is NULL THEN
+		ID:=100;
+	ELSE	
+		ID:=ID+1;
+	END IF;
+	
+	INSERT INTO BookDetails1 VALUES(ID,:new.BookName,0);
+END;
+/
+
+
+
+
+
+begin
+	addBook('Hollow','Robert',50);
+end;
+/

@@ -1,0 +1,153 @@
+								EXERCISE 4: PL-SQL
+
+
+1.	53_Noel Mathen Eldho
+	DECLARE
+    	emp_name varchar(10);
+		basic number;
+		da number;
+		hra number;
+   		pf number;
+		gross_sal number;
+	BEGIN
+   		dbms_output.put_line('Enter employee name: ');
+    	emp_name:='&emp_name';
+   		dbms_output.put_line('Enter basic salary: ');
+   		basic:='&basic';
+    		da:=basic*(40/100);
+    		hra:=basic*(20/100);
+   		pf:=basic*(12/100);
+    		gross_sal:=basic+hra+da-pf;
+    
+		dbms_output.put_line('Employee name: '||emp_name);
+		dbms_output.put_line('Provided fund: '||pf);
+		dbms_output.put_line('Gross_sal: '|| gross_sal);
+	END;
+
+
+2.	53_Noel Mathen Eldho
+	DECLARE
+		n number;
+		s number;
+		temp number;
+	BEGIN	
+		n:='&n';
+		s:=0;
+		while n<>0 loop
+		   temp:=mod(n,10);
+		   s:=s+temp;
+		   n:=trunc(n/10);
+		end loop;
+		dbms_output.put_line('Sum of digits= '|| s);
+	END;
+
+
+3.	53_Noel Mathen Eldho
+	DECLARE
+		n number;
+	BEGIN	
+		dbms_output.put_line('Enter salary: ');
+		n:='&n';
+		if n<3000 then
+		   dbms_output.put_line('Salary less than 3000!');
+		end if;
+		n:=n+4000;
+		dbms_output.put_line('Updated Salary: '|| n);
+	END;
+
+
+4.	53_Noel Mathen Eldho
+	DECLARE
+		n number;
+		org number;
+		temp number;
+		prod number;
+		s number;		
+	BEGIN	
+		n:='&n';
+		org:=n;
+		s:=0;
+		while n<>0 loop
+		   temp:=mod(n,10);
+		   prod:=temp*temp*temp;
+		   s:=s+prod;
+		   n:=trunc(n/10);
+		end loop;
+		if s=org then
+		   dbms_output.put_line('armstrong');
+		else
+		   dbms_output.put_line('not armstrong');
+		end if;
+	END;	
+
+
+5.	53_Noel Mathen Eldho
+	DECLARE
+		fac number :=1;
+		n number;
+	BEGIN	
+		n:='&n';
+		while n > 0 loop
+		fac:=n*fac;		
+		n:=n-1;		
+		end loop;
+		dbms_output.put_line('factorial is: '|| fac);
+	END;	
+
+
+6.	53_Noel Mathen Eldho
+	DECLARE
+		str  varchar(20);
+		len  number;
+		strrev varchar(20);
+	BEGIN	
+		str:='&str';
+		len:=length(str);
+		for i in reverse 1.. len LOOP
+		  strrev:=strrev||Substr(str,i,1);
+		end loop;
+		dbms_output.put_line('Reverse of string is: '|| strrev);
+	END;
+
+
+7.	53_Noel Mathen Eldho
+	DECLARE
+		n number;
+		m number;
+		temp number:=0;
+		rem number;
+
+	BEGIN	
+		n:='&n';
+		m:=n;
+		while n>0 loop
+		   rem:=mod(n,10);
+		   temp:=(temp*10)+rem;
+		   n:=trunc(n/10);
+		end loop;
+		if m=temp then
+		   dbms_output.put_line('The entered number is Palindrome');
+		else
+		   dbms_output.put_line('The entered number is not Palindrome');
+		end if;
+	END;
+
+
+8.	53_Noel Mathen Eldho
+	create table even(ID number);
+
+	DECLARE
+		i number;
+	BEGIN
+		for i in 10..50 loop
+		   if mod(i,2)=0 then
+		      insert into even values(i);
+		   end if;
+		end loop;
+	END;
+	select * from even;
+
+
+
+
+				

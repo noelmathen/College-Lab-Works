@@ -1,0 +1,113 @@
+
+
+
+1.	53_Noel_Mathen_Eldho
+	DECLARE CURSOR c1 is
+		select * from employee;
+		item c1 %rowtype;
+
+	BEGIN
+		FOR item in c1
+		LOOP
+			dbms_output.put_line(item.empid|| '  ' ||item.empname|| '     ' ||item.manager|| '     ' ||item.hire_date|| '     ' ||item.salary|| '       ' ||item.comm|| '        ' ||item.dno);	
+			exit when c1%notfound;		
+		END LOOP;
+	END;
+	/
+
+2.	create table person(
+		fname varchar(10),
+		lname varchar(10),
+		pid number(5));
+	insert into person values('Noel', 'Mathen', 53);
+	insert into person values('Paul', 'Dins', 54);
+	insert into person values('Rehan', 'Renju', 55);
+	insert into person values('Allen', 'Prince', 5);
+	insert into person values('Alwin', 'Joseph', 6);
+
+	53_Noel_Mathen_Eldho
+	DECLARE CURSOR c2 is
+		select fname, lname from person where pid>50;
+		item2 c2 %rowtype;
+	begin
+		for item2 in c2
+		loop
+			dbms_output.put_line(item2.fname||'  '||item2.lname);
+			exit when c2%notfound;			
+		end loop;
+	end;
+	/
+
+
+3.	53_Noel_Mathen_Eldho
+	DECLARE
+		CURSOR cur_test (max_sal NUMBER) IS
+        		SELECT * FROM employee WHERE salary < max_sal;
+    		var_record  employee%ROWTYPE;
+	BEGIN
+    	    OPEN cur_test(30000);
+		    LOOP
+		        FETCH cur_test INTO var_record;
+		        EXIT WHEN cur_test%NOTFOUND;
+		        DBMS_OUTPUT.PUT_LINE('Name: ' || var_record.Empname||' salary: '|| var_record.salary);
+		    END LOOP;
+	    CLOSE cur_test;
+	END;
+	/
+
+4.	create table ACCMASTER(
+		Acc_No number(30),
+		Name varchar(10), 
+		Balance number);
+
+	insert into ACCMASTER values(1245,'Spencer',64000);
+	insert into ACCMASTER values(1246,'Spectre',6000);
+	insert into ACCMASTER values(1235,'Kennedy',40000);
+
+	create table ACCTRAN(
+		Acc_No number(30),
+		TransactionDate date, 
+		Deb_cred varchar(5),
+		Amount number,
+		Processed number(1));
+
+	insert into ACCTRAN values(1245,'12-Jan-2021','cred',2000,1);
+	insert into ACCTRAN values(1245,'10-Apr-2021','deb',2000,0);
+	insert into ACCTRAN values(1246,'11-May-2021','cred',2000,0);
+	insert into ACCTRAN values(1235,'18-Feb-2021','deb',2000,0);
+	insert into ACCTRAN values(1235,'24-Mar-2021','cred',2000,1);
+	insert into ACCTRAN values(1246,'13-Apr-2021','cred',2000,1);
+
+	53_Noel_Mathen_Eldho
+	select * from ACCMASTER;
+	select * from ACCTRAN;
+
+	DECLARE
+	    CURSOR t1 IS
+	    SELECT acctran.acc_no,deb_cred,amount,processed,balance 
+	    FROM acctran inner join accmaster on acctran.acc_no = accmaster.acc_no
+	    where processed = 0;
+	    trecord t1%ROWTYPE;
+	    newbal number;
+	BEGIN
+	    OPEN t1;
+	    LOOP
+	    FETCH t.1 INTO trecord;
+	    EXIT WHEN t1%NOTFOUND;
+	    update acctran set processed= 1;
+	    if (trecord.deb_cred = 'cred')
+	        then 
+	        newbal:=trecord.balance+trecord.amount;
+	        update accmaster set balance=newbal where trecord.acc_no=accmaster.acc_no ;
+	        dbms._output.put_line(trecord.balance);
+	    else .
+	        newb.al:=trecord.balance-trecord.amount;
+	        updat.e accmaster set balance=newbal where trecord.acc_no=accmaster.acc_no ;
+	        dbms.._output.put_line(trecord.balance);
+	    end if;
+	    END LOOP;
+	    CLOSE t1;
+	END;	
+	/	
+	select * from ACCMASTER;
+	select * from ACCTRAN;	
