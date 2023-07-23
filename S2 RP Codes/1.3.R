@@ -1,0 +1,6 @@
+v1=c(1,2,3)
+v2=c(4,5,6)
+v3=c(7,8,9)
+v4=c(v1,v2,v3)
+mat=matrix(c(v4),nrow=3,ncol=3,byrow=FALSE)
+print(mat)
