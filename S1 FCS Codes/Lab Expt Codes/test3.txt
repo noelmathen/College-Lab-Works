@@ -1,0 +1,2 @@
+The number before swapping is: 2 and 3
+The number after swapping is : 3 and 2
