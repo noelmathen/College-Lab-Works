@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
-#define size 100000000
+#define size 10000000
 int a[size], b[size];
 
 void printArray(int a[], int n)
@@ -20,21 +20,20 @@ void swap(int *a, int *b)
     *b = temp;
 }
 
-int partition(int a[], int low, int high)
-{
-    int pivot=a[high];
-    int i=low-1;
-    for(int j=low;j<high;j++)
-    {
-        if(a[j]<=pivot)
-        {
+int partition(int a[], int low, int high) {
+    int pivot = a[high];
+    int i = low-1;
+    for(int j=low; j<high; j++){
+        if(a[j]<=pivot){
             i++;
-            swap(&a[i], &a[j]);
+            swap(&a[i],&a[j]);
         }
     }
-    swap(&a[i+1], &pivot);
+    swap(&a[i+1],&a[high]);
     return i+1;
+
 }
+
 
 void quickSort(int a[], int left, int right)
 {
@@ -101,17 +100,20 @@ void main()
     //fprintf(fptr,"%-15s %-15s %-15s", "Size", "Bubble", "Quick");
     fprintf(fptr,"%-15d %-15f %-15f\n",n,timeElapsed1, timeElapsed2);
     fclose(fptr);
+
+
+    //the below commands are used to plot the graph in using GNUPLOT in ubuntu
 	/*
+    set terminal postscript     
+    set out "sort.ps"   //if there is some kind of error like "terminal not set our something, or if the output is not showing, then execute these two lines 1st. then execute the rest of them"
+
 	set autoscale
 	set title "SORTING ALGORITHM COMPARISON"
 	set xlabel "Input Size(n)"
 	set ylabel "Time Taken(s)"
 	set grid	
-	set logscale x
-	set logscale y
+	set logscale
 	set xrange [10:100000]
 	plot "sort.txt" using 1:2 title "Bubble Sort" with lines, "sort.txt" using 1:3 title "Quick Sort" with lines
 	*/
 }
-
-

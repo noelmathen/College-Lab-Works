@@ -1,117 +1,59 @@
+//modify this code such that u input the adjacency matrix...not the edges
 #include <stdio.h>
 #include <stdlib.h>
 
-// Structure to represent an edge in the graph
-struct Edge {
-    int source, destination, weight;
-};
+struct edge {
+    int child, parent, weight;
+}e[100], temp;
 
-// Function prototypes
-void kruskalMST(struct Edge graph[], int V, int E);
-int find(int parent[], int i);
-void unionSets(int parent[], int rank[], int x, int y);
-
-int main() {
-    int V, E;
-    printf("Enter the number of vertices: ");
-    scanf("%d", &V);
-    printf("Enter the number of edges: ");
-    scanf("%d", &E);
-
-    struct Edge* graph = (struct Edge*)malloc(E * sizeof(struct Edge));
-
-    printf("Enter the source, destination, and weight of each edge:\n");
-    for (int i = 0; i < E; i++) {
-        scanf("%d %d %d", &graph[i].source, &graph[i].destination, &graph[i].weight);
+void main() {
+    int i, j, nEdges, nVertices;
+    printf("How many edges: ");
+    scanf("%d", &nEdges);
+    printf("How many vertices: ");
+    scanf("%d", &nVertices);
+    for (i = 0; i < nEdges; i++) {
+        printf("\nEdge %d Details: ", i + 1);
+        printf("\nEnter Parent Node: ", i + 1);
+        scanf("%d", &e[i].parent);
+        printf("Enter Child: ");
+        scanf("%d", &e[i].child);
+        printf("Enter Weight: ");
+        scanf("%d", &e[i].weight);
     }
 
-    kruskalMST(graph, V, E);
-
-    free(graph);
-    return 0;
-}
-
-// Comparison function used by qsort() to sort edges in non-decreasing order of their weight
-int compareEdges(const void* a, const void* b) {
-    struct Edge* edge1 = (struct Edge*)a;
-    struct Edge* edge2 = (struct Edge*)b;
-    return edge1->weight - edge2->weight;
-}
-
-// Kruskal's algorithm to find the Minimum Spanning Tree
-void kruskalMST(struct Edge graph[], int V, int E) {
-    // Sort all the edges in non-decreasing order of their weight
-    qsort(graph, E, sizeof(struct Edge), compareEdges);
-
-    int* parent = (int*)malloc(V * sizeof(int));
-    int* rank = (int*)malloc(V * sizeof(int));
-
-    // Initialize parent and rank arrays
-    for (int i = 0; i < V; i++) {
-        parent[i] = i;
-        rank[i] = 0;
-    }
-
-    struct Edge* MST = (struct Edge*)malloc((V - 1) * sizeof(struct Edge)); // MST will have V-1 edges
-    int edgeCount = 0; // Number of edges included in the MST
-    int i = 0; // Index variable for the sorted edges
-
-    while (edgeCount < V - 1 && i < E) {
-        struct Edge nextEdge = graph[i++];
-
-        int sourceParent = find(parent, nextEdge.source);
-        int destParent = find(parent, nextEdge.destination);
-
-        // If including this edge does not create a cycle, add it to the MST
-        if (sourceParent != destParent) {
-            MST[edgeCount++] = nextEdge;
-            unionSets(parent, rank, sourceParent, destParent);
+    for (i = 0; i < nEdges; i++) {
+        for (j = i+1; j < nEdges; j++) {
+            if (e[i].weight > e[j].weight) {    //sorting in ascending according to weight
+                temp = e[i];
+                e[i] = e[j];
+                e[j] = temp;
+            }
         }
     }
 
-    printf("Minimum Spanning Tree:\n");
-    for (int j = 0; j < edgeCount; j++) {
-        printf("%d -- %d : %d\n", MST[j].source, MST[j].destination, MST[j].weight);
+    int parent[1000]; //or int parent[nVertices + 1];
+    for (i = 0; i <= nVertices; i++) {
+        parent[i] = i;
     }
 
-    free(MST);
-    free(rank);
-    free(parent);
-}
-
-// Find the subset of an element 'i'
-int find(int parent[], int i) {
-    if (parent[i] != i) {
-        parent[i] = find(parent, parent[i]);
+    int total = 0;
+    printf("\nDisplaying edges in MST: \n");
+    for (i = 0; i < nEdges; i++) {
+        int u = e[i].parent;
+        int v = e[i].child;
+        // Check if adding this edge creates a cycle using the union-find algorithm. https://www.youtube.com/watch?v=mHz-mx-8lJ8
+        while (parent[u] != u) {   //find u
+            u = parent[u];
+        }
+        while (parent[v] != v) {   //find v
+            v = parent[v];
+        }
+        if (u != v) {
+            printf("%d --> %d : %d\n",e[i].parent, e[i].child ,e[i].weight);
+            total += e[i].weight;
+            parent[u] = v;         // Union(u,v)
+        }
     }
-    return parent[i];
+    printf("Total Distance of MST: %d\n", total);
 }
-
-// Perform union of two subsets 'x' and 'y'
-void unionSets(int parent[], int rank[], int x, int y) {
-    int xroot = find(parent, x);
-    int yroot = find(parent, y);
-
-    if (rank[xroot] < rank[yroot]) {
-        parent[xroot] = yroot;
-    } else if (rank[xroot] > rank[yroot]) {
-        parent[yroot] = xroot;
-    } else {
-        parent[yroot] = xroot;
-        rank[xroot]++;
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-

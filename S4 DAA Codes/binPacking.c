@@ -33,7 +33,7 @@ int binPackingFirstFit(int weights[], int capacity, int n) {
                 break;
             }
         }
-        if (j == bins) 
+        if (j == bins) //If the inner for loop(loop with 'j') completes without finding a suitable bin for the current item, it means a new bin needs to be created.
         {
             remainingCapacity[bins] = capacity - weights[i];
             bins++;
@@ -49,7 +49,7 @@ int binPackingBestFit(int weights[], int capacity, int n) {
     {
         int minimum = capacity + 1;
         int index = 0;
-        for (int j = 0; j < bins; j++) 
+        for (int j = 0; j < bins; j++)  //to find the best bin(with mininum remaining capacity) for the current item
         {
             if (weights[i] <= remainingCapacity[j] && remainingCapacity[j] - weights[i] < minimum) 
             {
@@ -57,7 +57,7 @@ int binPackingBestFit(int weights[], int capacity, int n) {
                 minimum = remainingCapacity[j] - weights[i];
             }
         }
-        if (minimum == capacity + 1) 
+        if (minimum == capacity + 1) //If no existing bin can accommodate the item 
         {
             remainingCapacity[bins] = capacity - weights[i];
             bins++;

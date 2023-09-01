@@ -10,9 +10,17 @@ struct knapSack{
 
 int i, j, n, maxWeight;
 
-void printTable()
+void display()
 {
-    printf("\nKnapsack Structure:\n");
+    printf("\n\nSOLUTION TUPLE: (");
+    for(i=0;i<n;i++)
+    {
+        if(i==n-1)
+            printf("%0.2f)",ks[i].solution);
+        else
+            printf("%0.2f, ",ks[i].solution);
+    }
+    printf("\n\nKnapsack Structure:\n");
     printf("Index\tProfit\tWeight\tP/W Ratio\tSolution\n");
     for (int i = 0; i < n; i++) 
     {
@@ -53,19 +61,19 @@ void sortUsingIndex()   //sorting using the index values so that we can print th
 }
 
 void greedyKnapsack(int n, int maxWeight) {
-    float tempTotalWeight = 0;
+    float currentWeight = 0;
     float totalProfit = 0;
     int i = 0;
     
-    while (i < n && tempTotalWeight + ks[i].weight <= maxWeight) {
+    while ((i < n) && (currentWeight + ks[i].weight <= maxWeight)) {
         ks[i].solution = 1;
-        tempTotalWeight += ks[i].weight;
+        currentWeight += ks[i].weight;
         totalProfit += ks[i].profit;
         i++;
     }
     
     if (i < n) {
-        ks[i].solution = (maxWeight - tempTotalWeight) / ks[i].weight;
+        ks[i].solution = (maxWeight - currentWeight) / ks[i].weight;
         totalProfit += ks[i].solution * ks[i].profit;
     }
     
@@ -94,14 +102,5 @@ void main()
     sortUsingProfitByWeight();
     greedyKnapsack(n,maxWeight);
     sortUsingIndex();
-    printf("\nSOLUTION TUPLE: (");
-    for(i=0;i<n;i++)
-    {
-        if(i==n-1)
-            printf("%0.2f",ks[i].solution);
-        else
-            printf("%0.2f    ",ks[i].solution);
-    }
-    printf(")\n");
-    printTable();
+    display();
 }

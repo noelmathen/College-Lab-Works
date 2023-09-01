@@ -1,3 +1,4 @@
+//This code is very completed because i tried to handle all kinds of errors and unnecessary comlicated logic. Try to make it better
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>

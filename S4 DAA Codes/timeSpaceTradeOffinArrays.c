@@ -4,7 +4,6 @@
 #define size 1000000000
 int a[size];
 
-
 void nextLargest(int a[], int n, int temp)
 {
 	int i;

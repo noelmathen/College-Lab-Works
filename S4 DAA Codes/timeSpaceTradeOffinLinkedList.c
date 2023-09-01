@@ -9,8 +9,6 @@ struct node{
 
 struct node *head=NULL, *pos=NULL, *tail=NULL, *temp=NULL, *temp2=NULL, *del=NULL;
 int ch, entry, i, size=0, count, large, tempdelete, delete=0;
-	
-
 
 void Insert()
 {
