@@ -1,9 +1,9 @@
+//This is 99% same as SJF.
 #include<stdio.h>
-
 struct process
 {
     int pid, at, pri, bt, ct, tat, wt;
-}p[20], temp;
+}p[20];
 
 void swap(struct process *a, struct process *b)
 {

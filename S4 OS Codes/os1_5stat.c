@@ -12,7 +12,7 @@ void main()
 }
 
 /*
-he code you provided demonstrates the usage of the `stat()` function from the `sys/stat.h` header file. This function is used to retrieve information about a file, such as its size, permissions, timestamps, and more.
+this code demonstrates the usage of the `stat()` function from the `sys/stat.h` header file. This function is used to retrieve information about a file, such as its size, permissions, timestamps, and more.
 
 Here's an explanation of the code:
 

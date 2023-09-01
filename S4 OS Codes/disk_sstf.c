@@ -1,3 +1,4 @@
+//This code is ichiri thattikootu. This might work for the questions u'll get in ur OS class or lab etc etc. but this is not the correct implementation. use ur brains and find out wuts wrong with this code eheheheheheh
 #include<stdio.h>
 #include<math.h>
 

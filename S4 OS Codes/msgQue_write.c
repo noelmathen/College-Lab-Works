@@ -13,10 +13,8 @@ struct msg_buffer
 void main()
 {
     printf("\n******MESSAGE QUEUS: WRITING DATA******\n");
-	key_t key;
-	int msgid;
-	key = ftok("progfile", 65);
-	msgid=msgget(key, 0666|IPC_CREAT);
+	key_t key = ftok("progfile", 65);
+	int msgid=msgget(key, 0666|IPC_CREAT);
 	message.msg_type=1;
 	printf("Write message to send: ");
 	fgets(message.msg_text, MAX, stdin);

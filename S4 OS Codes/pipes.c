@@ -7,17 +7,16 @@
 int main()
 {
     printf("******PIPES******\n");
-	int fd[2], n;
-	char buffer[100], as[100];
-	pid_t p;
+	int fd[2];
+	char buffer[100], text[100];
 	pipe(fd);
-	p=fork();
+	pid_t p=fork();
 	if(p>0)
 	{
 		printf("\nParent pass value to child");
 		printf("\nEnter data: ");
-		fgets(as, 100, stdin);
-		write(fd[1], as, 100);
+		fgets(text, 100, stdin);
+		write(fd[1], text, 100);
 		wait(NULL);
 	}
 	else

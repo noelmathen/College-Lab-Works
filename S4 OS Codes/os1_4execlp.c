@@ -30,7 +30,6 @@ Here's the explanation of the code:
 5. Once the `execlp()` function is called, the execution of the current program (the parent process) is terminated, and the control is transferred to the executed program ("hi").
 
 Note: It is important to ensure that the specified executable file ("hi" in this case) is present in the current directory and has appropriate permissions to execute.
-
 */
 
 

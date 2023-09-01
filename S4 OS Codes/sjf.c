@@ -1,9 +1,8 @@
 #include<stdio.h>
-
 struct process
 {
     int pid, at, bt, ct, tat, wt;
-}p[20], temp;
+}p[20];
 
 void swap(struct process *a, struct process *b)
 {
@@ -18,7 +17,7 @@ void sortByAT(int n)
     {
         for(int j=i+1; j<n; j++)
         {
-            if( (p[i].at > p[j].at) || (p[i].at==p[j].at && p[i].pid>p[j].pid)) //if the arrival times are same, then it is sorted based on the pid
+            if( (p[i].at > p[j].at) || (p[i].at==p[j].at && p[i].pid>p[j].pid)) //if the arrival times are same, then it is sorted based on the pid(or their burst time....im not sure....check gatesmashers)
                 swap(&p[i], &p[j]);
         }
     }
@@ -30,7 +29,7 @@ void sortByBT(int i, int n, int ict)
     {
         for(int b=a; b<n; b++)
         {
-            if( (p[a].bt>p[b].bt) && (p[a].at<=ict) && (p[b].at<=ict))
+            if( (p[a].bt>p[b].bt) && (p[a].at<=ict) && (p[b].at<=ict))  
                 swap(&p[a], &p[b]);
         }
     }
@@ -100,5 +99,4 @@ void main()
         scanf("%d", &p[i].bt);
     }
     sjf(n);
-    printf("EXIT");
 }

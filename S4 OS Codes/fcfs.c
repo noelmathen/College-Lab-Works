@@ -1,27 +1,36 @@
 #include<stdio.h>
-
 struct process
 {
     int pid, at, bt, ct, tat, wt;
-}p[20], temp;
+}p[20];
 
 void swap(struct process *a, struct process *b)
 {
-    temp = *a;
+    struct process temp = *a;
     *a = *b;
     *b = temp;
 }
 
-void ATSort(int n)
+void sortByAT(int n)
 {
-    for(int i=0; i<n-1; i++)
+    for(int i=0; i<n; i++)
     {
-        for(int j=0; j<n-i-1; j++)
+        for(int j=i+1; j<n; j++)
         {
-            if(p[j].at > p[j+1].at || (p[j].at==p[j+1].at && p[j].pid>p[j+1].pid))
-            {
-                swap(&p[j], &p[j+1]);
-            }
+            if( (p[i].at > p[j].at) || (p[i].at==p[j].at && p[i].pid>p[j].pid)) //if the arrival times are same, then it is sorted based on the pid
+                swap(&p[i], &p[j]);
+        }
+    }
+}
+
+void sortByPID(int n)
+{
+    for(int i=0; i<n; i++)
+    {
+        for(int j=i+1; j<n; j++)
+        {
+            if(p[i].pid > p[j].pid)
+                swap(&p[i], &p[j]);
         }
     }
 }
@@ -37,13 +46,17 @@ void printTable(int n)
 
 void fcfs(int n)
 {
+    sortByAT(n);
+    int ict = p[0].at;
     float totTAT=0, totWT=0;
     float avgTAT=0, avgWT=0;
-    ATSort(n);
-    p[0].ct = p[0].at + p[0].bt;
     for(int i=0; i<n; i++)
     {
-        p[i+1].ct = p[i].ct + p[i+1].bt;
+        if(p[i].at > ict)               //If the arrival time of the current process (p[i].at) is greater than the previous completion time (ict), it means that the current process arrived after the previous process completed. In this case, the current process starts executing from its arrival time (p[i].at) and its completion time is calculated as p[i].at + p[i].bt.
+            p[i].ct = p[i].at + p[i].bt;
+        else                            //If the arrival time of the current process is less than or equal to the previous completion time, it means that the current process arrived either simultaneously or before the previous process completed. In this case, the current process starts executing immediately after the previous process and its completion time is calculated as ict + p[i].bt, where ict represents the previous completion time.
+            p[i].ct = ict + p[i].bt;
+        ict = p[i].ct;
         p[i].tat = p[i].ct - p[i].at;
         p[i].wt = p[i].tat - p[i].bt;
         totTAT += p[i].tat;
@@ -51,6 +64,7 @@ void fcfs(int n)
     }
     avgTAT = totTAT/n;
     avgWT = totWT/n;
+    sortByPID(n);
     printTable(n);
     printf("\n\nAverage TAT: %.2f",avgTAT);
     printf("\nAverage WT: %.2f",avgWT);
@@ -59,14 +73,13 @@ void fcfs(int n)
 void main()
 {
     int n;
-    printf("\n*********FIRST COME FIRST SERVE*********\n");
+    printf("\n*********FCFS*********\n");
     printf("\nEnter the number of processes: ");
     scanf("%d", &n);
     for(int i=0; i<n; i++)
     {
         printf("\nFor process %d:-\n",i+1);
-        printf("Enter PID: ");
-        scanf("%d", &p[i].pid);
+        p[i].pid = i;
         printf("Enter AT: ");
         scanf("%d", &p[i].at);
         printf("Enter BT: ");
@@ -74,4 +87,3 @@ void main()
     }
     fcfs(n);
 }
-

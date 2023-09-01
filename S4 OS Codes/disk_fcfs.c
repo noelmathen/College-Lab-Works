@@ -1,5 +1,5 @@
 #include<stdio.h>
-#include<math.h>
+#include<math.h>// or #include<stdlib.h>
 
 int DiskScheduling_FCFS(int rq[], int n, int head)
 {
