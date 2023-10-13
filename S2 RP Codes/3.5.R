@@ -1,6 +1,0 @@
-A=list(1,2,3,4,5)
-print("The list A is :")
-print(A)
-b=unlist(A)
-print("The vector A IS ")
-print(b)

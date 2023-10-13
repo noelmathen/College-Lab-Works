@@ -1,5 +1,0 @@
-setwd("\\Users\\noelm\\Desktop\\Saadhangal\\STUDY STEFF\\RSET\\CLASSES\\S2\\RP LAB\\Codes")
-getwd()
-dataset=read.csv("jobprof.csv", header=T, colClasses = c("character"))
-multi.fit = lm(y~x1+x2+x3,data=dataset)
-summary(multi.fit)

@@ -1,5 +1,0 @@
-date1<-as.Date("2022-08-18")
-date2<-as.Date("2003-05-14")
-print(date1)
-print(date2)
-print(difftime(date1, date2, unit="days"))

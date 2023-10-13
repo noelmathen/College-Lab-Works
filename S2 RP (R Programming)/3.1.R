@@ -1,0 +1,6 @@
+x=list(1,2,3)
+print("The original list is: ")
+print(x)
+r=rev(x)
+print("The reversed list is: ")
+print(r)

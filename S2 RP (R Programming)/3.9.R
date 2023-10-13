@@ -1,0 +1,5 @@
+newrow1<-list(6, "Faiju", 1450)
+newrow2<-list(7, "Prinz", 1700)
+newrow3<-list(8, "Shoy", 2300)
+emp.datamod<-rbind(emp.data, newrow1, newrow2, newrow3)
+print(emp.datamod)

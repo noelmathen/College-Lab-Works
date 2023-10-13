@@ -1,2 +1,0 @@
-The two numbers are 2 and 3
-The sum is: 5

@@ -1,0 +1,103 @@
+					EXERCISE 6: AGGREGATE FUNCTIONS, NESTED QUERIES AND JOIN QUERIES
+
+create table Employee(
+		EmpId Varchar(5) primary key,
+		EmpName Varchar(8),
+		Job Varchar(10),
+		Manager Varchar(5),
+		HIRE_DATE date,
+		salary number(6),
+		comm number(5),
+		DNO varchar(4));
+
+	insert into Employee values('E0001', 'Abey', 'Tester', 'E0004','15-DEC-12',30000,525,'D001');
+	insert into Employee values('E0002', 'Jesto', 'Analyst', 'E0001','24-MAR-11',10000,683,'D004');
+	insert into Employee values('E0003', 'Adarsh', 'Clerk', 'E0004','10-JAN-13',15000,525,'D004');
+	insert into Employee values('E0004', 'Kevin', 'Admin', 'E0005','14-MAY-11',51000,225,'D001');
+	insert into Employee values('E0005', 'Bony', 'Manager', 'E0005','11-APR-11',49000,1050,'D001');
+	insert into Employee values('E0006', 'Manu', 'Supplier', 'E0001',' 19-JUN-13',30000,473,'D002');
+
+create table Dept(
+	     Deptno varchar(4),
+	     Deptname varchar(4),
+	     location varchar(9));
+	
+	insert into Dept values('D001','DIT','A BLOCK');
+	insert into Dept values('D002','DCS','B BLOCK');
+	insert into Dept values('D003','DEC','C BLOCK');
+	insert into Dept values('D004','DEE','D BLOCK');
+
+create table Client(
+	     Cno varchar(6),
+	     Name varchar(9),
+	     City varchar(12),
+	     Pincode number(7),
+	     State varchar(13),
+	     Baldue number(10));
+	
+	insert into Client values('C001','Riya','Kochi',680324,'Kerala',14000);
+	insert into Client values('C002','Susan','Kochi',680324,'Kerala',0);
+	insert into Client values('C003','Anita','Chennai',680345,'Tamil Nadu',5000);
+	insert into Client values('C004','Kumar','Pune',680223,'Maharashtra',500);
+	insert into Client values('C005','Anu','Nilampur',680321,'Kerala',7600);
+	insert into Client values('C006','Vishnu','Bombay',682111,'Maharashtra',2055);
+
+******************************************************************************************************************************
+
+I)
+	53_Noel Mathen Eldho
+	select sum(baldue) from client;    
+
+	53_Noel Mathen Eldho
+	select count(*) from employee;
+
+	53_Noel Mathen Eldho
+	select min(baldue),max(baldue) from client;
+
+	53_Noel Mathen Eldho
+	select avg(salary) from employee;
+
+	53_Noel Mathen Eldho
+	select name from client order by name asc;
+
+	53_Noel Mathen Eldho
+	select max(salary),Dno from employee group by Dno;
+
+	53_Noel Mathen Eldho
+	select min(salary) ,Dno from employee group by Dno having Dno not like 'D001';
+	
+II)
+	53_Noel Mathen Eldho
+	select distinct(deptno) from dept union select distinct(dno) from employee;
+
+	53_Noel Mathen Eldho
+	select deptno from Dept where deptno NOT IN (select Dno FROM employee);
+
+	53_Noel Mathen Eldho
+	select empname from employee where salary >(select salary from employee where Empname ='Adarsh');
+
+	53_Noel Mathen Eldho
+	select empname from employee where salary < (select salary from employee where Dno='D002');    
+
+	53_Noel Mathen Eldho
+	select empname , salary from employee where salary > (select min(salary) from employee) and job like 'A%';
+
+	53_Noel Mathen Eldho
+	select  * from employee inner join Dept on Employee.Dno=Dept.DeptNo;
+	
+
+	53_Noel Mathen Eldho
+	select* from Dept where deptno NOT IN (select Dno FROM employee);
+
+	53_Noel Mathen Eldho
+	select employee.empname,employee.job,employee.manager from employee left outer join Dept on Employee.Dno=Dept.DeptNo;
+
+	53_Noel Mathen Eldho
+	select employee.empname,employee.job,employee.manager from employee right outer join Dept on Employee.Dno=Dept.DeptNo;
+
+	53_Noel Mathen Eldho
+	select employee.empname,employee.job,employee.manager from employee full outer join Dept on Employee.Dno=Dept.DeptNo;
+
+	
+	
+
