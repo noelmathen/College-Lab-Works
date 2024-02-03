@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.C": "c",
+        "*.c": "c",
+        "*.rmd": "markdown",
+        "*.cpp": "cpp",
+        "stdio.h": "c",
+        "math.h": "c"
+    }
+}

@@ -1,6 +1,7 @@
-install.packages("e1071")
+#install.packages("e1071")
 # Load the required libraries
 library(e1071)
+library(caret)
 
 # Load the Iris dataset
 data(iris)
@@ -24,5 +25,6 @@ svm_predictions <- predict(svm_model, test_data)
 confusion_matrix <- table(Actual = test_labels, Predicted = svm_predictions)
 accuracy <- sum(diag(confusion_matrix)) / sum(confusion_matrix)
 cat("Confusion Matrix:\n", confusion_matrix, "\n")
-confusion_matrix
 cat("Accuracy: ", accuracy, "\n")
+
+confusionMatrix(svm_predictions, reference = test_labels)

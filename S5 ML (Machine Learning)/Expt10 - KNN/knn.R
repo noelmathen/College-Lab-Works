@@ -1,15 +1,20 @@
-install.packages("class")
 library(class)
 data(iris)
-set.seed(123)  # For reproducibility
-sample_index <- sample(1:nrow(iris), 0.7 * nrow(iris))
-train_data <- iris[sample_index, ]
-test_data <- iris[-sample_index, ]
-# Define the number of neighbors (k)
-k <- 3
 
-# Perform k-NN classification
-predicted_species <- knn(train_data[, 1:4], test_data[, 1:4], train_data$Species, k)
-# Compute accuracy
-accuracy <- mean(predicted_species == test_data$Species)
-cat("Accuracy:", accuracy)
+# Split data into training and testing sets
+set.seed(123)  # Set seed for reproducibility
+train_index <- sample(1:nrow(iris), size=75)
+train_data <- iris[train_index,]
+test_data <- iris[-train_index,]
+
+# Perform KNN classification
+predicted_species <- knn(train_data[, -5], test_data[, -5], train_data$Species, k=1)
+
+# Evaluate accuracy
+confusion_matrix <- table(predicted_species, test_data$Species)
+accuracy <- sum(diag(confusion_matrix)) / nrow(test_data)
+
+print(confusion_matrix)
+print(paste("Accuracy:",accuracy))
+
+confusionMatrix(knn_model, test_labels)

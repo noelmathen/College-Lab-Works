@@ -1,12 +1,11 @@
-install.packages("rpart")
-install.packages("rpart.plot")
-
-# Load the necessary library
+# Install and load necessary libraries
+# install.packages("rpart")
+# install.packages("rpart.plot")
 library(rpart)
+library(rpart.plot)
 
 # Load the Titanic dataset
-titanic <- read.csv("C:\\Users\\online\\Documents\\ML LAB\\Expt6 - Decision Tree\\titanic.csv")  
-
+titanic <- read.csv("titanic.csv")
 # Data preprocessing: Handling missing values and feature selection
 # For simplicity, we drop some columns with missing data and select relevant features
 titanic <- titanic[, c("Pclass", "Sex", "Age", "SibSp", "Parch", "Fare", "Survived")]
@@ -24,7 +23,6 @@ tree_model <- rpart(Survived ~ ., data = titanic, method = "class")
 print(tree_model)
 
 # Visualize the decision tree
-library(rpart.plot)
 prp(tree_model)
 
 # Make predictions with the decision tree model
@@ -33,3 +31,7 @@ predictions <- predict(tree_model, newdata = titanic, type = "class")
 # Evaluate the model
 confusion_matrix <- table(Actual = titanic$Survived, Predicted = predictions)
 print(confusion_matrix)
+
+accuracy = sum(diag(confusion_matrix)) / sum(confusion_matrix)
+accuracy
+

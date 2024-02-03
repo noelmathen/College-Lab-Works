@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "*.C": "c",
+        "*.c": "c",
+        "*.rmd": "markdown",
+        "*.cpp": "cpp",
+        "stdlib.h": "c",
+        "stdio.h": "c",
+        "corecrt.h": "c",
+        "vcruntime.h": "c",
+        "stdbool.h": "c",
+        "math.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "enabled"
+}

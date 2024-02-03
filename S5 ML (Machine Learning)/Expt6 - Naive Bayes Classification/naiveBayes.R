@@ -1,8 +1,7 @@
 #importing dataset
-library(mlbench)
 library(caret)
 library(e1071)
-dataset <- read.csv("C:\\Users\\Student\\Documents\\ML LAB\\Expt5\\Soybean.csv")
+dataset <- read.csv("Soybean.csv")
 head(dataset, n = 50)
 
 #Preprocessing

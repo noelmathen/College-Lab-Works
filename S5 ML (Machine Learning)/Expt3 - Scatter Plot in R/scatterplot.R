@@ -1,7 +1,11 @@
+# Load the ggplot2 library
 library(ggplot2)
-ggplot(iris,aes(x=Petal.Length,y=Petal.Width))+
-  geom_point(aes(shape=factor(Species)))+
-  geom_point(aes(color=factor(Species)))+
-  geom_smooth(method="lm")
 
-
+# Create a scatter plot using ggplot
+ggplot(iris, aes(x = Petal.Length, y = Petal.Width)) +
+  # Add points to the plot, using the 'Species' variable for shape
+  geom_point(aes(shape = factor(Species))) +
+  # Add points to the plot, using the 'Species' variable for color
+  geom_point(aes(color = factor(Species))) +
+  # Add a linear regression line to the plot
+  geom_smooth(method = "lm")

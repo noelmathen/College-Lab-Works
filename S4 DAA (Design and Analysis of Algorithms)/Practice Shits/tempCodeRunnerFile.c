@@ -1,0 +1,1 @@
+remainingCapacity - weights[i] < minimum
