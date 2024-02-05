@@ -1,3 +1,4 @@
+/* caluclator.l */
 %{ 
 	#include "y.tab.h" 
 	extern yylval;

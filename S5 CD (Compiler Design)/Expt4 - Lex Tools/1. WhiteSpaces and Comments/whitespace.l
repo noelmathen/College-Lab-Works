@@ -1,3 +1,4 @@
+/* whitespace_and_comments.l */
 %{
     #include<stdio.h>
 %}

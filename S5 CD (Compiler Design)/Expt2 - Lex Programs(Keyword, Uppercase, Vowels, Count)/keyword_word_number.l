@@ -1,3 +1,4 @@
+/* keywords_word_number.l */
 %{
 	#include<stdio.h>
 %}

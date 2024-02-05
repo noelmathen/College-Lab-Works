@@ -1,3 +1,4 @@
+/* redundant_spaces.l */
 %{
 #include <stdio.h>
 %}

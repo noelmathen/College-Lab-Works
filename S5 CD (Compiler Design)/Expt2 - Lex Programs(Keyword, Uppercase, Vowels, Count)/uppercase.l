@@ -1,3 +1,4 @@
+/* uppercase.l */
 %{
 	#include<stdio.h>
 %}

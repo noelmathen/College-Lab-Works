@@ -1,4 +1,3 @@
-// Recognize strings
 #include<stdio.h>
 #include <string.h>
 char input[10];

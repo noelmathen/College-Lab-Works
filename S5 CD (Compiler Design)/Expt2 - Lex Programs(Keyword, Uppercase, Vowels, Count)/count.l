@@ -1,3 +1,4 @@
+/* count.l */
 %{
 	#include<stdio.h>
 	int v=0,c=0;

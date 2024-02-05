@@ -1,3 +1,4 @@
+/* valid_variables.y */
 %{
 #include <stdio.h>
 #include <string.h>

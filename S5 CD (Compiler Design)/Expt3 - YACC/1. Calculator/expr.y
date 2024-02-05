@@ -1,3 +1,4 @@
+/* caluclator.y */
 %{
 	#include <stdio.h>
 	

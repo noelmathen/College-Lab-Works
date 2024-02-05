@@ -1,3 +1,4 @@
+/* vowels.l */
 %{
 	#include<stdio.h>
 %}
