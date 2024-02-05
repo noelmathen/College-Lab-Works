@@ -1,23 +1,23 @@
 /* count.l */
-%{ 
+%{
 	#include<stdio.h>
+	int v=0,c=0;
 %}
-
 %%
-if|else|printf|do|while {printf("%s is a keyword\n",yytext);}
-[0-9]+ {printf("%s is a number\n",yytext);}
-[a-zA-Z]+ {printf("%s is a word\n",yytext);}
-
-[\t|\n];
+a|e|i|o|u|A|E|I|O|U {v++;}
+[a-z]|[A-Z] 		{c++;}
+\n 					{printf("vowel=%d\n consonents=%d\n",v,c);
+						return 0;}
 %%
 
 int main()
 {
-	printf("Enter string: ");
+	printf("Enter string:\n");
 	yylex();
 }
 
 int yywrap()
-{
+{ 
 	return 1;
 }
+
