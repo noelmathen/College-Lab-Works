@@ -1,121 +1,84 @@
-#include <stdio.h>  
-#include <string.h>  
-  
-#define SUCCESS 1  
-#define FAILED 0  
-  
-int E(), Edash(), T(), Tdash(), F();  
-  
-const char *cursor;  
-char string[64];  
-  
-int main()  
-{  
-    
-    printf("Kindly enter the string: ");  
-    scanf("%s", string);  
-    //sscanf("i+(i+i)*i", "%s", string);  
-    cursor = string;  
-    printf("\n");  
-    printf("Input      Action\n");  
-    printf("--------------------------------\n");  
-  
-    if (E() && *cursor == '\0') {  
-        printf("--------------------------------\n");  
-        printf("String parsing succes\n");  
-        return 0;  
-    } else {  
-        printf("--------------------------------\n");  
-        printf("String parsing failed\n");  
-        return 1;  
-    }  
-}  
-  
-int E()  
-{  
-    printf("%-16s E -> T E'\n", cursor);  
-    if (T()) {  
-        if (Edash())  
-            return SUCCESS;  
-        else  
-            return FAILED;  
-    } else  
-        return FAILED;  
-}  
-  
-int Edash()  
-{  
-    if (*cursor == '+') {  
-        printf("%-16s E' -> + T E'\n", cursor);  
-        cursor++;  
-        if (T()) {  
-            if (Edash())  
-                return SUCCESS;  
-            else  
-                return FAILED;  
-        } else  
-            return FAILED;  
-    } else {  
-        printf("%-16s E' -> $\n", cursor);  
-        return SUCCESS;  
-    }  
-}  
-  
-int T()  
-{  
-    printf("%-16s T -> F T'\n", cursor);  
-    if (F()) {  
-        if (Tdash())  
-            return SUCCESS;  
-        else  
-            return FAILED;  
-    } else  
-        return FAILED;  
-}  
-  
-int Tdash()  
-{  
-    if (*cursor == '*') {  
-        printf("%-16s T' -> * F T'\n", cursor);  
-        cursor++;  
-        if (F()) {  
-            if (Tdash())  
-                return SUCCESS;  
-            else  
-                return FAILED;  
-        } else  
-            return FAILED;  
-    } else {  
-        printf("%-16s T' -> $\n", cursor);  
-        return SUCCESS;  
-    }  
-}  
-  
-int F()  
-{  
-    if (*cursor == '(') {  
-        printf("%-16s F -> ( E )\n", cursor);  
-        cursor++;  
-        if (E()) {  
-            if (*cursor == ')') {  
-                cursor++;  
-                return SUCCESS;  
-            } else  
-                return FAILED;  
-        } else  
-            return FAILED;  
-    } else if (*cursor == 'i') {  
-        cursor++;  
-        printf("%-16s F ->i\n", cursor);  
-        return SUCCESS;  
-    } else  
-        return FAILED;  
-}  
+#include <stdio.h>
+#include <string.h>
 
-/*
-Enter production rule for E: TE`
-Enter production rule for E': +TE`|$
-Enter production rule for T: FT`
-Enter production rule for T': *FT`|$
-Enter production rule for F: (E)|i
-*/
+#define SUCCESS 1
+#define FAILED 0
+
+char string[64];
+int index = 0;
+
+void printAction(const char *production) {
+    printf("%-16s %s\n", string + index, production);
+}
+
+int matchTerminal(char terminal) {
+    if (string[index] == terminal) {
+        index++;
+        return SUCCESS;
+    }
+    return FAILED;
+}
+
+int E();
+int Edash();
+int T();
+int Tdash();
+int F();
+
+int E() {
+    printAction("E -> T E'");
+    return T() && Edash();
+}
+
+int Edash() {
+    if (matchTerminal('+')) {
+        printAction("E' -> + T E'");
+        return T() && Edash();
+    } else {
+        printAction("E' -> $");
+        return SUCCESS;
+    }
+}
+
+int T() {
+    printAction("T -> F T'");
+    return F() && Tdash();
+}
+
+int Tdash() {
+    if (matchTerminal('*')) {
+        printAction("T' -> * F T'");
+        return F() && Tdash();
+    } else {
+        printAction("T' -> $");
+        return SUCCESS;
+    }
+}
+
+int F() {
+    if (matchTerminal('(')) {
+        printAction("F -> ( E )");
+        return E() && matchTerminal(')');
+    } else if (matchTerminal('i')) {
+        printAction("F -> i");
+        return SUCCESS;
+    }
+    return FAILED;
+}
+
+int main() {
+    printf("Kindly enter the string: ");
+    scanf("%s", string);
+    printf("\nInput      Action\n");
+    printf("--------------------------------\n");
+
+    if (E() && string[index] == '\0') {
+        printf("--------------------------------\n");
+        printf("String parsing success\n");
+        return 0;
+    } else {
+        printf("--------------------------------\n");
+        printf("String parsing failed\n");
+        return 1;
+    }
+}
