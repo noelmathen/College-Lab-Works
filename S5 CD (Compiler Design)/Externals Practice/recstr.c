@@ -1,49 +1,59 @@
 #include<stdio.h>
-#include <string.h>
-char input[10];
+#include<string.h>
 
-int main(){
+char input[100];
+
+void main(){
     while(1){
-        printf("\nEnter string:");
-        scanf("%s",input);
-        int len=strlen(input);
+        printf("\nEnter the string: ");
+        scanf("%s", input);
+        int len = strlen(input);
         int flag=0;
-        if(len==1&&input[0]=='a'){
-            printf("\nRecognized under a");
+
+        //Rule 1: a
+        if(len==1 && input[0]=='a'){
+            printf("Recognized under 'a'\n");
             flag=1;
-            
         }
+
+        // Rule 2: 'a*'
         int i;
-        for(i=0;i<len;i++){
-            if(input[i]!='a')
+        for (i = 0; i < len; i++) {
+            if (input[i] != 'a')
                 break;
         }
-        
-        if(len==i){
-            printf("\nrecognised under a*");
+        if (i == len) {
+            printf("Recognized under 'a*'\n");
+            flag = 1;
+        }
+
+        //Rule 3: 'abb'
+        if(len==3 && strcmp(input, "abb")==0){
+            printf("Recognized under 'abb'\n");
             flag=1;
         }
-        if(len==3&&strcmp(input,"abb")==0){
-            printf("\nrecognised under abb");
-            flag=1;
-        }
-        int hasA=0,hasB=0,acount=0,bcount=0,c=0;
-        while(input[c]=='a'&&c<len){
+
+        //Rule 4: a*b+
+        int hasA=0, hasB=0, aCount=0, bCount=0;
+        i=0;
+        while(input[i]=='a' && i<len){
             hasA=1;
-            acount++;
-            c++;
+            aCount++;
+            i++;
         }
-        while(input[c]=='b'&&c<len){
+        while(input[i]=='b' && i<len){
             hasB=1;
-            bcount++;
-            c++;
+            bCount++;
+            i++;
         }
-        int count=acount+bcount;
-        if((hasA||!hasA)&&hasB&&len==count){
-            printf("\nrecognised under a*b+");
+        int count = aCount+bCount;
+        if((hasA || !hasA) && hasB && count==len){
+            printf("Recognized under 'a*b+'\n");
             flag=1;
         }
+
+        //Exception: Not recognized
         if(flag==0)
-            printf("\nnot recognised under any rule");
+            printf("Not recognized under any rules!\n");
     }
 }
