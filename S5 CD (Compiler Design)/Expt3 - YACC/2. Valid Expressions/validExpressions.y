@@ -18,10 +18,15 @@ program: expression '\n' {
        ;
 
 expression: NUMBER
+          | ID
           | expression '+' expression
           | expression '-' expression
           | expression '*' expression
           | expression '/' expression
+          | ID '=' expression
+          | '-' NUMBER
+          | '-' ID
+          | '(' expression ')'
           ;
 
 %%
