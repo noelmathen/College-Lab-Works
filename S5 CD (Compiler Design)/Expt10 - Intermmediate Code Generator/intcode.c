@@ -80,7 +80,8 @@ void postfixToQuadruple() {
 
     while (postfix[i]) {
         char c = postfix[i++];
-        if (isalpha(c) || isdigit(c)) push(c);
+        if (isalpha(c) || isdigit(c)) 
+            push(c);
         else if (isoperator(c)) {
             char arg2 = pop(), arg1 = pop();
             op = c;

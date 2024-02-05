@@ -1,103 +1,101 @@
-//INTERMEDIATE CODE GENERATION
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <string.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<ctype.h>
+#include<string.h>
 
-#define maxsize 100
-
+#define size 100
+char infix[size], postfix[size], stack[size];
 int top = -1;
-char stack[maxsize], infix[maxsize], postfix[maxsize];
 
-void push(char operator) { 
-    stack[++top] = operator; 
+void push(char op){
+    stack[++top] = op;
 }
 
-char pop() { 
-    return stack[top--]; 
+char pop(){
+    return stack[top--];
 }
 
-int isoperator(char symbol) { 
-    return (symbol == '^' || symbol == '*' || symbol == '+' || symbol == '-' || symbol == '/'); 
+int IsOperator(char op){
+    return (op=='^' || op=='+' || op=='-' || op=='*' || op=='/');
 }
 
-int precedence(char symbol) {
-    if (symbol == '^') return 3;
-    if (symbol == '*' || symbol == '/') return 2;
-    if (symbol == '+' || symbol == '-') return 1;
-    return 0;
+int Presedence(char op){
+    if(op=='^') return 3;
+    else if(op=='*' || op=='/') return 2;
+    else if(op=='+' || op=='-') return 1;
+    else printf("\nInvalid Operator!\n");
 }
 
-void infixToPostfix() {
-    int i = 0, j = 0;
-    while (infix[i]) {
+void InfixToPostfix(){
+    int i=0, j=0;
+    while(infix[i]){
         char c = infix[i++];
-        if (isalpha(c) || isdigit(c)) 
+        if(isalpha(c) || isdigit(c))
             postfix[j++] = c;
-        else if (c == '(') 
+        else if(c=='(')
             push(c);
-        else if (c == ')') {
-            while ( top != -1 && stack[top] != '(' ) 
+        else if(c==')'){
+            while(top != -1 && stack[top] != '(')
                 postfix[j++] = pop();
             pop();
-        } 
-        else {
-            while (top != -1 && isoperator(stack[top]) && precedence(c) <= precedence(stack[top])) 
+        }
+        else{
+            while(top != -1 && IsOperator(stack[top]) && Presedence(c) <= Presedence(stack[top]))
                 postfix[j++] = pop();
             push(c);
         }
     }
-    while (top != -1) 
+    while(top != -1)
         postfix[j++] = pop();
     postfix[j] = '\0';
-    printf("\nPostfix Expression: %s", postfix);
+    printf("\nThe postfix expression is: %s\n", postfix);
 }
 
-void postfixToThreeAddress() {
-    int i = 0, t = 0;
-    char result[maxsize], op;
-    printf("\n\nThree-Address Code:\n");
-    while (postfix[i]) {
+void PostfixToThreeAddress(){
+    int i=0, j=0, t=0;
+    char result[size];
+    printf("\nThree Address code is:\n");
+    while(postfix[i]){
         char c = postfix[i++];
-        if (isalpha(c) || isdigit(c)) 
+        if(isdigit(c) || isalpha(c))
             push(c);
-        else if (isoperator(c)) {
-            char arg2 = pop(), arg1 = pop();
-            op = c;
+        else if(IsOperator(c)){
+            char arg2 = pop();
+            char arg1 = pop();
             snprintf(result, sizeof(result), "%c", 'A' + t++);
-            printf("%c = %c %c %c\n", result[0], arg1, op, arg2);
+            printf("%c = %c %c %c\n", result[0], arg1, c, arg2);
             push(result[0]);
         }
     }
 }
 
-void postfixToQuadruple() {
-    int i = 0, t = 0;
-    char result[maxsize], op;
-    printf("\nQuadruple Format:\n");
-    printf("| %-6s | %-10s | %-10s | %-10s | %-10s |\n", "LineNo", "Operator", "Argument1", "Argument2", "Result");
+void PrintQuadrapleForm(){
+    int i=0, j=0, t=0;
+    char result[size];
+    printf("\nQuidraple format is:\n");
+    printf("| %-6s | %-10s | %-10s | %-10s | %-10s |\n", "Lineno", "Operator", "Argument1", "Argument2", "Result");
     printf("|--------|------------|------------|------------|------------|\n");
-
-    while (postfix[i]) {
+    while(postfix[i]){
         char c = postfix[i++];
-        if (isalpha(c) || isdigit(c)) push(c);
-        else if (isoperator(c)) {
-            char arg2 = pop(), arg1 = pop();
-            op = c;
+        if(isdigit(c) || isalpha(c))
+            push(c);
+        else if(IsOperator(c)){
+            char arg2 = pop();
+            char arg1 = pop();
             snprintf(result, sizeof(result), "%c", 'A' + t++);
-            printf("| %-6d | %-10c | %-10c | %-10c | %-10c |\n", t - 1, op, arg1, arg2, result[0]);
             push(result[0]);
+            
+            printf("| %-6d | %-10c | %-10c | %-10c | %-10c |\n", t, c, arg1, arg2, result[0]);
         }
     }
 }
 
-int main() {
-    printf("\nEnter Infix Expression: ");
+void main(){
+    printf("Enter the infix expression: ");
     scanf("%s", infix);
-    infixToPostfix();
-    postfixToThreeAddress();
-    postfixToQuadruple();
-    return 0;
+    InfixToPostfix();
+    PostfixToThreeAddress();
+    PrintQuadrapleForm();
 }
 
 /*
@@ -108,4 +106,3 @@ a*b+c-d
 a-b+c*d
 a-(b+c)*d
 */
-
