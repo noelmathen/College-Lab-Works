@@ -24,10 +24,13 @@ test_labels = soybean$Class[-splitIndex]
 naiveBayes_model = naiveBayes(Class~., train_data)
 naiveBayes_predictions = predict(naiveBayes_model, test_data)
 
-confusion_matrix = table(Actual=test_labels, Predicted=naiveBayes_predictions)
-confusion_matrix
-
-accuracy = sum(diag(confusion_matrix)) / sum(confusion_matrix)
-accuracy
-
 confusionMatrix(test_labels, naiveBayes_predictions)
+
+#Manual code for finding confusion matrix and accuracy
+#confusion_matrix = table(Actual=test_labels, Predicted=naiveBayes_predictions)
+#confusion_matrix
+
+#accuracy = sum(diag(confusion_matrix)) / sum(confusion_matrix)
+#accuracy
+
+

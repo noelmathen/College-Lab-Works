@@ -1,3 +1,2 @@
-iris_df = as.data.frame(iris)
 ggplot(iris, aes(x = Sepal.Length)) +
-  geom_histogram(color="red", fill="black", bins=20,)
+  geom_histogram(color="black", fill="yellow", bins=20,)
