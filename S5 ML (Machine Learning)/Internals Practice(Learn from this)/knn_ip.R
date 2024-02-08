@@ -16,10 +16,11 @@ test_labels <- iris$Species[-splitIndex]
 
 knn_model <- knn(train_data, test_data, train_labels, k = 1)
 
-confusion_matrix <- table(Actual=test_labels, Predicted=knn_model)
-confusion_matrix
-
-accuracy <- sum(diag(confusion_matrix)) / nrow(test_data)
-accuracy
-
 confusionMatrix(knn_model, test_labels)
+
+#confusion_matrix <- table(Actual=test_labels, Predicted=knn_model)
+#confusion_matrix
+
+#accuracy <- sum(diag(confusion_matrix)) / nrow(test_data)
+#accuracy
+

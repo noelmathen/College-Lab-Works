@@ -25,10 +25,11 @@ test_labels = soybean$Class[-splitIndex]
 randomForest_model = train(Class~., train_data, method="rf")
 randomForest_predictions = predict(randomForest_model, test_data)
 
-confusion_matrix = table(Actual=test_labels, Predicted=randomForest_predictions)
-confusion_matrix
-
-accuracy = sum(diag(confusion_matrix)) / sum(confusion_matrix)
-accuracy
-
 confusionMatrix(test_labels, randomForest_predictions)
+
+#Not necessary since confusionMatrix() function is already doing its job properly
+#confusion_matrix = table(Actual=test_labels, Predicted=randomForest_predictions)
+#confusion_matrix
+
+#accuracy = sum(diag(confusion_matrix)) / sum(confusion_matrix)
+#accuracy
