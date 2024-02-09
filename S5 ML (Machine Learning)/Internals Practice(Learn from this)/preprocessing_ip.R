@@ -15,7 +15,7 @@ soybean[, -1] = predict(preproc, soybean[, -1])
 set.seed(123)
 soybean$Class = factor(soybean$Class)
 splitIndex = createDataPartition(soybean$Class, p=0.8, list=FALSE)
-train_data = soybean[splitIndex, ]
+train_data = soybean[splitIndex, ] 
 train_labels = soybean$Class[splitIndex]
 test_data = soybean[-splitIndex, ]
 test_labels = soybean$Class[-splitIndex]
