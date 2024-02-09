@@ -2,7 +2,6 @@
 #install.packages("class")
 #install.packages("caret")
 
-library(class)
 library(caret)
 
 data(iris)
@@ -16,7 +15,7 @@ test_labels <- iris$Species[-splitIndex]
 
 knn_model <- knn(train_data, test_data, train_labels, k = 1)
 
-confusionMatrix(knn_model, test_labels)
+confusionMatrix(test_labels, knn_model)
 
 #confusion_matrix <- table(Actual=test_labels, Predicted=knn_model)
 #confusion_matrix

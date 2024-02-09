@@ -21,7 +21,7 @@ confusionMatrix(svm_predictions,test_labels)
 
 #confusion_matrix <- table(Actual = test_labels, Predicted = svm_predictions)
 #confusion_matrix
-
+  
 #accuracy <- sum(diag(confusion_matrix)) / sum(confusion_matrix)
 #accuracy
 
