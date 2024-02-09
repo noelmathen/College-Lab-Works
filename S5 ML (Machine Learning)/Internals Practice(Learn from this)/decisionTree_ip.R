@@ -15,3 +15,6 @@ decisionTree_predictor = predict(decisionTree_model, titanic, type="class")
 
 confusion_matrix = table(titanic$Survived, decisionTree_predictor)
 confusion_matrix
+
+accuracy = sum(diag(confusion_matrix)) / sum(confusion_matrix)
+accuracy
