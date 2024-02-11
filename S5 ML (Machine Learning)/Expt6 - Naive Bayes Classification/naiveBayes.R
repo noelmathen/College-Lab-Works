@@ -1,32 +1,36 @@
-#importing dataset
-library(caret)
+#Naive Bayes. I have tried to make the following questions/algorithms similar to this.
+#install.packages("e1071")
+#install.packages("caret")
+
 library(e1071)
-dataset <- read.csv("Soybean.csv")
-head(dataset, n = 50)
+library(caret)
 
-#Preprocessing
+dataset = read.csv("Soybean.csv")
+
 sum(is.na(dataset))
-soybean <- na.omit(dataset)
-soybean
-preproc <- preProcess(soybean[, -1], method = c("center", "scale"))
-preproc
-soybean[, -1] <- predict(preproc, soybean[, -1])
-set.seed(123)  # For reproducibility
-splitIndex <- createDataPartition(soybean$Class, p = 0.8, list = FALSE)
-training_data <- soybean[splitIndex, ]
-testing_data <- soybean[-splitIndex, ]
+soybean=na.omit(dataset)
+preproc = preProcess(soybean[, -1], method = c("center", "scale"))
+soybean[, -1] = predict(preproc, soybean[, -1])
 
-# Fitting Naive Bayes Model to training dataset
-set.seed(120)  # Setting Seed
-classifier_soybean <- naiveBayes(Class ~ ., data = training_data)
-classifier_soybean
 
-# Predicting on test data
-y_pred_soybean <- predict(classifier_soybean, newdata = testing_data)
+set.seed(123)
+soybean$Class = factor(soybean$Class)
+splitIndex = createDataPartition(soybean$Class, p=0.8, list=FALSE)
+train_data = soybean[splitIndex, ] 
+train_labels = soybean$Class[splitIndex]
+test_data = soybean[-splitIndex, ]
+test_labels = soybean$Class[-splitIndex]
 
-# Confusion Matrix
-cm_soybean <- table(testing_data$Class, y_pred_soybean)
-cm_soybean
+naiveBayes_model = naiveBayes(Class~., train_data)
+naiveBayes_predictions = predict(naiveBayes_model, test_data)
 
-# Model Evaluation
-confusionMatrix(cm_soybean)
+confusionMatrix(test_labels, naiveBayes_predictions)
+
+#Manual code for finding confusion matrix and accuracy
+#confusion_matrix = table(Actual=test_labels, Predicted=naiveBayes_predictions)
+#confusion_matrix
+
+#accuracy = sum(diag(confusion_matrix)) / sum(confusion_matrix)
+#accuracy
+
+

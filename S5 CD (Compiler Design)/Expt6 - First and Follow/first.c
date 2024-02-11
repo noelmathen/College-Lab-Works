@@ -1,4 +1,4 @@
-//FIRST BHARAT
+//FIRST (BHARAT). This code, i think, works only for this grammar. I did this for the externals and still got output. so......
 #include <stdio.h>
 #include <string.h>
 

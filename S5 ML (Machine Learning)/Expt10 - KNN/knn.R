@@ -1,20 +1,26 @@
+#KNN
+#install.packages("class")
+#install.packages("caret")
+
+library(caret)
 library(class)
+
 data(iris)
 
-# Split data into training and testing sets
-set.seed(123)  # Set seed for reproducibility
-train_index <- sample(1:nrow(iris), size=75)
-train_data <- iris[train_index,]
-test_data <- iris[-train_index,]
+set.seed(123)
+splitIndex <- createDataPartition(iris$Species, p = 0.8, list = FALSE)
+train_data <- iris[splitIndex, -5]
+train_labels <- iris$Species[splitIndex]
+test_data <- iris[-splitIndex, -5]
+test_labels <- iris$Species[-splitIndex]
 
-# Perform KNN classification
-predicted_species <- knn(train_data[, -5], test_data[, -5], train_data$Species, k=1)
+knn_model <- knn(train_data, test_data, train_labels, k = 1)
 
-# Evaluate accuracy
-confusion_matrix <- table(predicted_species, test_data$Species)
-accuracy <- sum(diag(confusion_matrix)) / nrow(test_data)
+confusionMatrix(test_labels, knn_model)
 
-print(confusion_matrix)
-print(paste("Accuracy:",accuracy))
+#confusion_matrix <- table(Actual=test_labels, Predicted=knn_model)
+#confusion_matrix
 
-confusionMatrix(knn_model, test_labels)
+#accuracy <- sum(diag(confusion_matrix)) / nrow(test_data)
+#accuracy
+

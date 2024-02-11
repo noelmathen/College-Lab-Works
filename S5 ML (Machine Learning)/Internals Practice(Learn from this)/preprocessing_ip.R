@@ -13,7 +13,8 @@ preproc = preProcess(soybean[, -1], method = c("center", "scale"))
 soybean[, -1] = predict(preproc, soybean[, -1])
 
 set.seed(123)
-soybean$Class = factor(soybean$Class)
+soybean$Class = as.numeric(factor(soybean$Class))
+soybean
 splitIndex = createDataPartition(soybean$Class, p=0.8, list=FALSE)
 train_data = soybean[splitIndex, ] 
 train_labels = soybean$Class[splitIndex]

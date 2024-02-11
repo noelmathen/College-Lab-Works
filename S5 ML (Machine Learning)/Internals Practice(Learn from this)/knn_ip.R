@@ -3,6 +3,7 @@
 #install.packages("caret")
 
 library(caret)
+library(class)
 
 data(iris)
 
