@@ -5,50 +5,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BUS VENO??</title>
-    <link rel="stylesheet" href="style.css">
     <style>
-        /* xdfj */
         body {
-            min-height: 380px;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+        }
 
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
+        h1 {
+            margin-bottom: 20px;
+        }
 
-            position: relative;
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="radio"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        input[type="radio"] {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        input[type="reset"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        input[type="reset"]:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 
 <body>
-    <h1 style="text-align: center;">BOOK YOUR TICKETS</h1>
+    <h1>BOOK YOUR TICKETS</h1>
     <div class="booking-form">
-        <form action="post">
-            <label for="fname">First Name:</label><br>
-            <input type="text" id="fname" name="fname"><br>
-            <label for="lname">Last Name:</label><br>
-            <input type="text" id="lname" name="lname"><br>
-            <label for="dob">Date of Birth:</label><br>
-            <input type="date" id="dob" name="dob"><br>
-            <label for="gender">Gender:</label><br>
-            <input type="radio" name="Male" value="Male" >Male
-            <input type="radio" name="Female"  value="Female">Female
-            <input type="radio" name="Others"  value="Others">Others
-            <label for="fname">First Name:</label><br>
-            <input type="text" id="fname" name="fname"><br>
-            <label for="fname">First Name:</label><br>
-            <input type="text" id="fname" name="fname"><br>
-            <label for="fname">First Name:</label><br>
-            <input type="text" id="fname" name="fname"><br>
-            <label for="fname">First Name:</label><br>
-            <input type="text" id="fname" name="fname"><br>
-            <label for="fname">First Name:</label><br>
-            <input type="text" id="fname" name="fname"><br>
+        <form action="booking_success.html">
+            <label for="fname">First Name:</label>
+            <input type="text" id="fname" name="fname">
 
+            <label for="lname">Last Name:</label>
+            <input type="text" id="lname" name="lname">
+
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob">
+
+            <label>Gender:</label>
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">Female</label>
+            <input type="radio" id="others" name="gender" value="others">
+            <label for="others">Others</label>
+
+            <input type="submit" value="Submit">
+            <input type="reset" value="Reset">
         </form>
-        
     </div>
 </body>
 
 </html>
-
