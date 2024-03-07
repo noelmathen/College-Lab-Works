@@ -9,3 +9,6 @@
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
+.top_nav a:hover {
+    color: #ffc107;
+}
