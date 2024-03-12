@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUS VENO RESPONSIVE</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('ksrtc.jpeg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .top_nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px 0;
+            z-index: 999;
+        }
+
+        .top_nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .top_nav a:hover {
+            color: #ffc107;
+        }
+
+        .header {
+            margin-top: 100px;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .header h1 {
+            font-size: 3.5vw; /* Responsive  font size */
+            margin-bottom: 20px;
+        }
+
+        .header p {
+            font-size: 2vw; /* Responsive font size */
+            margin-bottom: 40px;
+        }
+
+        .footer {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            width: 100%;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        h1, p {
+            color: rgb(107, 7, 7);
+        }
+    </style>
+</head>
+<body>
+    <div class="top_nav">
+        <a href="./index.html">HOME</a>
+        <a href="./ticketbooking.html">BOOKING</a>
+        <a href="./aboutus.html">ABOUT US</a>
+        <a href="./contact_us.html">CONTACT US</a>
+    </div>
+
+    <div class="header">
+        <h1>Welcome to BUS VENO?</h1>
+        <p>Your Ultimate Destination for Bus Travel</p>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 BUS VENO? All rights reserved.</p>
+    </div>
+</body>
+</html>

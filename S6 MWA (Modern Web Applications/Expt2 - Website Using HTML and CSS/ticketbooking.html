@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUS VENO??</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        input[type="text"],
+        input[type="date"] {
+            width: calc(100% - 20px); /* Adjusted width */
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px; /* Adjusted margin */
+            vertical-align: middle; /* Aligning vertically */
+        }
+
+        .gender-label {
+            display: inline-block;
+            margin-right: 20px; /* Adjusted margin */
+        }
+
+        input[type="submit"],
+        input[type="reset"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        input[type="submit"]:hover,
+        input[type="reset"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>BOOK YOUR TICKETS</h1>
+    <form action="booking_success.html">
+        <label for="fname">First Name:</label>
+        <input type="text" id="fname" name="fname">
+
+        <label for="lname">Last Name:</label>
+        <input type="text" id="lname" name="lname">
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob">
+
+        <label>Gender:</label>
+        <span class="gender-label">
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="male">Male</label>
+        </span>
+        <span class="gender-label">
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">Female</label>
+        </span>
+        <span class="gender-label">
+            <input type="radio" id="others" name="gender" value="others">
+            <label for="others">Others</label>
+        </span>
+
+        <br>
+        <input type="submit" value="Submit">
+        <input type="reset" value="Reset">
+    </form>
+</body>
+
+</html>
