@@ -1,119 +1,81 @@
-#Q6)A* Algorithm
-from collections import deque
+Graph_nodes = {}
+Graph_nodes = eval(input("Enter your graph : "))
+print("\nThe Graph you entered is : ")
+for key, value in Graph_nodes.items():
+    print(key, ":", value)
 
-class Graph:
-    # example of adjacency list (or rather map)
-    # adjacency_list = {
-    # 'A': [('B', 1), ('C', 3), ('D', 7)],
-    # 'B': [('D', 5)],
-    # 'C': [('D', 12)]
-    # }
+startnode = input("\nEnter the start node : ")
+stopnode = input("Enter the stop node : ")
 
-    def __init__(self, adjacency_list):
-        self.adjacency_list = adjacency_list
 
-    def get_neighbors(self, v):
-        return self.adjacency_list[v]
-
-    # heuristic function with equal values for all nodes
-    def h(self, n):
-        H = {
-            'S': 11.5,
-            'A': 10.1,
-            'B': 5.8,
-            'C': 3.4,
-            'D': 9.2,
-            'E': 7.1,
-            'F': 3.5,
-            'G': 0
-        }
-
-        return H[n]
-
-    def a_star_algorithm(self, start_node, stop_node):
-        # open_list is a list of nodes which have been visited, but who's neighbors
-        # haven't all been inspected, starts off with the start node
-        # closed_list is a list of nodes which have been visited
-        # and who's neighbors have been inspected
-        open_list = set([start_node])
-        closed_list = set([])
-
-        # g contains current distances from start_node to all other nodes
-        # the default value (if it's not found in the map) is +infinity
-        g = {}
-
-        g[start_node] = 0
-
-        # parents contains an adjacency map of all nodes
-        parents = {}
-        parents[start_node] = start_node
-
-        while len(open_list) > 0:
-            n = None
-
-            # find a node with the lowest value of f() - evaluation function
-            for v in open_list:
-                if n == None or g[v] + self.h(v) < g[n] + self.h(n):
-                    n = v;
-
-            if n == None:
-                print('Path does not exist!')
-                return None
-
-            # if the current node is the stop_node
-            # then we begin reconstructin the path from it to the start_node
-            if n == stop_node:
-                reconst_path = []
-
-                while parents[n] != n:
-                    reconst_path.append(n)
-                    n = parents[n]
-
-                reconst_path.append(start_node)
-
-                reconst_path.reverse()
-
-                print('Path found: {}'.format(reconst_path))
-                return reconst_path
-
-            # for all neighbors of the current node do
-            for (m, weight) in self.get_neighbors(n):
-                # if the current node isn't in both open_list and closed_list
-                # add it to open_list and note n as it's parent
-                if m not in open_list and m not in closed_list:
-                    open_list.add(m)
+def aStarAlgo(start_node, stop_node):
+    open_set = set(start_node)
+    closed_set = set()
+    g = {}               #store distance from starting node
+    parents = {}         # parents contains an adjacency map of all nodes
+    #distance of starting node from itself is zero
+    g[start_node] = 0
+    #start_node is root node i.e it has no parent nodes
+    #so start_node is set to its own parent node
+    parents[start_node] = start_node
+    H_dist = eval(input("\nEnter the key-value corresponding to parent and its heuristics : "))
+    while len(open_set) > 0:
+        n = None
+        #node with lowest f() is found
+        for v in open_set:
+            if n == None or g[v] + H_dist[v] < g[n] + H_dist[n]:
+                n = v
+        if n == stop_node or Graph_nodes[n] == None:
+            pass
+        else:
+            for (m, weight) in get_neighbors(n):
+                #nodes 'm' not in first and last set are added to first
+                #n is set its parent
+                if m not in open_set and m not in closed_set: #to change the parent when its successors are generated
+                    open_set.add(m)
                     parents[m] = n
                     g[m] = g[n] + weight
-
-                # otherwise, check if it's quicker to first visit n, then m
-                # and if it is, update parent data and g data
-                # and if the node was in the closed_list, move it to open_list
+                #for each node m,compare its distance from start i.e g(m) to the
+                #from start through n node
                 else:
-                    if g[m] > g[n] + weight:
+                    if g[m] > g[n] + weight: #To compare among successeors to choose the minimum cost path
+                        #update g(m)
                         g[m] = g[n] + weight
+                        #change parent of m to n
                         parents[m] = n
+                        #if m in closed set,remove and add to open
+                        if m in closed_set:
+                            closed_set.remove(m)
+                            open_set.add(m)
+        if n == None:
+            print('Path does not exist!')
+            return None
+        
+        # if the current node is the stop_node
+        # then we begin reconstructin the path from it to the start_node
+        if n == stop_node:
+            path = []
+            while parents[n] != n:
+                path.append(n)
+                n = parents[n]
+            path.append(start_node)
+            path.reverse()
+            print('\nPath found : {}'.format(path))
+            return None
+            #return path
+        # remove n from the open_list, and add it to closed_list
+        # because all of his neighbors were inspected
+        open_set.remove(n)
+        closed_set.add(n)
+    print('Path does not exist!')
+    return None
 
-                        if m in closed_list:
-                            closed_list.remove(m)
-                            open_list.add(m)
-
-            # remove n from the open_list, and add it to closed_list
-            # because all of his neighbors were inspected
-            open_list.remove(n)
-            closed_list.add(n)
-
-        print('Path does not exist!')
+#define fuction to return neighbor and its distance
+#from the passed node
+def get_neighbors(v):
+    if v in Graph_nodes:
+        return Graph_nodes[v]
+    else:
         return None
-    
-adjacency_list = {
-    'S' : [('A',3),('D',4)],
-    'A': [('B', 4), ('D', 5),('S',3)],
-    'B': [('C', 4), ('E', 5),('A',4)],
-    'C': [('B',4)],
-    'D': [('E', 2),('S',4),('A',5)],
-    'E': [('D', 2),('F',4),('B',5)],
-    'F': [('E',4),('G',3.5)],
-    'G': [('F',3.5)]
-}
-graph1 = Graph(adjacency_list)
-graph1.a_star_algorithm('S', 'G')
+
+aStarAlgo(startnode, stopnode)
