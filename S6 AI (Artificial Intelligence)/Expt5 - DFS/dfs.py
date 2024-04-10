@@ -1,33 +1,17 @@
-#Q5)Depth First Search
-def dfs(visited, graph, node):
-    stack = [node]
+def dfs(graph, node, visited):
+    if node not in visited:
+        print(node, end=" ")
+        visited.add(node)
+        for neighbor in graph[node]:
+            dfs(graph, neighbor, visited)
 
-    while stack:
-        current_node = stack.pop()
-        if current_node not in visited:
-            print(current_node)
-            visited.add(current_node)
-            for neighbor in graph.get(current_node, []):
-              dfs(visited,graph,neighbor)
+if __name__ == '__main__':
+    graph = {}
+    n = int(input("Enter the number of nodes: "))
+    for i in range(n):
+        node = input(f"Enter node {i}: ")
+        neighbors = input(f"Enter neighbors of node {node} separated by space: ").split()
+        graph[node] = neighbors
 
-print("Enter the graph in the form of parent-child pairs.")
-print("Enter 'done' when finished.")
-graph = {}
-
-while True:
-    edge = input("Enter parent-child pair (or 'done' to finish): ").split()
-    if edge[0] == 'done' or edge[1] == 'done':
-        break
-    parent, child = edge
-    if parent not in graph:
-        graph[parent] = [child]
-    else:
-        graph[parent].append(child)
-
-print("Graph input completed.\n")
-print("Graph:", graph)
-
-visited = set()
-
-print("DFS traversal:")
-dfs(visited, graph, next(iter(graph)))
+    start = input("Enter the start node for DFS traversal: ")
+    dfs(graph, start, set())
