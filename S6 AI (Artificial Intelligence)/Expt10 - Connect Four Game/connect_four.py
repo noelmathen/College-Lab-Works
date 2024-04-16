@@ -4,76 +4,72 @@ import random
 class ConnectFour:
     def __init__(self):
         self.board = np.zeros((6, 7), dtype=int)
-        self.stacks = [5] * 7
-        self.player_piece = 1
-        self.computer_piece = 2
+        self.computer = 1
 
-    def print_board(self):
-        print(self.board[::-1])
+    def move(self, piece, col):
+        for row in range(5, -1, -1):
+            if self.board[row][col] == 0:
+                self.board[row][col] = piece
+                break
 
-    def move(self, column):
-        if self.stacks[column] < 0:
-            print("Column is full. Try another column.")
-            return False
+    def is_column_full(self, col):
+        return self.board[0][col] != 0
 
-        self.board[self.stacks[column], column] = self.player_piece
-        self.stacks[column] -= 1
-        return True
-
-    def computer_move(self):
-        column = random.randint(0, 6)
-        while self.stacks[column] < 0:
-            column = random.randint(0, 6)
-        self.board[self.stacks[column], column] = self.computer_piece
-        self.stacks[column] -= 1
-
-    def check_winner(self):
+    def check_win(self, piece):
         # Check rows
-        for row in range(6):
-            for col in range(4):
-                if self.board[row, col] == self.board[row, col+1] == self.board[row, col+2] == self.board[row, col+3] != 0:
-                    return self.board[row, col]
+        for row in self.board:
+            for i in range(len(row) - 3):
+                if all(cell == piece for cell in row[i:i+4]):
+                    return True
 
         # Check columns
         for col in range(7):
-            for row in range(3):
-                if self.board[row, col] == self.board[row+1, col] == self.board[row+2, col] == self.board[row+3, col] != 0:
-                    return self.board[row, col]
+            for i in range(len(self.board) - 3):
+                if all(self.board[i+k][col] == piece for k in range(4)):
+                    return True
 
         # Check diagonals
-        for row in range(3):
-            for col in range(4):
-                if self.board[row, col] == self.board[row+1, col+1] == self.board[row+2, col+2] == self.board[row+3, col+3] != 0:
-                    return self.board[row, col]
+        for i in range(3):
+            for j in range(4):
+                if self.board[i][j] == piece and self.board[i+1][j+1] == piece and \
+                   self.board[i+2][j+2] == piece and self.board[i+3][j+3] == piece:
+                    return True
+                if self.board[i][j+3] == piece and self.board[i+1][j+2] == piece and \
+                   self.board[i+2][j+1] == piece and self.board[i+3][j] == piece:
+                    return True
 
-        for row in range(3):
-            for col in range(3, 7):
-                if self.board[row, col] == self.board[row+1, col-1] == self.board[row+2, col-2] == self.board[row+3, col-3] != 0:
-                    return self.board[row, col]
+        return False
 
-        return 0
+    def print_board(self):
+        for row in self.board:
+            print(" ".join(map(str, row)))
+        print("\n")
+        #0print("1 2 3 4 5 6 7\n")
 
     def play(self):
-        winner = 0
-        while winner == 0:
+        while True:
             self.print_board()
-            column = int(input("Enter column number (0-6): "))
-            if not self.move(column):
-                continue
-            winner = self.check_winner()
-            if winner != 0:
+            col = -1
+            while col < 0 or col > 6 or self.is_column_full(col):
+                col = int(input("Enter column number (1-7): ")) - 1
+                if self.is_column_full(col):
+                    print("Column is full. Choose another column.")
+            print("Your move:")
+            self.move(2, col)  # Human's turn
+            if self.check_win(2):
+                self.print_board()
+                print("You win!")
                 break
-            self.computer_move()
-            winner = self.check_winner()
+            self.print_board()
+            col = random.randint(0, 6)
+            while self.is_column_full(col):
+                col = random.randint(0, 6)
+            print("Computer's move:")
+            self.move(1, col)  # Computer's turn
+            if self.check_win(1):
+                self.print_board()
+                print("Computer wins!")
+                break
 
-        self.print_board()
-        if winner == self.player_piece:
-            print("Congratulations! You win!")
-        elif winner == self.computer_piece:
-            print("Computer wins!")
-        else:
-            print("It's a draw!")
-
-# Example usage
 game = ConnectFour()
 game.play()
