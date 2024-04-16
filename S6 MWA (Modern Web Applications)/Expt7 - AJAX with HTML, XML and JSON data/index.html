@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Information</title>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var xhr = new XMLHttpRequest();
+  var urlHTML = "bookInfo.html";
+  var urlXML = "bookInfo.xml";
+  var urlJSON = "bookInfo.json";
+  var bookInfo = "";
+
+  // Load HTML data
+  xhr.open("GET", urlHTML, true);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      bookInfo += xhr.responseText;
+      loadXMLData();
+    }
+  };
+  xhr.send();
+
+  // Function to load XML data
+  function loadXMLData() {
+    xhr.open("GET", urlXML, true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        var xmlDoc = xhr.responseXML;
+        var title = xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue;
+        var author = xmlDoc.getElementsByTagName("author")[0].childNodes[0].nodeValue;
+        var price = xmlDoc.getElementsByTagName("price")[0].childNodes[0].nodeValue;
+        bookInfo += "<h2>XML Data:</h2>";
+        bookInfo += "<p>Title: " + title + "</p>";
+        bookInfo += "<p>Author: " + author + "</p>";
+        bookInfo += "<p>Price: " + price + "</p>";
+        loadJSONData();
+      }
+    };
+    xhr.send();
+  }
+
+  // Function to load JSON data
+  function loadJSONData() {
+    xhr.open("GET", urlJSON, true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        var jsonData = JSON.parse(xhr.responseText);
+        bookInfo += "<h2>JSON Data:</h2>";
+        bookInfo += "<p>Title: " + jsonData.title + "</p>";
+        bookInfo += "<p>Author: " + jsonData.author + "</p>";
+        bookInfo += "<p>Price: " + jsonData.price + "</p>";
+        displayBookInfo();
+      }
+    };
+    xhr.send();
+  }
+
+  // Function to display book information
+  function displayBookInfo() {
+    document.getElementById("bookInfo").innerHTML = bookInfo;
+  }
+});
+</script>
+</head>
+<body>
+  <h1>Book Information</h1>
+  <div id="bookInfo">
+    <h2>Loading...</h2>
+  </div>
+</body>
+</html>
+    

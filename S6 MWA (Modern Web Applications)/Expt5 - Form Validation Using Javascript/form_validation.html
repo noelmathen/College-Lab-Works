@@ -1,114 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registration Form</title>
 </head>
+
 <body>
   <h1>Registration Form</h1>
   <form onsubmit="return validateForm()">
     <label for="userId">User ID:</label>
-    <input type="text" id="userId" name="userId" placeholder="Enter User ID (5-12 characters)"> <br><br>
-    
+    <input type="text" id="userId" name="userId" placeholder="(5-12 characters)" minlength="5" maxlength="12" required>
+    <br><br>
+
     <label for="password">Password:</label>
-    <input type="password" id="password" name="password" placeholder="Enter Password (7-12 characters)"> <br><br>
-    
+    <input type="password" id="password" name="password" placeholder="(7-12 characters)" minlength="7" maxlength="12"
+      required> <br><br>
+
     <label for="name">Name:</label>
-    <input type="text" id="name" name="name" placeholder="Enter your name"> <br><br>
-    
+    <input type="text" id="name" name="name" placeholder="(alphabets only)" pattern="[a-zA-Z]+" title="Please enter only alphabets" required> <br><br>
+
     <label for="address">Address:</label>
-    <textarea id="address" name="address" rows="4" placeholder="Enter your address"></textarea> <br><br>
-    
+    <textarea id="address" name="address" rows="1" placeholder="Enter your address"></textarea> <br><br>
+
     <label for="country">Country:</label>
     <select id="country" name="country">
-      <option value="">Select Country</option>
-      </select> <br><br>
-    
+      <option value="">Please select a country</option>
+      <option value="USA">United States</option>
+      <option value="CHN">China</option>
+      <option value="IND">India</option>
+      <option value="IDN">Indonesia</option>
+      <option value="PAK">Pakistan</option>
+      <option value="BRA">Brazil</option>
+      <option value="NGA">Nigeria</option>
+      <option value="BGD">Bangladesh</option>
+      <option value="RUS">Russia</option>
+      <option value="MEX">Mexico</option>
+    </select> <br><br>
+
     <label for="zipCode">ZIP Code:</label>
-    <input type="text" id="zipCode" name="zipCode" placeholder="Enter ZIP code"> <br><br>
-    
+    <input type="text" id="zipCode" name="zipCode" placeholder="(numeric only)" pattern="[0-9]*" title="Please enter only numeric characters"> <br><br>
+
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" placeholder="Enter your email address"> <br><br>
-    
+
     <label>Sex:</label>
-    <input type="radio" id="male" name="sex" value="male"> Male
-    <input type="radio" id="female" name="sex" value="female"> Female <br><br>
-    
-    <label for="language">Language:</label>
-    <select id="language" name="language">
-      <option value="">Select Language</option>
-      </select>
-    <br><br>
-    
-    <input type="submit" value="Register">
+    <input type="radio" id="male" name="sex" value="male" required> Male
+    <input type="radio" id="female" name="sex" value="female" required> Female <br><br>
+
+    <label>Language:</label>
+    <input type="checkbox" id="english" name="language" value="english"> English
+    <input type="checkbox" id="non-english" name="language" value="non-english"> Non-English <br><br>
+
+    <label for="about">About:</label>
+    <textarea name="about" id="about" cols="30" rows="5" placeholder="(optional)"></textarea><br><br>
+    <input style="margin-left: 110px;" type="submit" value="Register">
   </form>
-  
+
   <script>
     function validateForm() {
-        // Get the value of each field
-        var userId = document.getElementById("userId").value;
-        var password = document.getElementById("password").value;
-        var name = document.getElementById("name").value;
-        var address = document.getElementById("address").value;
-        var country = document.getElementById("country").value;
-        var zipCode = document.getElementById("zipCode").value;
-        var email = document.getElementById("email").value;
-        var sex = document.getElementById("sex").value;
-        var language = document.getElementById("language").value;
-      
-        // Check if user ID is valid (length 5 to 12)
-        if (userId.length < 5 || userId.length > 12) {
-          alert("User ID must be between 5 and 12 characters long.");
-          return false;
-        }
-      
-        // Check if password is valid (length 7 to 12)
-        if (password.length < 7 || password.length > 12) {
-          alert("Password must be between 7 and 12 characters long.");
-          return false;
-        }
-      
-        // Check if name only contains alphabets
-        if (!/^[a-zA-Z]+$/.test(name)) {
-          alert("Name must only contain alphabets.");
-          return false;
-        }
-      
-        // Check if country is selected
-        if (country === "") {
-          alert("Please select a country.");
-          return false;
-        }
-      
-        // Check if ZIP code is numeric only
-        if (!/^\d+$/.test(zipCode)) {
-          alert("ZIP code must be numeric only.");
-          return false;
-        }
-      
-        // Check if email is valid
-        if (!/\S+@\S+\.\S+/.test(email)) {
-          alert("Please enter a valid email address.");
-          return false;
-        }
-      
-        // Check if sex is selected
-        if (sex === "") {
-          alert("Please select your gender.");
-          return false;
-        }
-      
-        // Check if language is selected
-        if (language === "") {
-          alert("Please select your language.");
-          return false;
-        }
-      
-        // If all fields are valid, submit the form
-        return true;
+      // Get the value of each field
+      var userId = document.getElementById("userId").value;
+      var password = document.getElementById("password").value;
+      var name = document.getElementById("name").value;
+      var address = document.getElementById("address").value;
+      var country = document.getElementById("country").value;
+      var zipCode = document.getElementById("zipCode").value;
+      var email = document.getElementById("email").value;
+      var sex = document.getElementById("sex").value;
+      var language = document.getElementById("language").value;
+
+      // Check if user ID is valid (length 5 to 12)
+      if (userId.length < 5 || userId.length > 12) {
+        alert("User ID must be between 5 and 12 characters long.");
+        return false;
       }
-      
+
+      // Check if password is valid (length 7 to 12)
+      if (password.length < 7 || password.length > 12) {
+        alert("Password must be between 7 and 12 characters long.");
+        return false;
+      }
+
+      // Check if name only contains alphabets
+      if (!/^[a-zA-Z]+$/.test(name)) {
+        alert("Name must only contain alphabets.");
+        return false;
+      }
+
+      // Check if country is selected
+      if (country === "") {
+        alert("Please select a country.");
+        return false;
+      }
+
+      // Check if ZIP code is numeric only
+      if (!/^\d+$/.test(zipCode)) {
+        alert("ZIP code must be numeric only.");
+        return false;
+      }
+
+      // Check if email is valid
+      if (!/\S+@\S+\.\S+/.test(email)) {
+        alert("Please enter a valid email address.");
+        return false;
+      }
+
+      // Check if sex is selected
+      if (sex === "") {
+        alert("Please select your gender.");
+        return false;
+      }
+
+      // Check if language is selected
+      if (language === "") {
+        alert("Please select your language.");
+        return false;
+      }
+
+      // If all fields are valid, submit the form
+      return true;
+    }
+
+    
   </script>
 </body>
+
 </html>
