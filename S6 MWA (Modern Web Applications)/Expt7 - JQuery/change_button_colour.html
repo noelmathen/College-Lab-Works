@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Change Color Button</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+  .btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<button id="colorBtn" class="btn">Change color</button>
+
+<script>
+  $(document).ready(function() {
+    $('#colorBtn').mouseover(function() {
+      $(this).css('color', 'red');
+      $(this).css('background-color', 'white');
+    });
+
+    $('#colorBtn').mouseout(function() {
+      $(this).css('color', 'white');
+      $(this).css('background-color', 'green');
+    });
+  });
+</script>
+
+</body>
+</html>
