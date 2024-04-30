@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>jQuery Element Insertion</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+  .container {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  .item {
+    padding: 10px;
+    background-color: #f0f0f0;
+    margin-bottom: 5px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="item">First Item</div>
+  <div class="item">Second Item</div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    // Insert an element before the container
+    $('<div class="item">Before Container</div>').insertBefore('.container');
+
+    // Insert an element after the container
+    $('<div class="item">After Container</div>').insertAfter('.container');
+
+    // Prepend an element inside the container
+    $('.container').prepend('<div class="item">Prepended Item</div>');
+
+    // Append an element inside the container
+    $('.container').append('<div class="item">Appended Item</div>');
+  });
+</script>
+
+</body>
+</html>

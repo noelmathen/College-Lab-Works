@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 5px;
+    }
+    .completed {
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+<body>
+  <h1>To-Do List</h1>
+  <input type="text" id="taskInput" placeholder="Enter task">
+  <button onclick="addTask()">Add Task</button>
+  <ul id="taskList"></ul>
+
+  <script>
+    function addTask() {
+      var taskInput = document.getElementById("taskInput");
+      var taskText = taskInput.value.trim();
+      if (taskText === "") {
+        alert("Please enter a task!");
+        return;
+      }
+      var listItem = document.createElement("li");
+      var checkBox = document.createElement("input");
+      checkBox.type = "checkbox";
+      checkBox.addEventListener("change", toggleCompleted);
+      var taskLabel = document.createElement("span");
+      taskLabel.textContent = taskText;
+      var editButton = document.createElement("button");
+      editButton.textContent = "Edit";
+      editButton.addEventListener("click", editTask);
+      var deleteButton = document.createElement("button");
+      deleteButton.textContent = "Delete";
+      deleteButton.addEventListener("click", deleteTask);
+      listItem.appendChild(checkBox);
+      listItem.appendChild(taskLabel);
+      listItem.appendChild(editButton);
+      listItem.appendChild(deleteButton);
+      document.getElementById("taskList").appendChild(listItem);
+      taskInput.value = "";
+    }
+
+    function toggleCompleted(event) {
+      var taskLabel = event.target.nextSibling;
+      if (event.target.checked) {
+        taskLabel.classList.add("completed");
+      } else {
+        taskLabel.classList.remove("completed");
+      }
+    }
+
+    function deleteTask(event) {
+      event.target.parentNode.remove();
+    }
+
+    function editTask(event) {
+      var listItem = event.target.parentNode;
+      var taskLabel = listItem.querySelector("span");
+      var updatedTask = prompt("Edit task:", taskLabel.textContent);
+      if (updatedTask !== null && updatedTask.trim() !== "") {
+        taskLabel.textContent = updatedTask.trim();
+      }
+    }
+  </script>
+</body>
+</html>
