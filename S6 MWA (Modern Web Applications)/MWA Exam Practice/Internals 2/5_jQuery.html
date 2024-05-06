@@ -1,0 +1,74 @@
+<html>
+
+<head>
+    <title>jquery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1>1st heading</h1>
+    <h2>2nd heading</h2>
+    <p id="para">Paragraph</p>
+    <button type="submit" value="Submit">Submit</button>
+    <p id="newpara">Click or move the mouse pointer over this paragraph.</p>
+
+    <br><br><p id="test">This is some <b>bold</b> text in a paragraph.</p>
+    <button id="btn1">Show Text</button>
+    <button id="btn2">Show HTML</button>
+
+    <br><br>
+    <ul id="myList">
+        <li class="item">Item 1</li>
+        <li class="item">Item 2</li>
+        <li class="item highlight">Item 3</li>
+        <li class="item">Item 4</li>
+    </ul>
+
+    <script>
+        $(document).ready(function(){
+            var listhtml = $('#myList').html();
+            $('ul').append('<li class="item">Item 5</li>');
+            $('ul').css('color','red')
+        })
+
+        $(document).ready(function () {
+            $('#para').click(function () {
+                alert('paragraph clicked');
+                $(this).toggle('slow', function () {
+                    alert('para hidden')
+                });
+            })
+
+            $('button').click(function () {
+                $('h1').text('1st Paragraph changed');
+                $('h2').text('2nd Paragraph changed');
+                $('#para').fadeIn()
+                $('#para').append(' hi')
+                $('#para').prepend('hello ')
+                $('#para').before(' after ')
+            })
+        })
+
+        $(document).ready(function () {
+            $('#newpara').on({
+                mouseenter: function () {
+                    $(this).css('background-color', 'yellow');
+                },
+                mouseleave: function () {
+                    $(this).css('background-color', 'white')
+                }
+            })
+        })
+
+        $(document).ready(function(){
+            $('#btn1').click(function(){
+                alert('Text: ' + $('#test').text())
+            })
+            $('#btn2').click(function(){
+                alert('HTML: ' + $('#test').html())
+            })
+        })
+    </script>
+</body>
+
+</html>
