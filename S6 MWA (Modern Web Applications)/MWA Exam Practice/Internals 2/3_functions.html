@@ -7,9 +7,11 @@
     <h1>Functions and variables?</h1>
     <p id="variables"></p>
     <p id="object"></p>
+    <p id="arrays"></p>
     <p id="normalfunctions"></p>
     <p id="anofunctions"></p>
     <p id="arrowfunctions"></p>
+    <p id="selfinvoking"></p>
     <script>
         //variables
         let a=1;
@@ -21,12 +23,21 @@
         let g={
             name:'Noel',
             actualname: b,
-            bigbrains: false
+            bigbrains: false,
+            greet: function(){
+                return `Hello ${this.name}`;
+            }
         }
+        h = ["Noel", 2, true]
+        i = f.concat(h);
+        alert(i)
         document.getElementById("variables").innerHTML = "The vairables is defined is: " + a + b + c + d + e + f;
 
         //objects
-        document.getElementById('object').innerHTML = JSON.stringify(g);
+        document.getElementById('object').innerHTML = g.greet();
+
+        //arrays
+        document.getElementById("arrays").innerHTML = "The array is: " + h.toString();
 
         //normal functions
         function normalfunction(a, b){
@@ -49,6 +60,11 @@
             return a*b;
         }
         document.getElementById("arrowfunctions").innerHTML ="arrow functions: " + arrow(4, 3);
+
+        //self invoking functions
+        (function(){
+            document.getElementById("selfinvoking").innerHTML = "Self invoking function haha"
+        })();
 
     </script>
 </body>
