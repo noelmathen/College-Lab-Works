@@ -1,0 +1,54 @@
+<!doctype html>
+<head>
+    <title>Funcitons</title>
+</head>
+
+<body>
+    <h1>Functions and variables?</h1>
+    <p id="variables"></p>
+    <p id="object"></p>
+    <p id="normalfunctions"></p>
+    <p id="anofunctions"></p>
+    <p id="arrowfunctions"></p>
+    <script>
+        //variables
+        let a=1;
+        let b="Noel";
+        let c=true;
+        let d=undefined;
+        let e=null;
+        let f=['Noel', 1, true];
+        let g={
+            name:'Noel',
+            actualname: b,
+            bigbrains: false
+        }
+        document.getElementById("variables").innerHTML = "The vairables is defined is: " + a + b + c + d + e + f;
+
+        //objects
+        document.getElementById('object').innerHTML = JSON.stringify(g);
+
+        //normal functions
+        function normalfunction(a, b){
+            let sum=a+b;
+            return sum;
+        }
+
+        let result = normalfunction(1, 3);
+        document.getElementById("normalfunctions").innerHTML ="Normal function: " + result;
+        document.body.innerHTML += "body.innerHTML will be at the bottom?: " + normalfunction(4, 5); //printed at the end of document
+
+        //function expression/anonumous functions
+        let ano_function = function(a, b){
+            return a-b;
+        }
+        document.getElementById("anofunctions").innerHTML ="Functions Expression: " + ano_function(3, 3);
+
+        //arrow functions
+        let arrow = (a, b) =>{
+            return a*b;
+        }
+        document.getElementById("arrowfunctions").innerHTML ="arrow functions: " + arrow(4, 3);
+
+    </script>
+</body>
