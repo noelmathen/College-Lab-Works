@@ -1,0 +1,75 @@
+<html>
+
+<head>
+    <title>html, xml, json</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+
+        function loadHTML() {
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    $('.loading').hide('slow');
+                    $('#html-text').append(this.responseText);
+                }
+            }
+            xhttp.open('GET', 'bookInfo.html', true);
+            xhttp.send();
+        }
+
+        function loadJSON() {
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    $('.loading').hide('slow');
+                    let data = JSON.parse(this.responseText);
+                    let jsonbody = '';
+                    jsonbody += '<p>Title: ' + data.title + '<br></p>';
+                    jsonbody += '<p>Author: ' + data.author + '<br></p>';
+                    jsonbody += '<p>Price: ' + data.price + '<br></p>';
+                    document.getElementById('json-text').innerHTML = jsonbody;
+                }
+            }
+            xhttp.open('GET', 'bookInfo.json', true);
+            xhttp.send();
+        }
+
+        function loadXML() {
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    $('.loading').hide('slow');
+                    let xmlbody = '';
+                    let data = this.responseXML;
+                    xmlbody += '<p>Title: ' + data.getElementsByTagName('title')[0].childNodes[0].nodeValue + '<br></p>';
+                    xmlbody += '<p>Author: ' + data.getElementsByTagName('author')[0].childNodes[0].nodeValue + '<br></p>';
+                    xmlbody += '<p>Price: ' + data.getElementsByTagName('price')[0].childNodes[0].nodeValue + '<br></p>';
+                    document.getElementById('xml-text').innerHTML = xmlbody;
+                }
+            }
+            xhttp.open('GET', 'bookInfo.xml', true);
+            xhttp.send();
+        }
+
+        $(document).ready(function () {
+            loadHTML();
+            loadJSON();
+            loadXML();
+        })
+    </script>
+</head>
+
+<body>
+    <p id="html-text"></p>
+    <p class="loading">loading...</p><br>
+
+    <h2 id="json">JSON Data: </h2>
+    <p id="json-text"></p>
+    <p class="loading">loading...</p><br>
+
+    <h2 id="xml">XML Data: </h2>
+    <p id="xml-text"></p>
+    <p class="loading">loading...</p><br>
+</body>
+
+</html>

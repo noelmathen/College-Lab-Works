@@ -1,0 +1,43 @@
+{
+    "name": "John Doe",
+    "age": 30,
+    "isStudent": false,
+    "address": {
+        "street": "123 Main St",
+        "city": "Anytown",
+        "country": "USA"
+    },
+    "contacts": [
+        {
+            "type": "email",
+            "value": "john@example.com"
+        },
+        {
+            "type": "phone",
+            "value": "123-456-7890"
+        }
+    ],
+    "projects": [
+        {
+            "title": "Project 1",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "startDate": "2023-01-01",
+            "endDate": "2023-03-31",
+            "team": [
+                "Alice",
+                "Bob",
+                "Charlie"
+            ]
+        },
+        {
+            "title": "Project 2",
+            "description": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "startDate": "2023-04-01",
+            "endDate": "2023-06-30",
+            "team": [
+                "David",
+                "Eve"
+            ]
+        }
+    ]
+}

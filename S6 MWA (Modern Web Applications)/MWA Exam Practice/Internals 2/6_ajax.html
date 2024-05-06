@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title>AJAX</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    </head>
+
+    <body>
+        <p id="para1"></p>
+        <script>
+            let xhttp = new XMLHttpRequest();
+            xhttp.open('GET', 'example.json', true);
+            xhttp.send();
+            xhttp.onload = function(){
+                if(xhttp.status >= 200 && xhttp.status < 300){
+                    let respone = JSON.parse(xhttp.responseText);
+                    let name = respone.address.street;
+                    document.getElementById('para1').innerText = name;
+                } else{
+                    console.error('Error: '+xhttp.status)
+                }
+            }
+        </script>
+    </body>
+</html>
