@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Data</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $("#htmlButton").click(function() {
+        $.ajax({
+            url: "books.html",
+            dataType: "html",
+            success: function(data) {
+                $("#result").html(data);
+            }
+        });
+    });
+
+    $("#xmlButton").click(function() {
+        $.ajax({
+            url: "books.xml",
+            dataType: "xml",
+            success: function(data) {
+                var result = "<ul>";
+                $(data).find("book").each(function() {
+                    var title = $(this).find("title").text();
+                    var author = $(this).find("author").text();
+                    var price = $(this).find("price").text();
+                    result += "<li>Title: " + title + ", Author: " + author + ", Price: $" + price + "</li>";
+                });
+                result += "</ul>";
+                $("#result").html(result);
+            }
+        });
+    });
+
+    $("#jsonButton").click(function() {
+        $.ajax({
+            url: "books.json",
+            dataType: "json",
+            success: function(data) {
+                var result = "<ul>";
+                $.each(data.books, function(index, book) {
+                    result += "<li>Title: " + book.title + ", Author: " + book.author + ", Price: $" + book.price + "</li>";
+                });
+                result += "</ul>";
+                $("#result").html(result);
+            }
+        });
+    });
+});
+</script>
+</head>
+<body>
+
+<button id="htmlButton">Load HTML Data</button>
+<button id="xmlButton">Load XML Data</button>
+<button id="jsonButton">Load JSON Data</button>
+
+<div id="result"></div>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+    "books": [
+        {
+            "title": "JSON Book 1",
+            "author": "Mark Johnson",
+            "price": "$15"
+        },
+        {
+            "title": "JSON Book 2",
+            "author": "Emily Brown",
+            "price": "$18"
+        },
+        {
+            "title": "JSON Book 3",
+            "author": "David Lee",
+            "price": "$20"
+        }
+    ]
+}

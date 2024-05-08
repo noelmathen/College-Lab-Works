@@ -1,0 +1,17 @@
+<books>
+    <book>
+        <title>XML Book 1</title>
+        <author>Jane Smith</author>
+        <price>$25</price>
+    </book>
+    <book>
+        <title>XML Book 2</title>
+        <author>John Smith</author>
+        <price>$30</price>
+    </book>
+    <book>
+        <title>XML Book 3</title>
+        <author>Alice Johnson</author>
+        <price>$22</price>
+    </book>
+</books>
