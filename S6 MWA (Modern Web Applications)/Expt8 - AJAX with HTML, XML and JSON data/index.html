@@ -1,76 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Book Information</title>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      var xhr = new XMLHttpRequest();
-      var urlHTML = "bookInfo.html";
-      var urlXML = "bookInfo.xml";
-      var urlJSON = "bookInfo.json";
-      var bookInfo = "";
+    <title>html, xml, json</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
 
-      // Load HTML data
-      xhr.open("GET", urlHTML, true);
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          bookInfo += xhr.responseText;
-          loadXMLData();
+        function loadHTML() {
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    $('.loading').hide('slow');
+                    $('#html-text').append(this.responseText);
+                }
+            }
+            xhttp.open('GET', 'bookInfo.html', true);
+            xhttp.send();
         }
-      };
-      xhr.send();
 
-      // Function to load XML data
-      function loadXMLData() {
-        xhr.open("GET", urlXML, true);
-        xhr.onreadystatechange = function () {
-          if (xhr.readyState === 4 && xhr.status === 200) {
-            var xmlDoc = xhr.responseXML;
-            var title = xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue;
-            var author = xmlDoc.getElementsByTagName("author")[0].childNodes[0].nodeValue;
-            var price = xmlDoc.getElementsByTagName("price")[0].childNodes[0].nodeValue;
-            bookInfo += "<h2>XML Data:</h2>";
-            bookInfo += "<p>Title: " + title + "</p>";
-            bookInfo += "<p>Author: " + author + "</p>";
-            bookInfo += "<p>Price: " + price + "</p>";
-            loadJSONData();
-          }
-        };
-        xhr.send();
-      }
+        function loadJSON() {
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    $('.loading').hide('slow');
+                    let data = JSON.parse(this.responseText);
+                    let jsonbody = '';
+                    jsonbody += '<p>Title: ' + data.title + '<br></p>';
+                    jsonbody += '<p>Author: ' + data.author + '<br></p>';
+                    jsonbody += '<p>Price: ' + data.price + '<br></p>';
+                    document.getElementById('json-text').innerHTML = jsonbody;
+                }
+            }
+            xhttp.open('GET', 'bookInfo.json', true);
+            xhttp.send();
+        }
 
-      // Function to load JSON data
-      function loadJSONData() {
-        xhr.open("GET", urlJSON, true);
-        xhr.onreadystatechange = function () {
-          if (xhr.readyState === 4 && xhr.status === 200) {
-            var jsonData = JSON.parse(xhr.responseText);
-            bookInfo += "<h2>JSON Data:</h2>";
-            bookInfo += "<p>Title: " + jsonData.title + "</p>";
-            bookInfo += "<p>Author: " + jsonData.author + "</p>";
-            bookInfo += "<p>Price: " + jsonData.price + "</p>";
-            displayBookInfo();
-          }
-        };
-        xhr.send();
-      }
+        function loadXML() {
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    $('.loading').hide('slow');
+                    let xmlbody = '';
+                    let data = this.responseXML;
+                    xmlbody += '<p>Title: ' + data.getElementsByTagName('title')[0].childNodes[0].nodeValue + '<br></p>';
+                    xmlbody += '<p>Author: ' + data.getElementsByTagName('author')[0].childNodes[0].nodeValue + '<br></p>';
+                    xmlbody += '<p>Price: ' + data.getElementsByTagName('price')[0].childNodes[0].nodeValue + '<br></p>';
+                    document.getElementById('xml-text').innerHTML = xmlbody;
+                }
+            }
+            xhttp.open('GET', 'bookInfo.xml', true);
+            xhttp.send();
+        }
 
-      // Function to display book information
-      function displayBookInfo() {
-        document.getElementById("bookInfo").innerHTML = bookInfo;
-      }
-    });
-  </script>
+        $(document).ready(function () {
+            loadHTML();
+            loadJSON();
+            loadXML();
+        })
+    </script>
 </head>
 
 <body>
-  <h1>Book Information</h1>
-  <div id="bookInfo">
-    <h2>Loading...</h2>
-  </div>
+    <h2 id="html">HTML Data: </h2>
+    <p id="html-text"></p>
+    <p class="loading">loading...</p><br>
+
+    <h2 id="json">JSON Data: </h2>
+    <p id="json-text"></p>
+    <p class="loading">loading...</p><br>
+
+    <h2 id="xml">XML Data: </h2>
+    <p id="xml-text"></p>
+    <p class="loading">loading...</p><br>
 </body>
 
 </html>
