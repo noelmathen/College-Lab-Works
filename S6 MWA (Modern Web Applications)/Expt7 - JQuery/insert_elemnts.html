@@ -3,41 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>jQuery Element Insertion</title>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<title>jQuery Inserting Elements</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
   .container {
-    margin: 20px;
-    padding: 10px;
     border: 1px solid #ccc;
-  }
-  .item {
     padding: 10px;
-    background-color: #f0f0f0;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
 </style>
 </head>
 <body>
 
 <div class="container">
-  <div class="item">First Item</div>
-  <div class="item">Second Item</div>
+  <h2>Original Content</h2>
+  <p>This is the original paragraph.</p>
 </div>
 
 <script>
-  $(document).ready(function() {
-    // Insert an element before the container
-    $('<div class="item">Before Container</div>').insertBefore('.container');
+  $(document).ready(function(){
+    // Insert elements before .container
+    $('.container').before('<div>Before</div>');
 
-    // Insert an element after the container
-    $('<div class="item">After Container</div>').insertAfter('.container');
+    // Insert elements after .container
+    $('.container').after('<div>After</div>');
 
-    // Prepend an element inside the container
-    $('.container').prepend('<div class="item">Prepended Item</div>');
+    // Insert elements at the beginning of .container
+    $('.container').prepend('<p>Prepend</p>');
 
-    // Append an element inside the container
-    $('.container').append('<div class="item">Appended Item</div>');
+    // Insert elements at the end of .container
+    $('.container').append('<p>Append</p>');
   });
 </script>
 
