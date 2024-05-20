@@ -1,0 +1,66 @@
+<html>
+<head>
+    <title>Expt4 grades</title>
+</head>
+<body>
+    <h1>Enter student Grades</h1>
+    <label for="num">Number of Students:</label>
+    <input type="number" id="num" name="num">
+    <button onclick="generateInputFields()">Generate Input Fields</button><br>
+
+    <div id="inputFields"></div>
+
+    <br></br><button onclick="calculate()" style="display: none;" id="calculateGradeButton">Calculate Grades</button>
+
+    <div id="output"></div>
+    <script>
+        function generateInputFields(){
+            let num = parseInt(document.getElementById('num').value);
+            let inputField = document.getElementById('inputFields');
+            inputField.innerHTML = '';
+            for(let i=1; i<=num; i++){
+                inputField.innerHTML += "<br><label for='stud" +i+ "'>Enter student " +i+ " marks: </label>";
+                inputField.innerHTML +=  "<input type='number' id='stud" +i+ "'><br>";
+            }
+            document.getElementById('calculateGradeButton').style.display = 'block';
+        }
+
+        function calculate(){
+            let num = parseInt(document.getElementById('num').value);
+            let outputDiv = document.getElementById('output');
+            let totalMarks=0;
+            outputDiv.innerHTML = '<h1>Student Marks and Grades</h1>';
+            for(let i=1; i<=num; i++){
+                id='stud'+i;
+                let studMark = parseInt(document.getElementById(id).value);
+                let studGrade = getGrade(studMark);
+                outputDiv.innerHTML += "<p>Mark of Student " +i+ ": " +studMark + "</p>";
+                outputDiv.innerHTML += "<p>Grade of Student " +i+ ": " +studGrade + "</p><br>";
+                totalMarks += studMark;
+            }
+
+            outputDiv.innerHTML += '<br><h1>Average Class Marks and Grades</h1>';
+            let averageMark = totalMarks/num;
+            let averageGrade = getGrade(averageMark);
+            outputDiv.innerHTML += "<p>Average mark: " +averageMark+ "</p>";
+            outputDiv.innerHTML += "<p>Average grade: " +averageGrade+ "</p>";
+        }
+
+        function getGrade(mark){
+            if(mark>=90){
+                return 'A';
+            } else if(mark>=80){
+                return 'B';
+            } else if(mark>=70){
+                return 'C';
+            } else if(mark>=60){
+                return 'D';
+            } else if(mark >= 50){
+                return 'E';
+            } else{
+                return 'F';
+            }
+        }
+    </script>
+</body>
+</html>

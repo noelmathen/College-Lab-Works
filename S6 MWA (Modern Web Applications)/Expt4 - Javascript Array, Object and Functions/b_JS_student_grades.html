@@ -12,13 +12,12 @@
     <button onclick="generateInputFields()">Generate Input Fields</button>
     <br><br>
 
-    <div id="inputGrades">
-    </div>
+    <!-- place to generate the input field -->
+    <div id="inputGrades"></div>
 
     <button onclick="calculateGrades()">Calculate Grades</button>
 
-    <div id="output">
-    </div>
+    <div id="output"></div>
 
     <script>
         // Function to calculate the grade based on marks
@@ -34,11 +33,6 @@
             } else {
                 return 'F';
             }
-        }
-
-        // Function to calculate the average grade of a class
-        function calculateAverageGrade(totalMarks, numberOfStudents) {
-            return totalMarks / numberOfStudents;
         }
 
         // Function to dynamically generate input fields for student grades
@@ -63,13 +57,12 @@
 
             for (let i = 1; i <= numStudents; i++) {
                 let marks = parseInt(document.getElementById('student' + i).value);
-                totalMarks += marks;
-
                 let grade = calculateGrade(marks);
                 outputDiv.innerHTML += "<p>Student " + i + " got " + grade + " grade.</p>";
+                totalMarks += marks;
             }
 
-            let averageGrade = calculateAverageGrade(totalMarks, numStudents);
+            let averageGrade = totalMarks/numStudents;
             outputDiv.innerHTML += "<h2>Average Grade</h2>";
             outputDiv.innerHTML += "<p>Average grade of the class: " + calculateGrade(averageGrade) + "</p>";
         }
