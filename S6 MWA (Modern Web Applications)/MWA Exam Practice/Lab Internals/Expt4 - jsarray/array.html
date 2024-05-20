@@ -1,0 +1,63 @@
+<!DOCTYPE html5>
+<html>
+
+<head>
+    <title>Expt4 array sum and sort</title>
+</head>
+<body>
+    <h1 style="text-align:left">Sum and sorting of arrays</h1>
+    <label for="num">Enter number of elements: </label>
+    <input type="number" id="num" name="num" min="1" required><br><br>
+
+    <div id="arrayDiv" style="display:none">
+        <label for="array">Enter the array(comma seperated):</label>
+        <input type="text" id="array" name="array" placeholder="eg:3, 1, 4, 2"><br><br>
+    </div>
+    <button onclick="getArray()">Submit</button>
+
+    <script>
+        function getArray() {
+            const n = parseInt(document.getElementById('num').value);
+            if (!n || n < 1) {
+                alert('Enter a value gretaer than or equal to 1');
+                return;
+            }
+
+            document.getElementById('arrayDiv').style.display = 'block';
+
+            let arr = document.getElementById('array').value;
+            if(!arr){
+                return;
+            }
+            arr = arr.split(',').map(Number);
+            if(arr.length != n){
+                alert('The number of elements given is not the one specified before!');
+                return;
+            }
+            const sum = findSum(arr, n);
+            const sortedArray = sortArray(arr, n);
+            alert('The sum of the array is: ' + sum +'\n'+ 'The sorted array is: ' + arr);
+
+        }
+
+        function findSum(arr, n){
+            let sum=0;
+            for(let i=0; i<n; i++){
+                sum+=arr[i];
+            }
+            return sum;
+        }
+
+        function sortArray(arr, n){
+            for(let i=0; i<n; i++){
+                for(let j=0; j<n-i-1; j++){
+                    if(arr[j+1]<arr[j]){
+                        [arr[j], arr[j+1]] = [arr[j+1], arr[j]];
+                    }
+                }
+            }
+            return arr;
+        }
+    </script>
+</body>
+</html>

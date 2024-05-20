@@ -1,60 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Program</title>
+    <title>Array Operations</title>
 </head>
 <body>
-    <div id="output">
+    <h1>Array Operations</h1>
+    <div>
+        <label for="numElements">Enter number of elements:</label>
+        <input type="number" id="numElements" min="1">
     </div>
+    <div id="elementsInput" style="display: none;">
+        <label for="elements">Enter elements (comma separated):</label>
+        <input type="text" id="elements">
+    </div>
+    <button onclick="getArray()">Submit</button>
 
     <script>
-        // Function to find the sum of an array
-        function findSum(arr) {
-            let sum = 0;
-            for (let i = 0; i < arr.length; i++) {
-                sum += arr[i];
+        function getArray() {
+            const numElements = document.getElementById('numElements').value;
+            if (!numElements || numElements <= 0) {
+                alert('Please enter a valid number of elements.');
+                return;
             }
-            return sum;
+            
+            document.getElementById('elementsInput').style.display = 'block';
+            const elementsInput = document.getElementById('elements').value;
+            if (!elementsInput) {
+                return;
+            }
+            
+            const elementsArray = elementsInput.split(',').map(Number); //converting a single string with commas into array of number
+            if (elementsArray.length !== parseInt(numElements)) {
+                alert('Number of elements does not match the count provided.');
+                return;
+            }
+
+            const sum = sumArray(elementsArray);
+            const sortedArray = bubbleSort(elementsArray);
+
+            alert('Sum of array: ' + sum);
+            alert('Sorted array: ' + sortedArray.join(', '));
         }
 
-        // Function to sort an array using Bubble Sort algorithm
+        function sumArray(arr) {
+            return arr.reduce((a, b) => a + b, 0);
+        }
+
         function bubbleSort(arr) {
             let len = arr.length;
-            for (let i = 0; i < len - 1; i++) {
+            for (let i = 0; i < len; i++) {
                 for (let j = 0; j < len - 1 - i; j++) {
                     if (arr[j] > arr[j + 1]) {
-                        // Swap elements if they are in the wrong order
-                        let temp = arr[j];
-                        arr[j] = arr[j + 1];
-                        arr[j + 1] = temp;
+                        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]; //sexy way of swapping in js. just realized that
                     }
                 }
             }
             return arr;
         }
-
-        // Example array
-        const numbers = [5, 3, 8, 1, 2];
-
-        // Find sum of array
-        const sum = findSum(numbers);
-
-        // Sort array using Bubble Sort
-        const sortedNumbers = bubbleSort(numbers.slice()); // Using slice() to create a copy of the original array
-
-        // Display the output in the page
-        const outputDiv = document.getElementById('output');
-        outputDiv.innerHTML += "<p>Input array: " + numbers.join(", ") + "</p>";
-        outputDiv.innerHTML += "<p>Sum of array: " + sum + "</p>";
-        outputDiv.innerHTML += "<p>Sorted array: " + sortedNumbers.join(", ") + "</p>";
-
-        let inputArray = "Input array: " + numbers.join(", ")
-        let sumOfArray = "Sum of array: " + sum
-        let sortedArray = "Sorted array: " + sortedNumbers.join(", ")
-        // Display the output using alert dialogs
-        alert(inputArray + "\n" + sumOfArray + "\n" + sortedArray);
     </script>
 </body>
 </html>
