@@ -1,0 +1,65 @@
+<html>
+<head>
+    <title>expt2 booking</title>
+    <style>
+        body{
+            padding: 20px;
+        }
+
+        form {
+            background-color: rgb(241, 236, 236);
+            border: 1px solid black;
+            margin: 0 auto;
+            max-width: 400px;
+            padding: 5%;
+            font-size: 1.5vw;
+        }
+
+
+        label{
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .radio label{
+            display: inline-block;
+        }
+
+        .radio input{
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+        input[type="submit"], input[type="reset"]{
+            background-color: lightblue;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">BOOK YOUR TICKETS</h1>
+    <form action="./bookingsuccess.html">
+        <label for="fname">First Name:</label>
+        <input type="text" id="fname" name="fname"><br><br>
+        <label for="lname">Last Name:</label>
+        <input type="text" id="lname" name="lname"><br><br>
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date"><br><br>
+        <label for="gender">Gender:</label>
+        <div class="radio">
+            <label for="male">Male</label>
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="male">Male</label>
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="male">Male</label>
+            <input type="radio" id="male" name="gender" value="male"><br><br>
+            <input type="submit" value="Submit">
+            <input type="reset" value="Reset">
+        </div>
+
+    </form>
+
+</body>
+</html>
