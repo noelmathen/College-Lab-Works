@@ -8,6 +8,6 @@ Create a website that demonstrates the usage of the following HTML tags:
 - Anchor
 - Table tags
 
-# SCREENSHOT
+# OUTPUT
 
 ![output image](./Expt1Output.png)
