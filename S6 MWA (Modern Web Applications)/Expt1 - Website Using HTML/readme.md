@@ -10,4 +10,4 @@ Create a website that demonstrates the usage of the following HTML tags:
 
 # SCREENSHOT
 
-![output image](./Expt1 Output.png)
+![output image](./Expt1Output.png)
