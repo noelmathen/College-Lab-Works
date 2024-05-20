@@ -10,4 +10,4 @@ Create a website that demonstrates the usage of the following HTML tags:
 
 # OUTPUT
 
-![output image](./Expt1Output.png)
+![output image](./Expt1_Output.png)
