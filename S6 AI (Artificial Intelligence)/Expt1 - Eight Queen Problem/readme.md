@@ -24,3 +24,4 @@ whether the required result is obtained or not. For the given problem, we will e
 - Step 8: Stop.
 
 # Output
+![Output screenshot](https://github.com/noelmathen/College-Lab-Works/blob/main/S6%20AI%20(Artificial%20Intelligence)/Expt1%20-%20Eight%20Queen%20Problem/eightqueen_output.png)
