@@ -1,0 +1,30 @@
+<html>
+<head>
+    <title>TODO PRACTICE</title>
+</head>
+<body>
+    <h1>TO DO LIST</h1><br><br>
+    <input type="text" id="add-task">
+    <button id="addTaskButton" onclick="createToDo()">Add Task</button>
+
+    <ul id="list-ul"></ul>
+
+    <script>
+        function createToDo(){
+            let inputText = document.getElementById('add-task').value.trim();
+            let liTag = document.createElement('li')
+            let checkBox = document.createElement('input')
+            checkBox.type = 'checkbox'
+            checkBox.addEventListener('change', toggleCompleted)
+        }
+
+        function toggleCompleted(event){
+            let label = event.target.nextSibling;
+            if(event.target.checked){
+                label.classList.add('blah')
+            }
+
+        }
+    </script>
+</body>
+</html>

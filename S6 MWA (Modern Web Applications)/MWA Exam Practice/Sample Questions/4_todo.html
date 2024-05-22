@@ -1,3 +1,102 @@
 <!-- Develop a simple to-do list application using Jquery. Users should be able to
     add, remove, and mark tasks as completed. (DOM manipulation) -->
 
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>To-Do List</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                padding: 20px;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            .task-input {
+                margin-bottom: 20px;
+            }
+            .task-input input {
+                padding: 5px;
+                font-size: 14px;
+            }
+            .task-input button {
+                padding: 5px 10px;
+                font-size: 14px;
+                cursor: pointer;
+            }
+            ul {
+                list-style-type: none;
+                padding: 0;
+            }
+            li {
+                padding: 10px;
+                margin-bottom: 10px;
+                border: 1px solid #ddd;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .completed {
+                text-decoration: line-through;
+                color: grey;
+            }
+            .task-actions button {
+                background: none;
+                border: none;
+                cursor: pointer;
+                font-size: 16px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>To-Do List</h1>
+        <div class="task-input">
+            <input type="text" id="taskInput" placeholder="Add a new task">
+            <button id="addTask">Add</button>
+        </div>
+        <ul id="taskList"></ul>
+    
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                // Add a new task
+                $('#addTask').click(function() {
+                    const taskText = $('#taskInput').val().trim();
+                    if (taskText) {
+                        $('#taskList').append(`
+                            <li>
+                                <span class="task-text">${taskText}</span>
+                                <div class="task-actions">
+                                    <button class="complete">✔️</button>
+                                    <button class="edit">✏️</button>
+                                    <button class="delete">❌</button>
+                                </div>
+                            </li>
+                        `);
+                        $('#taskInput').val('');
+                    }
+                });
+    
+                // Mark task as completed
+                $('#taskList').on('click', '.complete', function() {
+                    $(this).closest('li').find('.task-text').toggleClass('completed');
+                });
+    
+                // Edit a task
+                $('#taskList').on('click', '.edit', function() {
+                    const taskText = $(this).closest('li').find('.task-text').text();
+                    const newTaskText = prompt('Edit task:', taskText);
+                    if (newTaskText !== null) {
+                        $(this).closest('li').find('.task-text').text(newTaskText);
+                    }
+                });
+    
+                // Delete a task
+                $('#taskList').on('click', '.delete', function() {
+                    $(this).closest('li').remove();
+                });
+            });
+        </script>
+    </body>
+    </html>
+    
