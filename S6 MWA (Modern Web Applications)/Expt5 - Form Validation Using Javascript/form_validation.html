@@ -11,15 +11,15 @@
   <h1>Registration Form</h1>
   <form onsubmit="return validateForm()">
     <label for="userId">User ID:</label>
-    <input type="text" id="userId" name="userId" placeholder="(5-12 characters)" minlength="5" maxlength="12" required>
+    <input id="userId" name="userId" placeholder="(5-12 characters)" minlength="5" maxlength="12">
     <br><br>
 
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" placeholder="(7-12 characters)" minlength="7" maxlength="12"
-      required> <br><br>
+    > <br><br>
 
     <label for="name">Name:</label>
-    <input type="text" id="name" name="name" placeholder="(alphabets only)" pattern="[a-zA-Z]+" title="Please enter only alphabets" required> <br><br>
+    <input type="text" id="name" name="name" placeholder="(alphabets only)" pattern="[a-zA-Z]+" title="Please enter only alphabets"> <br><br>
 
     <label for="address">Address:</label>
     <textarea id="address" name="address" rows="1" placeholder="Enter your address"></textarea> <br><br>
@@ -46,12 +46,12 @@
     <input type="email" id="email" name="email" placeholder="Enter your email address"> <br><br>
 
     <label>Sex:</label>
-    <input type="radio" id="male" name="sex" value="male" required> Male
-    <input type="radio" id="female" name="sex" value="female" required> Female <br><br>
+    <input type="radio" id="male" name="sex" value="male">Male
+    <input type="radio" id="female" name="sex" value="female">Female <br><br>
 
     <label>Language:</label>
-    <input type="checkbox" id="english" name="language" value="english"> English
-    <input type="checkbox" id="non-english" name="language" value="non-english"> Non-English <br><br>
+    <input type="checkbox" id="english" name="language" value="english">English
+    <input type="checkbox" id="non-english" name="language" value="non-english">Non-English <br><br>
 
     <label for="about">About:</label>
     <textarea name="about" id="about" cols="30" rows="5" placeholder="(optional)"></textarea><br><br>
