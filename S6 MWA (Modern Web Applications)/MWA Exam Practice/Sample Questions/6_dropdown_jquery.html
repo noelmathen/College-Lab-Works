@@ -3,3 +3,46 @@ When the user selects an option from the dropdown,
 use jQuery to load content related to the selected option into a 
 separate div without refreshing the page. -->
 
+<html>
+<head>
+    <title>dropdown jquery</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Dropdown and jQuery</h1>
+    <select name="dropdown" id="dropdown">
+        <option value="" selected>select an option</option>
+        <option value="6_json1.json">Option 1(json file 1)</option>
+        <option value="6_json2.json">Option 2(json file 2)</option>
+        <option value="6_json3.json">Option 3(json file 3)</option>
+    </select>
+    <div id="loadData"></div>
+
+    <script>
+        $(document).ready(function(){
+            $('#dropdown').change(function(){
+                var selectedOption = $(this).val();
+                let xhttp = new XMLHttpRequest()
+                xhttp.onreadystatechange = function(){
+                    if(this.readyState===4 && this.status===200){
+                        var data = JSON.parse(this.responseText);
+                        let divElement = $('#loadData')
+                        let street = data.address.street;
+                        let city = data.address.city;
+                        let zip = data.address.zip;
+                        let htmlConent = `
+                            <h3>Address: </h3>
+                            <p>Street: ${street}</p>
+                            <p>City: ${city}</p>
+                            <p>Zip: ${zip}</p>
+                        `;
+                        divElement.html(htmlConent);
+                    }
+                }
+                xhttp.open('GET', selectedOption, true);
+                xhttp.send();
+            })
+        })
+    </script>
+</body>
+</html>
