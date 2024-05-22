@@ -2,3 +2,39 @@
 use jQuery to make an AJAX GET request to a JSON and display the result 
 in a <div> element. -->
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple AJAX Request</title>
+</head>
+<body>
+
+<div class="container">
+    <h2>JSON Data:</h2>
+    <p id="para1"></p>
+    <button id="loadDataBtn">Load Data</button>
+</div>
+
+<script>
+document.getElementById("loadDataBtn").addEventListener("click", function(){
+    let xhttp = new XMLHttpRequest();
+    xhttp.open('GET', '5_ajax_json.json', true);
+    xhttp.send();
+    xhttp.onload = function(){
+        if(xhttp.status >= 200 && xhttp.status < 300){
+            let response = JSON.parse(xhttp.responseText);
+            let name = response.address.street; // Assuming JSON structure like { "address": { "street": "value" }}
+            document.getElementById('para1').innerText = JSON.stringify(response);
+            document.getElementById('para1').innerText += `\n${name}`;
+        } else {
+            console.error('Error: '+xhttp.status);
+        }
+    }
+});
+</script>
+
+</body>
+</html>
+    
