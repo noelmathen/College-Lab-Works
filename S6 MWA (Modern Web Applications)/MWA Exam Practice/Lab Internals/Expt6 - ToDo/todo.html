@@ -1,30 +1,58 @@
+<!DOCTYPE html>
 <html>
 <head>
     <title>TODO PRACTICE</title>
+    <style>
+        .completed {
+            text-decoration: line-through;
+            color: grey;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <h1>TO DO LIST</h1><br><br>
     <input type="text" id="add-task">
-    <button id="addTaskButton" onclick="createToDo()">Add Task</button>
+    <button id="addTaskButton">Add Task</button>
 
-    <ul id="list-ul"></ul>
+    <ul style="list-style-type: none;" id="list-ul"></ul>
 
     <script>
-        function createToDo(){
-            let inputText = document.getElementById('add-task').value.trim();
-            let liTag = document.createElement('li')
-            let checkBox = document.createElement('input')
-            checkBox.type = 'checkbox'
-            checkBox.addEventListener('change', toggleCompleted)
-        }
+        $(document).ready(function() {
+            $('#addTaskButton').click(function() {
+                let task = $('#add-task').val().trim();
+                if (task !== "") {
+                    $('#list-ul').append(`
+                        <li>
+                            <input type="checkbox" class="complete">
+                            <span>${task}</span>
+                            <button class="editButton">Edit</button>
+                            <button class="deleteButton">Delete</button>
+                        </li>
+                    `);
+                    $('#add-task').val(''); // Clear the input field
+                }
+            });
 
-        function toggleCompleted(event){
-            let label = event.target.nextSibling;
-            if(event.target.checked){
-                label.classList.add('blah')
-            }
+            // Event delegation for dynamically added elements
+            $('#list-ul').on('click', '.complete', function() {
+                $(this).siblings('span').toggleClass('completed');
+            });
 
-        }
+            // Edit Task
+            $('#list-ul').on('click', '.editButton', function() {
+                let taskSpan = $(this).siblings('span');
+                let newTask = prompt('Edit task:', taskSpan.text());
+                if (newTask !== null && newTask.trim() !== "") {
+                    taskSpan.text(newTask.trim());
+                }
+            });
+
+            //Delete task
+            $('#list-ul').on('click', '.deleteButton', function() {
+                $(this).parents('li').remove();
+            });
+        });
     </script>
 </body>
 </html>
