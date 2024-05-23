@@ -84,7 +84,7 @@ Display appropriate error messages for invalid input. -->
             }
 
             // Validate email
-            const emailPattern = /^ [^\s@]+ @ [^\s@]+ \. [^\s@]+ $/;
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (email === '') {
                 document.getElementById('emailError').innerText = 'Email is required.';
                 isValid = false;
@@ -115,6 +115,7 @@ Display appropriate error messages for invalid input. -->
             if (isValid) {
                 alert('Registration successful!');
                 document.getElementById('registrationForm').reset();
+                location.l
             }
         }
     </script>
