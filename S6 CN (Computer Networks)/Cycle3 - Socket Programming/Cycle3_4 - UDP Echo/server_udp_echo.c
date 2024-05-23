@@ -1,61 +1,45 @@
-//UDP ECHO SERVER
 #include <stdio.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <string.h>
-#include <unistd.h>
 #include <arpa/inet.h>
-
-#define PORT 2000
-#define BUFFER_SIZE 1024
+#include <string.h>
 
 int main() {
-    int serverSocket;
+    int welcomeSocket;
+    char buffer[1024];
+    char buf[1024];
     struct sockaddr_in serverAddr, clientAddr;
-    socklen_t addrLen = sizeof(clientAddr);
-    char buffer[BUFFER_SIZE];
-
-    // Create UDP socket
-    if ((serverSocket = socket(AF_INET, SOCK_DGRAM, 0)) == -1) {
-        perror("Socket creation failed");
+    socklen_t addr_size;
+    welcomeSocket = socket(AF_INET, SOCK_DGRAM, 0);
+    if (welcomeSocket < 0) {
+        perror("socket creation failed");
         return 1;
     }
-
-    // Configure server address
-    memset(&serverAddr, 0, sizeof(serverAddr));
     serverAddr.sin_family = AF_INET;
-    serverAddr.sin_addr.s_addr = INADDR_ANY;
-    serverAddr.sin_port = htons(PORT);
+    serverAddr.sin_port = htons(9999);
+    serverAddr.sin_addr.s_addr = INADDR_ANY; // Listen on all available interfaces
+    memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero);
 
-    // Bind socket to address and port
-    if (bind(serverSocket, (const struct sockaddr *)&serverAddr, sizeof(serverAddr)) == -1) {
-        perror("Bind failed");
+    if (bind(welcomeSocket, (struct sockaddr *)&serverAddr, sizeof(serverAddr)) < 0) {
+        perror("bind failed");
         return 1;
     }
 
-    printf("UDP echo server is listening on port %d...\n", PORT);
+    printf("Listening...\n");
+    addr_size = sizeof(clientAddr);
 
     while (1) {
-        // Receive message from client
-        int recvBytes = recvfrom(serverSocket, buffer, BUFFER_SIZE, 0, (struct sockaddr *)&clientAddr, &addrLen);
-        if (recvBytes == -1) {
-            perror("Receive failed");
+        int recv_size = recvfrom(welcomeSocket, buffer, 1024, 0, (struct sockaddr *)&clientAddr, &addr_size);
+        if (recv_size < 0) {
+            perror("recvfrom failed");
             return 1;
         }
-
+        buffer[recv_size] = '\0'; // Null-terminate the received data
         printf("Message from client: %s\n", buffer);
 
-        // Echo message back to client
-        if (sendto(serverSocket, buffer, recvBytes, 0, (const struct sockaddr *)&clientAddr, addrLen) == -1) {
-            perror("Send failed");
-            return 1;
-        }
-
-        printf("Echo sent to client\n");
+        // Echo back to the client
+        sendto(welcomeSocket, buffer, strlen(buffer), 0, (struct sockaddr *)&clientAddr, addr_size);
+        printf("Echoed message to client: %s \n", buffer);
     }
-
-    // Close socket
-    close(serverSocket);
-
     return 0;
 }
