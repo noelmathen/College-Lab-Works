@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>jQuery Inserting Elements</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<style>
-  .container {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jQuery Inserting Elements</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <style>
+    .container {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="container">
-  <h2>Original Content</h2>
-  <p>This is the original paragraph.</p>
-</div>
+  <div class="container">
+    <h2>Original Content</h2>
+    <p>This is the original paragraph.</p>
+  </div>
 
-<script>
-  $(document).ready(function(){
-    $('.container').before('<div>Before</div>');
-    $('.container').after('<div>After</div>');
-    $('.container').prepend('<p>Prepend</p>');
-    $('.container').append('<p>Append</p>');
-  });
-</script>
+  <script>
+    $(document).ready(function () {
+      $('.container').before('<div>Before</div>');
+      $('.container').after('<div>After</div>');
+      $('.container').prepend('<p>Prepend</p>');
+      $('.container').append('<p>Append</p>');
+    });
+  </script>
 
 </body>
+
 </html>
