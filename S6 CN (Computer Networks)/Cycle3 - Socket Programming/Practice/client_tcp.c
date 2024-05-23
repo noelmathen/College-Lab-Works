@@ -6,8 +6,7 @@
 
 int main(){
     int clientSocket;
-    char buffer[1024];
-    char buf[1024];
+    char buf[1024], buffer[1024];
     struct sockaddr_in serverAddr;
     socklen_t addr_size;
 
@@ -16,24 +15,23 @@ int main(){
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(2000);
     serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
-    memset(serverAddr.sin_zero, '\0', sizeof(serverAddr.sin_zero));
+    memeset(serverAddr.sin_zero, '\0', sizeof(serverAddr.sin_zero));
 
     addr_size = sizeof(serverAddr);
-
     if(connect(clientSocket, (struct sockaddr *) &serverAddr, addr_size)==-1){
-        perror("\nConnection failed");
+        printf("Conncetion failed");
         return 1;
     }
-    puts("\nConnected");
+    printf("COnnection successful");
 
-    while(1){
-        printf("\nEnter message: ");
+    while (1)
+    {
         fgets(buf, 1024, stdin);
-        printf("\nMessage sent");
         strcpy(buffer, buf);
         send(clientSocket, buffer, strlen(buffer), 0);
-        recv(clientSocket, buffer, 1024, 0);
-        printf("\nReply > %s", buffer);
+        
     }
+    
+
     return 0;
 }

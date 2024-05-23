@@ -6,6 +6,7 @@
         "*.cpp": "cpp",
         "inet.h": "c",
         "stdio.h": "c",
-        "in.h": "c"
+        "in.h": "c",
+        "string.h": "c"
     }
 }

@@ -1,47 +1,41 @@
-//CLIENT OF CONCURRENT SERVER
-
 #include<stdio.h>
-#include<sys/socket.h>
-#include<netinet/in.h>
-#include<arpa/inet.h>
 #include<string.h>
+#include<arpa/inet.h>
+#include<netinet/in.h>
+#include<sys/socket.h>
 
-int main()
-{
+int main(){
 	int clientSocket;
 	char buffer[1024];
-	char g;
 	char buf[1024];
 	struct sockaddr_in serverAddr;
 	socklen_t addr_size;
-	struct sockaddr_storage serverStorage;
 	
-	clientSocket = socket(AF_INET,SOCK_STREAM,0);
+	clientSocket = socket(AF_INET, SOCK_STREAM, 0);
+	
 	serverAddr.sin_family = AF_INET;
 	serverAddr.sin_port = htons(2000);
 	serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
-	memset(serverAddr.sin_zero,'\0',sizeof serverAddr.sin_zero);
-	addr_size = sizeof serverAddr;
+	memset(serverAddr.sin_zero, '\0', sizeof(serverAddr.sin_zero));
 	
-	if(connect(clientSocket,(struct sockaddr*)&serverAddr,addr_size))
-	{
-		perror("Connection failed. Error");
+	addr_size = sizeof(serverAddr);
+	
+	if(connect(clientSocket, (struct sockaddr *)&serverAddr, addr_size)==-1){
+		perror("\nConnection failed");
 		return 1;
 	}
-	puts("Connected\n");
 	
-	while(1)
-	{
-		printf("Enter the message: ");
-		fgets(buf,1024,stdin);
-		printf("Message sent to Server \n");
-		
-		strcpy(buffer,buf);
-		send(clientSocket,buffer,sizeof(buffer),0);
-		
-		recv(clientSocket,buffer,1024,0);
-		printf("Reply from server > %s \n",buffer);
+	puts("\nConnected");
+	
+	while(1){
+		printf("\nEnter message: ");
+		fgets(buf, 1024, stdin);
+		printf("\nSending message");
+		printf("\nMessage sent to client");
+		strcpy(buffer, buf);
+		send(clientSocket, buffer, strlen(buffer), 0);
+		recv(clientSocket, buffer, 1024, 0);
+		printf("\nReply: %s", buffer);
 	}
-	
 	return 0;
 }
