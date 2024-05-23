@@ -2,3 +2,81 @@
     The page should include a navigation bar, a main 
     content area, and a footer.  -->
 
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expt3 Bootstrap</title>
+    <link rel="stylesheet" href="./styles.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+    <style>
+        body {
+            background-image: url(./image.jpg);
+            /* background-size: 100% 100%; */
+            background-size: cover ;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .navbar {
+            background-color: rgb(230, 209, 209);
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .navbar a {
+            font-size: 1.8vw;
+            padding: 30px;
+            color: darkblue;
+        }
+
+        .navbar a:hover {
+            color: yellow;
+        }
+
+        .header {
+            color: rgb(167, 132, 132);
+            text-align: center;
+            padding: 20px;
+        }
+
+        .header h1 {
+            font-size: 100;
+            margin-bottom: 20px;
+        }
+
+        .header p {
+            font-size: 20;
+        }
+
+        .footer {
+            background-color: rgb(230, 209, 209);
+            position: center;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <a href="">Concact Us</a>
+        <a href="">About Us</a>
+        <a href="">Book Tickets</a>
+        <a href="">Home</a>
+    </div>
+
+    <div class="header">
+        <h1>THIS IS A HEADING</h1>
+        <p>This is a caption for the heading which is not that lengthy</p>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 BUS VENO? All rights reserved.</p>
+    </div>
+</body>
+</html>
