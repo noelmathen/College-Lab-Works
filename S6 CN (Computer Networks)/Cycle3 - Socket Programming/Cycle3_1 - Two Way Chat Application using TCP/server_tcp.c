@@ -1,3 +1,4 @@
+//tcp server code
 #include <stdio.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -11,13 +12,17 @@ int main() {
     struct sockaddr_in serverAddr;
     struct sockaddr_in serverStorage;
     socklen_t addr_size;
+    int optval = 1;
 
     welcomeSocket = socket(AF_INET, SOCK_STREAM, 0);
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(2000);
     serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
     memset(serverAddr.sin_zero, '\0', sizeof(serverAddr.sin_zero));
-
+    
+    // Set SO_REUSEADDR before bind
+    setsockopt(welcomeSocket, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval));
+    
     bind(welcomeSocket, (struct sockaddr *) &serverAddr, sizeof(serverAddr));
 
     if (listen(welcomeSocket, 5) == 0)

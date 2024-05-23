@@ -1,4 +1,4 @@
-//client code
+//tcp client code
 #include<stdio.h>
 #include<sys/socket.h>
 #include<netinet/in.h>
@@ -37,6 +37,5 @@ int main(){
         recv(clientSocket, buffer, 1024, 0);
         printf("Reply from server> %s \n", buffer);
     }
-
     return 0;
 }
