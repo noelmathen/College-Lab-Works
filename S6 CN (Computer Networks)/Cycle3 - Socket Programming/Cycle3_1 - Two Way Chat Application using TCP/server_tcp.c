@@ -19,8 +19,6 @@ int main(){
     serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
     memset(serverAddr.sin_zero, '\0', sizeof(serverAddr.sin_zero));
 
-    addr_size = sizeof(serverStorage);
-
     bind(welcomeSocket, (struct sockaddr *) &serverAddr, sizeof(serverAddr));
 
     if(listen(welcomeSocket, 5) == 0){
@@ -30,6 +28,7 @@ int main(){
         printf("\nError");
     }
 
+    addr_size = sizeof(serverStorage);
     newSocket = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
 
     while(1){
