@@ -29,7 +29,7 @@ int main(){
     puts("Connected\n");
 
     while(1){
-        printf("Enter message: ");
+        printf("Enter message: "); 
         fgets(buf, 1024, stdin);
         printf("Message sent to server\n");
         strcpy(buffer, buf);
