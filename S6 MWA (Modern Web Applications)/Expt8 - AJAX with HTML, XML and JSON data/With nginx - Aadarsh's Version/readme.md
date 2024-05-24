@@ -26,3 +26,11 @@ Write a program using AJAX to retrieve Book title, Author and Price with HTML, X
 
 - [Nginx Documentation](https://nginx.org/en/docs/): Official documentation for Nginx.
 - [Nginx Beginner&#39;s Guide](https://www.nginx.com/resources/wiki/start/): A comprehensive guide for beginners to get started with Nginx.
+
+
+# Output
+### nginx terminal and browser window:
+![nginx output](https://github.com/noelmathen/College-Lab-Works/blob/main/S6%20MWA%20(Modern%20Web%20Applications)/Expt8%20-%20AJAX%20with%20HTML%2C%20XML%20and%20JSON%20data/With%20nginx%20-%20Aadarsh's%20Version/Outputs/nginx_output.png)
+
+### ajax(index.html):
+![nginx output](https://github.com/noelmathen/College-Lab-Works/blob/main/S6%20MWA%20(Modern%20Web%20Applications)/Expt8%20-%20AJAX%20with%20HTML%2C%20XML%20and%20JSON%20data/With%20nginx%20-%20Aadarsh's%20Version/Outputs/ajax_output.png)
