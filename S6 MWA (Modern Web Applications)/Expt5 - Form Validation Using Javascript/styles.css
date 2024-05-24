@@ -1,0 +1,23 @@
+form label{
+    float: left;
+    clear: left;
+    width: 100px;
+    text-align: right;
+    margin-right: 10px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size:14px;
+    }
+
+textarea{
+        width:350px;
+        height:150px;
+        display:inline-block;
+        vertical-align: top;
+        resize: none;
+}
+
+[type="submit"]{
+        clear:left;
+        margin: 20px 0 0 230px;
+        font-size:16px
+    }

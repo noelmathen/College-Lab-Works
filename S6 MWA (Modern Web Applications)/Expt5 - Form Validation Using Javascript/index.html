@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <meta lang="en">
+    <meta charset="UTF-8">
+    <head>
+        <title>Week 5: JavaScript Registration Form</title>
+        <link rel="icon" href="https://icon-library.com/images/icon-ninja/icon-ninja-15.jpg">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h1>Registration Form</h1>
+        <hr style="color:darkgrey ; width: auto; height: 5px; background-color:darkgrey ;">
+        <section class="container" style="text-align: justify;">
+            <form onsubmit="return validateform()">
+                <label for="userid">User ID:</label></li>
+                <input type="text" id="userid" name="userid" placeholder="(5-12 characters only)"/><br><br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="(7-12 characters only)"/><br><br>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="(alphabets only)"/><br><br>
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" placeholder="(optional)"/><br><br>
+                <label for="country">Country:</label>
+                <select name="country" id="country" class="form-control">
+                    <option value="" disabled selected>Please select a country</option>
+                </select><br><br>
+                <label for="zipcode">Zip Code:</label>
+                <input type="text" id="zipcode" name="zipcode" placeholder="(numeric only)"/><br><br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email"  placeholder="(enter valid email)"/><br><br>
+                <label for="sex">Sex:</label>
+                <input type="radio" name="sex" id="male" value="male"/><span>Male</span>
+                <input type="radio" name="sex" id="female" value="female"/><span>Female</span><br><br>
+                <label for="language">Language:</label>
+                <input type="checkbox" name="language" id="english" value="english"/><span>English</span>
+                <input type="checkbox" name="language" id="non-english" value="non-english"/><span>Non-English</span><br><br>
+                <label for="about" style="display:inline-block;">About:</label>
+                <textarea id="about" placeholder="(optional)"></textarea><br><br>  
+                <input type="submit" name="submit" value="Submit"/>         
+            </form>
+        </section>
+        <script src="script.js"></script>
+        <script>
+            function validateform() {
+                var userid = document.getElementById("userid").value;
+                var password = document.getElementById("password").value;
+                var name = document.getElementById("name").value;
+                var address = document.getElementById("address").value;
+                var country = document.getElementById("country").options[document.getElementById("country").selectedIndex].value;
+                var zipcode = document.getElementById("zipcode").value;
+                var email = document.getElementById("email").value;
+                var sex = document.querySelector('input[name="sex"]:checked');
+                var languages = document.getElementsByName("language");
+                // Check if user ID is valid (length 5 to 12)
+                if (!userid || userid.length < 5 || userid.length > 12) {
+                    alert("User ID must be between 5 and 12 characters long.");
+                    return false;
+                }
+                // Check if password is valid (length 7 to 12)
+                if (!password || password.length < 7 || password.length > 12) {
+                    alert("Password must be between 7 and 12 characters long.");
+                    return false;
+                }
+                // Check if name only contains alphabets
+                if (!name || !/^[a-zA-Z]+$/.test(name)) {
+                    alert("Name must only contain alphabets.");
+                    return false;
+                }
+                // Check if country is selected
+                if (country === "") {
+                    alert("Please select a country.");
+                    return false;
+                }
+                // Check if ZIP code is numeric only
+                if (!zipcode || !/^\d+$/.test(zipcode)) {
+                    alert("ZIP code must be numeric only.");
+                    return false;
+                }
+                // Check if email is valid
+                if (!email || !/\S+@\S+\.\S+/.test(email)) {
+                    alert("Please enter a valid email address.");
+                    return false;
+                }
+                // Check if sex is selected
+                if (!sex) {
+                    alert("Please select your gender.");
+                    return false;
+                }
+                // Check if language is selected
+                var languageSelected = false;
+                for (var i = 0; i < languages.length; i++) {
+                    if (languages[i].checked) {
+                        languageSelected = true;
+                        break;
+                    }
+                }
+                if (!languageSelected) {
+                    alert("Please select your language.");
+                    return false;
+                }
+                // If all fields are valid, submit the form
+                alert("Submitted Successfully!");
+                return true;
+            }
+        </script>
+    </body>
+</html>
