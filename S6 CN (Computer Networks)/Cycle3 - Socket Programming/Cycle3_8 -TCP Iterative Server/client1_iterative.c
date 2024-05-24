@@ -1,12 +1,12 @@
 #include<stdio.h>
+#include<stdlib.h>
 #include<string.h>
-#include<sys/socket.h>
-#include<netinet/in.h>
+#include<unistd.h>
 #include<arpa/inet.h>
 
 int main(){
 	int clientSocket;
-	char buffer[1024]; //no buf
+	char buffer[1024];
 	struct sockaddr_in serverAddr;
 	socklen_t addr_size;
 	
@@ -19,20 +19,23 @@ int main(){
 	
 	addr_size = sizeof(serverAddr);
 	
-	if(connect(clientSocket, (struct sockaddr *) &serverAddr, addr_size)==-1){
+	if(connect(clientSocket, (struct sockaddr *)&serverAddr, addr_size)==-1){
 		perror("\nConnection failed");
 		return 1;
 	}
 	puts("\nConnected");
 	
-	while(1){
-		printf("\nEnter message: ");
-		fgets(buffer, 1024, stdin);
-		printf("\nSending message");
-		send(clientSocket, buffer, sizeof(buffer), 0);
-		recv(clientSocket, buffer, 1024, 0);
-		printf("\nMessage received: %s", buffer);
-		memset(buffer, 0, sizeof(buffer));
-	}
+	//no while loop
+	printf("\nEnter message: ");
+	fgets(buffer, 1024, stdin);
+	send(clientSocket, buffer, sizeof(buffer), 0);
+	printf("\nMessage sent");
+	memset(buffer, 0, sizeof(buffer));
+	//int recvlen to display message
+	int recvlen = recv(clientSocket, buffer, 1024, 0);
+	if(recvlen == -1)
+		perror("\nError");
+	else
+		printf("\nMessage from server: %s", buffer);
 	return 0;
 }

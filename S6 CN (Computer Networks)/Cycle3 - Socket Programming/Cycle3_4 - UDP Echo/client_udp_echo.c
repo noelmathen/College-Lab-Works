@@ -1,61 +1,34 @@
-//UDP ECHO CLIENT
-#include <stdio.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <string.h>
-#include <unistd.h>
-#include <unistd.h>
-#include <arpa/inet.h>
+#include<stdio.h>
+#include<string.h>
+#include<sys/socket.h>
+#include<arpa/inet.h>
+#include<netinet/in.h>
 
-#define SERVER_IP "127.0.0.1"
-#define PORT 2000
-#define BUFFER_SIZE 1024
-
-int main() {
-    int clientSocket;
-    struct sockaddr_in serverAddr;
-    socklen_t addrLen = sizeof(serverAddr);
-    char buffer[BUFFER_SIZE];
-
-    // Create UDP socket
-    if ((clientSocket = socket(AF_INET, SOCK_DGRAM, 0)) == -1) {
-        perror("Socket creation failed");
-        return 1;
-    }
-
-    // Configure server address
-    memset(&serverAddr, 0, sizeof(serverAddr));
-    serverAddr.sin_family = AF_INET;
-    serverAddr.sin_port = htons(PORT);
-    if (inet_pton(AF_INET, SERVER_IP, &serverAddr.sin_addr) == -1) {
-        perror("Invalid address/ Address not supported");
-        return 1;
-    }
-
-    while (1) {
-        // Read message from user
-        printf("Enter message: ");
-        fgets(buffer, BUFFER_SIZE, stdin);
-
-        // Send message to server
-        if (sendto(clientSocket, buffer, strlen(buffer), 0, (const struct sockaddr *)&serverAddr, addrLen) == -1) {
-            perror("Send failed");
-            return 1;
-        }
-
-        // Receive echo from server
-        int recvBytes = recvfrom(clientSocket, buffer, BUFFER_SIZE, 0, NULL, NULL);
-        if (recvBytes == -1) {
-            perror("Receive failed");
-            return 1;
-        }
-
-        buffer[recvBytes] = '\0'; // Null-terminate the received data
-        printf("Echo from server: %s\n", buffer);
-    }
-
-    // Close socket
-    close(clientSocket);
-
-    return 0;
+int main(){
+	int clientSocket;
+	char buffer[1024];
+	char buf[1024];
+	struct sockaddr_in serverAddr;
+	socklen_t addr_size;
+	
+	clientSocket = socket(AF_INET, SOCK_DGRAM, 0);
+	
+	serverAddr.sin_family = AF_INET;
+	serverAddr.sin_port = htons(2000);
+	serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+	memset(serverAddr.sin_zero, '\0', sizeof(serverAddr.sin_zero));
+	
+	addr_size = sizeof(serverAddr);
+	
+	while(1){
+		printf("\nEnter message for client: ");
+		fgets(buf, 1024, stdin);
+		strcpy(buffer, buf);
+		printf("\nMessage sent to client");
+		sendto(clientSocket, buffer, strlen(buffer), 0, (struct sockaddr *) &serverAddr, addr_size);
+		int recvlen = recvfrom(clientSocket, buffer, 1024, 0, NULL, NULL);
+		buffer[recvlen] = '\0';
+		printf("\nReply from server: %s", buffer);
+	}
+	return 0;
 }

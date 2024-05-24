@@ -11,7 +11,7 @@ int main(){
 	struct sockaddr_in serverAddr;
 	socklen_t addr_size;
 	
-	clientSocket = socket(AF_INET, SOCK_DGRAM, 0); //SOCK_DGRAM
+	clientSocket = socket(AF_INET, SOCK_STREAM, 0);
 	
 	serverAddr.sin_family = AF_INET;
 	serverAddr.sin_port = htons(2000);
@@ -20,21 +20,22 @@ int main(){
 	
 	addr_size = sizeof(serverAddr);
 	
-	//No connection checks
+	if(connect(clientSocket, (struct sockaddr *)&serverAddr, addr_size)==-1){
+		perror("\nConnection failed");
+		return 1;
+	}
+	
+	puts("\nConnected");
 	
 	while(1){
-		printf("\nEnter the message: ");
+		printf("\nEnter message: ");
 		fgets(buf, 1024, stdin);
-		printf("\nMessage is sent to server");
+		printf("\nSending message");
+		printf("\nMessage sent to client");
 		strcpy(buffer, buf);
-		sendto(clientSocket, buffer, strlen(buffer), 0, (struct sockaddr *) &serverAddr, addr_size);
-		int recvlen = recvfrom(clientSocket, buffer, 1024, 0, NULL, NULL);
-		if(recvlen == -1){
-			perror("\nReceive failed");
-			return 1;
-		}
-		buffer[recvlen] = '\0';
-		printf("\nMessage from server: %s", buffer);
+		send(clientSocket, buffer, strlen(buffer), 0);
+		recv(clientSocket, buffer, 1024, 0);
+		printf("\nReply: %s", buffer);
 	}
 	return 0;
 }

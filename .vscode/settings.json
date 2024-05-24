@@ -4,6 +4,6 @@
         "*.c": "c",
         "*.rmd": "markdown",
         "*.cpp": "cpp",
-        "inet.h": "c"
+        "string.h": "c"
     }
 }
