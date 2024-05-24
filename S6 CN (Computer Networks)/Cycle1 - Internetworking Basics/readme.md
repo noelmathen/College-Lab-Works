@@ -101,5 +101,3 @@ Learn basic commands for configuring Cisco networking devices:
     interface Dot11Radio0
     ssid MyNetwork
     ```
-
-This `README.md` file serves as a guide to basic networking concepts and configurations, covering essential topics and commands.
