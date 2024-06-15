@@ -3,31 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Table with Merged Cells</title>
+    <title>Table</title>
     <style>
         table {
             width: 50%;
             border-collapse: collapse;
-            margin: 20px auto;
-            font-family: Arial, sans-serif;
         }
         th, td {
-            border: 1px solid #000;
+            border: 1px solid black;
             padding: 8px;
-            text-align: center;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        caption {
-            font-weight: bold;
-            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
     <table>
-        <caption>A test table with merged cells</caption>
+        <caption><i>A test table with merged cells</i></caption>
         <tr>
             <th rowspan="2"></th>
             <th colspan="2">Average</th>
@@ -38,13 +28,13 @@
             <th>weight</th>
         </tr>
         <tr>
-            <td>Males</td>
+            <th>Males</th>
             <td>1.9</td>
             <td>0.003</td>
             <td>40%</td>
         </tr>
         <tr>
-            <td>Females</td>
+            <th>Females</th>
             <td>1.7</td>
             <td>0.002</td>
             <td>43%</td>
