@@ -1,0 +1,73 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inheritance Example</title>
+    <style>
+        .main {
+            color: rebeccapurple;
+            border: 2px solid #ccc;
+            padding: 1em;
+        }
+        .special {
+            color: black;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <ul class="main">
+        <li>Item One</li>
+        <li>Item Two
+            <ul>
+                <li>2.1</li>
+                <li>2.2</li>
+            </ul>
+        </li>
+        <li>Item Three
+            <ul class="special">
+                <li>3.1
+                    <ul>
+                        <li>3.1.1</li>
+                        <li>3.1.2</li>
+                    </ul>
+                </li>
+                <li>3.2</li>
+            </ul>
+        </li>
+    </ul>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inheritance Control Example</title>
+    <style>
+        .parent {
+            color: blue;
+        }
+        .child {
+            color: inherit; /* Will inherit blue from .parent */
+        }
+        .child-initial {
+            color: initial; /* Will set to default (usually black) */
+        }
+        .child-unset {
+            color: unset; /* Acts as inherit here, so blue */
+        }
+    </style>
+</head>
+<body>
+    <div class="parent">
+        Parent text
+        <div class="child">Child text</div>
+        <div class="child-initial">Child initial text</div>
+        <div class="child-unset">Child unset text</div>
+    </div>
+</body>
+</html>
