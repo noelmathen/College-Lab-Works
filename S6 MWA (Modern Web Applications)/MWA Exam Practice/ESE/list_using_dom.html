@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>List using DOM</title>
+    </head>
+    <body>
+        
+
+        <script>
+            let ulElement = document.createElement('ol')
+            ulElement.style.listStyleType = 'circle';
+            let list1 = document.createElement('li');
+            let list2 = document.createElement('li');
+            let list3 = document.createElement('li');
+
+            list1.textContent = "List 1";
+            list2.textContent = "List 2";
+            list3.textContent = "List 3";
+
+            ulElement.appendChild(list1)
+            ulElement.appendChild(list2)
+            ulElement.appendChild(list3)
+
+            document.body.appendChild(ulElement)
+            
+        </script>
+    </body>
+</html>
