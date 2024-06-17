@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <title>Objects and functions</title>
+    </head>
+
+    <body>
+        <p id="para1"></p>
+        <p id="para2"></p>
+        <p id="para3"></p>
+
+        <p id="obj1"></p>
+        <p id="obj2"></p>
+        <p id="obj3"></p>
+
+        <p id="obj1new"></p>
+
+
+
+        <script>
+            let array1 = ["noel", "mathen", 1];
+
+            const array2 = [];
+            array2[0]="joel";
+            array2[1]="jacob";
+
+            const array3 = new Array("Shruti", "Shibu", 23);
+
+            array3.push("Delhi");
+            array3[array3.length]="Varkey";
+
+            document.getElementById("para1").innerHTML = array1;
+            document.getElementById("para2").innerHTML = array2.toString();
+            document.getElementById("para3").innerHTML = array3.toString();
+
+            const obj1 = {
+                fname:"Noel",
+                lname:"Mathen",
+                age:21,
+                printName: function(){
+                    return this.fname + " " + this.lname;
+                }
+            }
+
+            const obj2 = {};
+            obj2.fname = "Shruti";
+            obj2.lname = "Shibu";
+            obj2.age = 21;
+
+            const obj3 = new Object();
+            obj3.fname = "Allen";
+            obj3.lname = "Prinz";
+            obj3.age = 21;
+
+            document.getElementById("obj1").innerHTML = JSON.stringify(obj1);
+            document.getElementById("obj2").innerHTML = JSON.stringify(obj2);
+            document.getElementById("obj3").innerHTML = JSON.stringify(obj3);
+
+            let x = obj1;
+            x.age = 22;
+            document.getElementById("obj1new").innerHTML = JSON.stringify(obj1);
+            document.getElementById("obj1new").innerHTML += obj1.printName();
+
+
+
+
+
+        </script>
+    </body>
+</html>
