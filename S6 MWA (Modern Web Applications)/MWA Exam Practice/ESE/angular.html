@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <title>Angualar</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    </head>
+    <body>
+        <div ng-app="">
+            <p>Enter your name:</p>
+            <p>Name: <input type="text" ng-model="name"></p>
+            <h1>Name: {{name}}</h1>
+            <h2 ng-bind="name"></h2>
+            <p>My first expression: {{ 5 + 5 }}</p>
+        </div>
+    </body>
+</html>
