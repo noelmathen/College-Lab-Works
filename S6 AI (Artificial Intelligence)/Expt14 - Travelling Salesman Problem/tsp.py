@@ -1,34 +1,40 @@
+graph = []
+minCost = 99999
+minPath = []
+visited = []
+
 def takeInput():
+    global n, graph, visited
     n = int(input("Enter the number of cities: "))
-    dist = []
+    graph = []
     print("Enter the adjacency matrix:")
     for _ in range(n):
-        dist.append(list(map(int, input().split())))
-    return n, dist
+        graph.append(list(map(int, input().split())))
+    visited = [False] * n
 
-def tsp(city, count, path, currentCost, dist, visited, n, minCost, minPath):
+def tsp(city, count, path, currentCost):
+    global minCost, minPath, graph, visited, n
     visited[city] = True
     path.append(city)
-    if count == n - 1 and dist[city][0] != 0:
-        totalCost = currentCost + dist[city][0]
-        if totalCost < minCost[0]:
-            minCost[0] = totalCost
+    
+    if count == n - 1 and graph[city][0] != 0:
+        totalCost = currentCost + graph[city][0]
+        if totalCost < minCost:
+            minCost = totalCost
             minPath[:] = path[:]
     else:
         for nextCity in range(n):
-            if not visited[nextCity] and dist[city][nextCity] != 0:
-                tsp(nextCity, count + 1, path, currentCost + dist[city][nextCity], dist, visited, n, minCost, minPath)
+            if not visited[nextCity] and graph[city][nextCity] != 0:
+                tsp(nextCity, count + 1, path, currentCost + graph[city][nextCity])
+    
     visited[city] = False
     path.pop()
 
-INF = 99999
-n, dist = takeInput()
-minCost = [INF]
-minPath = []
-visited = [False] * n
-tsp(0, 0, [], 0, dist, visited, n, minCost, minPath)
+# Main function
+takeInput()
+tsp(0, 0, [], 0)
 
-print(f"The cost of the most efficient tour = {minCost[0]}")
+print(f"The cost of the most efficient tour = {minCost}")
 print("Most efficient path: ", " -> ".join(map(str, minPath + [minPath[0]])))
 
 
@@ -41,7 +47,7 @@ print("Most efficient path: ", " -> ".join(map(str, minPath + [minPath[0]])))
 # 0 4 0 3 3
 # 12 8 3 0 10
 # 5 0 3 10 0
-# int dist[MAX][MAX] = {  { 0, 2, 0, 12,  5},
+# int graph[MAX][MAX] = {  { 0, 2, 0, 12,  5},
 #                         { 2, 0, 4,  8,  0},
 #                         { 0, 4, 0,  3,  3},
 #                         {12, 8, 3,  0, 10},
@@ -55,7 +61,7 @@ print("Most efficient path: ", " -> ".join(map(str, minPath + [minPath[0]])))
 # 5 0 9 10
 # 6 13 0 12
 # 8 8 9 0
-# int dist[MAX][MAX] = {  {0, 10, 15, 20},
+# int graph[MAX][MAX] = {  {0, 10, 15, 20},
 #                         {5, 0, 9, 10},
 #                         {6, 13, 0, 12},
 #                         {8, 8, 9 , 0}};
