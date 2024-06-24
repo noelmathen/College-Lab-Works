@@ -1,51 +1,54 @@
-#COSTRAINT SATISFACTION PROBLEM
+import random
 
-def csp_backtracking(assignment, VARIABLES, DOMAINS):
-    # Check if assignment is complete
-    if len(assignment) == len(VARIABLES):
-        return assignment
-    
-    # Select an unassigned variable
-    for var in VARIABLES:
-        if var not in assignment:
-            unassigned_var = var
-            break
-    
-    # Select a value from the domain of the unassigned variable
-    for value in DOMAINS:
-        assignment[unassigned_var] = value
-        
-        # Check if the assignment is consistent
-        if is_consistent(assignment):
-            # Recursive call
-            result = csp_backtracking(assignment, VARIABLES, DOMAINS)
-            if result:
+def backtrack_search(assignment, variables, domain, constraints):
+    if len(assignment) == len(variables):
+        return assignment.copy()
+
+    var = select_unassigned_variable(assignment, variables)
+    if var is None:
+        return None
+
+    random.shuffle(domain)
+    for value in domain:
+        assignment[var] = value
+        if is_consistent(var, value, assignment, constraints):
+            result = backtrack_search(assignment, variables, domain, constraints)
+            if result is not None:
                 return result
-        
-        # Backtrack if assignment is inconsistent
-        assignment.pop(unassigned_var)
-    
-    # No solution found
+        assignment[var] = None
+
     return None
 
-def is_consistent(assignment):
-    # Implement your consistency checks here
-    # For example, check if each variable has a unique value
-    # and if each value is consistent with the constraints
-    return True  # Placeholder, replace with actual consistency checks
+def select_unassigned_variable(assignment, variables):
+    for var in variables:
+        if var not in assignment:
+            return var
+    return None
+
+def is_consistent(var, value, assignment, constraints):
+    for constraint in constraints:
+        if var in constraint[0]:
+            related_var = constraint[0][0] if constraint[0][1] == var else constraint[0][1]
+            if related_var in assignment and assignment[related_var] == value:
+                return False
+    return True
 
 if __name__ == "__main__":
-    # Define variables, domains, and initial assignment
     assignment = {}
-    VARIABLES = ["var1", "var2", "var3"]
-    DOMAINS = ["Monday", "Tuesday", "Wednesday"]
-    
-    # Solve the CSP
-    solution = csp_backtracking(assignment, VARIABLES, DOMAINS)
-    
-    # Print the solution
-    if solution:
-        print("Solution found:")
-        print(solution)
-    else:
-        print("No solution found.")
+    variables = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+    domain = ['Monday', 'Tuesday', 'Wednesday']
+    constraints = [
+        (('A', 'B'),),
+        (('A', 'C'),),
+        (('B', 'C'),),
+        (('B', 'D'),),
+        (('B', 'E'),),
+        (('D', 'E'),),
+        (('C', 'E'),),
+        (('C', 'F'),),
+        (('E', 'F'),),
+        (('E', 'G'),),
+        (('F', 'G'),)
+    ]
+    solution = backtrack_search(assignment, variables, domain, constraints)
+    print(solution)

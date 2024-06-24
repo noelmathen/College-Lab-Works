@@ -1,113 +1,62 @@
-def AOStar(n):
-    global finalPath
-    print("Expanding Node:",n)
-    and_nodes = []
-    or_nodes =[]
-    if(n in allNodes):
-        if 'AND' in allNodes[n]:
-            and_nodes = allNodes[n]['AND']
-        if 'OR' in allNodes[n]:
-            or_nodes = allNodes[n]['OR']
-    if len(and_nodes)==0 and len(or_nodes)==0:
-        return
-    
-    solvable = False
-    marked ={}
-    
-    while not solvable:
-        if len(marked)==len(and_nodes)+len(or_nodes):
-            #print(len(marked))
-            min_cost_least,min_cost_group_least = least_cost_group(and_nodes,or_nodes,{})
-            solvable = True
-            change_heuristic(n,min_cost_least)
-            optimal_child_group[n] = min_cost_group_least
-            continue
-        min_cost,min_cost_group = least_cost_group(and_nodes,or_nodes,marked)
-        is_expanded = False
-        if len(min_cost_group)>1:
-            if(min_cost_group[0] in allNodes):
-                is_expanded = True
-                AOStar(min_cost_group[0])
-            if(min_cost_group[1] in allNodes):
-                is_expanded = True
-                AOStar(min_cost_group[1])
-        else:
-            if(min_cost_group in allNodes):
-                is_expanded = True
-                AOStar(min_cost_group)
-        if is_expanded:
-            min_cost_verify, min_cost_group_verify = least_cost_group(and_nodes, or_nodes, {})
-            if min_cost_group == min_cost_group_verify:
-                solvable = True
-                change_heuristic(n, min_cost_verify)
-                optimal_child_group[n] = min_cost_group
-        else:
-            solvable = True
-            change_heuristic(n, min_cost)
-            optimal_child_group[n] = min_cost_group
-        marked[min_cost_group]=1
-    return heuristic(n)
+# Path: ao_star_algorithm.py
 
-def least_cost_group(and_nodes, or_nodes, marked):
-    node_wise_cost = {}
-    for node_pair in and_nodes:
-        if not node_pair[0] + node_pair[1] in marked:
-            cost = 0
-            cost = cost + heuristic(node_pair[0]) + heuristic(node_pair[1]) + 2
-            node_wise_cost[node_pair[0] + node_pair[1]] = cost
-    for node in or_nodes:
-        if not node in marked:
-            cost = 0
-            cost = cost + heuristic(node) + 1
-            node_wise_cost[node] = cost
-    min_cost = 999999
-    min_cost_group = None
-    for costKey in node_wise_cost:
-        if node_wise_cost[costKey] < min_cost:
-            min_cost = node_wise_cost[costKey]
-            min_cost_group = costKey
-    return [min_cost, min_cost_group]
+def ao_star_algorithm(graph, start_node, goal_node, heuristics):
+    open_set = {start_node}
+    closed_set = set()
+    g = {start_node: 0}
+    parents = {start_node: start_node}
 
-def heuristic(n):
-    return H_dist[n]
+    while open_set:
+        n = min(open_set, key=lambda v: g[v] + heuristics[v])
+        open_set.remove(n)
+        closed_set.add(n)
 
-def change_heuristic(n, cost):
-    H_dist[n] = cost
-    return
+        if n == goal_node:
+            path = []
+            while parents[n] != n:
+                path.append(n)
+                n = parents[n]
+            path.append(start_node)
+            path.reverse()
+            return path
 
-def print_path(node):
-        print(optimal_child_group[node], end="")
-        node = optimal_child_group[node]
-        if len(node) > 1:
-            if node[0] in optimal_child_group:
-                print(" -> ", end="")
-                print_path(node[0])
-            if node[1] in optimal_child_group:
-                print(" -> ", end="")
-                print_path(node[1])
+        for successors, weight in graph.get(n, []):
+            combined_cost = g[n] + weight
+            is_updated = False
 
-        else:
-            if node in optimal_child_group:
-                print(" -> ", end="")
-                print_path(node)
-            
-H_dist = eval(input("Enter the key-value corresponding to parent and its heuristics : "))
+            for m in successors:
+                if m in closed_set:
+                    continue
 
-allNodes = eval(input("\nEnter your graph : "))
+                if m not in open_set:
+                    open_set.add(m)
+                    parents[m] = n
+                    g[m] = combined_cost
+                    is_updated = True
+                elif combined_cost < g[m]:
+                    g[m] = combined_cost
+                    parents[m] = n
+                    is_updated = True
 
-startnode = input("\nEnter the start node : ")
-goalnode = input("\nEnter the goal node : ")
-print("\n")
+            if is_updated:
+                for m in successors:
+                    closed_set.discard(m)
 
-optimal_child_group = {}
-optimal_cost = AOStar(startnode)
+    return None
 
-path = []
-path = optimal_child_group.values()
+if __name__ == "__main__":
+    graph = eval(input("Enter your AND-OR graph: "))
+    print("\nThe Graph you entered is: ")
+    for key, value in graph.items():
+        print(f"{key}: {value}")
 
-if not goalnode in path:
-  print("\nPath from ", startnode, " to ", goalnode, "not present")
-else:
-  print("\nNodes which gives optimal cost from the start node ", startnode, " are : ")
-  print_path(startnode)
-  print('\n\nOptimal cost is ', optimal_cost)
+    start_node = input("\nEnter the start node: ")
+    goal_node = input("Enter the goal node: ")
+    heuristics = eval(input("\nEnter the key-value corresponding to node and its heuristics: "))
+
+    path = ao_star_algorithm(graph, start_node, goal_node, heuristics)
+
+    if path:
+        print(f"\nPath found: {path}")
+    else:
+        print('Path does not exist!')
