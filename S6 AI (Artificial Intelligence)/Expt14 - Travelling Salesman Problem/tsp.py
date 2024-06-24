@@ -1,3 +1,4 @@
+n = 0
 graph = []
 minCost = 99999
 minPath = []
@@ -13,10 +14,10 @@ def takeInput():
     visited = [False] * n
 
 def tsp(city, count, path, currentCost):
-    global minCost, minPath, graph, visited, n
+    global n, graph, minCost, minPath, visited
     visited[city] = True
     path.append(city)
-    
+     
     if count == n - 1 and graph[city][0] != 0:
         totalCost = currentCost + graph[city][0]
         if totalCost < minCost:
@@ -36,8 +37,6 @@ tsp(0, 0, [], 0)
 
 print(f"The cost of the most efficient tour = {minCost}")
 print("Most efficient path: ", " -> ".join(map(str, minPath + [minPath[0]])))
-
-
 
 
 
