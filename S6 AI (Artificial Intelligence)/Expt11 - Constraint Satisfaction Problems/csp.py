@@ -2,7 +2,7 @@ import random
 
 def backtrack_search(assignment, variables, domain, constraints):
     if len(assignment) == len(variables):
-        return assignment.copy()
+        return assignment
 
     var = select_unassigned_variable(assignment, variables)
     if var is None:
@@ -33,22 +33,21 @@ def is_consistent(var, value, assignment, constraints):
                 return False
     return True
 
-if __name__ == "__main__":
-    assignment = {}
-    variables = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
-    domain = ['Monday', 'Tuesday', 'Wednesday']
-    constraints = [
-        (('A', 'B'),),
-        (('A', 'C'),),
-        (('B', 'C'),),
-        (('B', 'D'),),
-        (('B', 'E'),),
-        (('D', 'E'),),
-        (('C', 'E'),),
-        (('C', 'F'),),
-        (('E', 'F'),),
-        (('E', 'G'),),
-        (('F', 'G'),)
-    ]
-    solution = backtrack_search(assignment, variables, domain, constraints)
-    print(solution)
+assignment = {}
+variables = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+domain = ['Monday', 'Tuesday', 'Wednesday']
+constraints = [
+    (('A', 'B'),),
+    (('A', 'C'),),
+    (('B', 'C'),),
+    (('B', 'D'),),
+    (('B', 'E'),),
+    (('D', 'E'),),
+    (('C', 'E'),),
+    (('C', 'F'),),
+    (('E', 'F'),),
+    (('E', 'G'),),
+    (('F', 'G'),)
+]
+solution = backtrack_search(assignment, variables, domain, constraints)
+print(solution)
