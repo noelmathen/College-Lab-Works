@@ -1,4 +1,4 @@
-# Path: ao_star_algorithm.py
+# Not sure whether this is correct
 
 def ao_star_algorithm(graph, start_node, goal_node, heuristics):
     open_set = {start_node}
@@ -60,3 +60,24 @@ if __name__ == "__main__":
         print(f"\nPath found: {path}")
     else:
         print('Path does not exist!')
+
+
+# Output:
+# Enter the key-value corresponding to parent and its heuristics : {'A': -1, 'B': 4, 'C': 2, 'D': 3, 'E': 6, 'F': 8, 'G': 2, 'H': 0, 'I': 0, 'J': 0}
+
+# Enter your graph : {'A': {'AND': [('C', 'D')], 'OR': ['B']}, 'B': {'OR': ['E', 'F']}, 'C': {'OR': ['G'], 'AND': [('H', 'I')]}, 'D': {'OR': ['J']}}
+
+# Enter the start node : A
+
+# Enter the goal node : J
+
+
+# Expanding Node: A
+# Expanding Node: B
+# Expanding Node: C
+# Expanding Node: D
+
+# Nodes which gives optimal cost from the start node  A  are :
+# CD -> HI -> J
+
+# Optimal cost is  5

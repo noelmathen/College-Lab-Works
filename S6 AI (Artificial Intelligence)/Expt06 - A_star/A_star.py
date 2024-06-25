@@ -52,3 +52,22 @@ if __name__ == "__main__":
         print(f"\nPath found: {path}")
     else:
         print('Path does not exist!')
+
+
+# Output:
+# Enter your graph : {'A': [('B', 2), ('E', 3)], 'B': [('A', 2), ('C', 1), ('G', 9)], 'C': [('B', 1)], 'D': [('E', 6), ('G', 1)], 'E': [('A', 3), ('D', 6)], 'G': [('B', 9), ('D', 1)]}
+
+# The Graph you entered is :
+# A : [('B', 2), ('E', 3)]
+# B : [('A', 2), ('C', 1), ('G', 9)]
+# C : [('B', 1)]
+# D : [('E', 6), ('G', 1)]
+# E : [('A', 3), ('D', 6)]
+# G : [('B', 9), ('D', 1)]
+
+# Enter the start node : A
+# Enter the stop node : G
+
+# Enter the key-value corresponding to parent and its heuristics : {'A': 11, 'B': 6, 'C': 99, 'D': 1, 'E': 7, 'G': 0}
+
+# Path found : ['A', 'E', 'D', 'G']
