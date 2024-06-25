@@ -10,6 +10,10 @@ while num <= n * n:
         i += 1
     else:
         i, j = newi, newj
+        
+magic_constant = n * (n**2 + 1) // 2
+print(f"The magic constant is: {magic_constant}")
 
+print(f"Magic Square of order {n}:")
 for row in board:
     print("\t".join(map(str, row)))
