@@ -22,7 +22,7 @@ dfs(start)
 #If u don't want to give graph as input, code it directly:
 #Comment line number 13, 14, 16 and paste this instead:
 
-##Example 1:
+# #Example 1:
 # n = 5
 # graph = [
 #     [0, 1, 1, 1, 0],
