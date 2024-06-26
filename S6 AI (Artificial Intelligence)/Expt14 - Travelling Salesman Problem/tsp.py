@@ -7,10 +7,10 @@ visited = []
 def takeInput():
     global n, graph, visited
     n = int(input("Enter the number of cities: "))
-    graph = []
+    graph = [[0]*n for _ in range(n)]
     print("Enter the adjacency matrix:")
-    for _ in range(n):
-        graph.append(list(map(int, input().split())))
+    for i in range(n):
+        graph[i] = list(map(int, input().split()))
     visited = [False] * n
 
 def tsp(city, count, path, currentCost):
