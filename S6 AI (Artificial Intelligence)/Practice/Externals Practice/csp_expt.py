@@ -1,45 +1,44 @@
 import random
 
-def select_unassigned_variables(assignments, variables):
+
+def select_unassigned_variable(variables, assignment):
     for var in variables:
-        if var not in assignments:
+        if var not in assignment:
             return var
     return None
 
 
-def consistent(var, value, assignments, constraints):
+def is_consistent(var, value, assignment, constraints):
     for constraint in constraints:
         if var in constraint[0]:
             related_var = constraint[0][0] if constraint[0][1]==var else constraint[0][1]
-            if related_var in assignments and assignments[related_var]==value:
+            if related_var in assignment and assignment[related_var]==var:
                 return False
     return True
 
 
-def backtrack_search(assignments, variables, domain, constraints):
-    if len(assignments)==len(variables):
-        return assignments
+def csp(variables, domain, constraints, assignment):
+    if len(assignment) == len(variables):
+        return assignment
     
-    var = select_unassigned_variables(assignments, variables)
+    var = select_unassigned_variable(variables, assignment)
     if var is None:
         return None
     
     random.shuffle(domain)
     for value in domain:
-        assignments[var]=value
-        if consistent(var, value, assignments, constraints):
-            result = backtrack_search(assignments, variables, domain, constraints)
+        assignment[var] = value
+        if is_consistent(var, value, assignment, constraints):
+            result = csp(variables, domain, constraints, assignment)
             if result is not None:
                 return result
-        assignments[var]=None
-            
-    
+        assignment[var] = None
 
 
-assignments = {}
-variables = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+assignment = {}
+variables = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 domain = ['Monday', 'Tuesday', 'Wednesday']
-constraints = {
+constraints = [
     (('A', 'B'),),
     (('A', 'C'),),
     (('B', 'C'),),
@@ -51,7 +50,6 @@ constraints = {
     (('E', 'F'),),
     (('E', 'G'),),
     (('F', 'G'),)
-}
+]
 
-solution = backtrack_search(assignments, variables, domain, constraints)
-print(solution)
+print(f"The result is: {csp(variables, domain, constraints, assignment)}")
