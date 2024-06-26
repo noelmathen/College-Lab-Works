@@ -11,21 +11,20 @@ def takeInput():
     visited = [False]*n
 
 def tsp(city, count, path, currentCost):
-    global n, graph, visited, minCost, minPath
+    global n, graph, minCost, minPath, visited
     visited[city]=True
     path.append(city)
     
     if count==n-1 and graph[city][0]!=0:
         totalCost = currentCost + graph[city][0]
-        if totalCost<minCost:
-            minCost=totalCost
+        if totalCost < minCost:
+            minCost = totalCost
             minPath[:] = path[:]
-    
+            
     else:
         for nextCity in range(n):
             if not visited[nextCity] and graph[city][nextCity]!=0:
                 tsp(nextCity, count+1, path, currentCost+graph[city][nextCity])
-    
     visited[city] = False
     path.pop()
 
