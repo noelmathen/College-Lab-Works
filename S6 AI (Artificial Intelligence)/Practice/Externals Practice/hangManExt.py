@@ -1,31 +1,33 @@
 import random
 
 def hang_man(word):
-    maxAttempts, attemps, wordToGuess = 7, 0, '_'*len(word)
+    attemps, maxAttempts, wordToGuess = 0, 7, '_'*len(word)
+    
     while attemps<maxAttempts and '_' in wordToGuess:
         print(f"\nWord to guess: {wordToGuess}")
-        guess = input('Enter an alphabet: ').lower()
+        guess = input('Enter a word: ')
         
         if len(guess)!=1 or not guess.isalpha():
-            print("Enter a PROPER word dumbass!")
+            print("Enter a proper value u dumbass!")
             continue
         
         if guess in word:
-            print("Correct Guess!")
+            print("You guesses the correct word!")
             for i in range(len(word)):
                 if word[i]==guess:
                     wordToGuess = wordToGuess[:i] + guess + wordToGuess[i+1:]
-        
         else:
-            print("Incorrect guess!")
-            print(f"Number of attempts left: {maxAttempts-attemps-1}")
+            print("oops, incorrect guess")
             attemps+=1
-    
+            print(f"Number of attemps left: {maxAttempts-attemps-1}") 
+            
     if '_' in wordToGuess:
-        print(f"\nSorry, you ran out of attemps. the correct word is: {word}")
+        print(f"You lost, the word was {word}")
     else:
-        print(f"\nCongratz! You guess the word right! The word is: {word}")
+        print(f"You won, the word was {word}")
+                   
 
-words = ['noel', 'mathen', 'eldho']
+
+words = ['apple', 'hello', 'engineering']
 word = random.choice(words)
 hang_man(word)
