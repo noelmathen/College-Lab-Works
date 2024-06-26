@@ -11,12 +11,17 @@ def dfs(start):
         if graph[start][i]==1 and not visited[i]:
             dfs(i)
 
-
-n = int(input("Enter the number of nodes: "))
-graph = [[0]*n for _ in range(n)]
+n = 5
+graph = [
+    [0, 1, 1, 1, 0],
+    [1, 0, 0, 0, 0],
+    [1, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0]
+]
 visited = [0]*n
-input_graph()
+# input_graph()
 
-start = int(input("Enter the start node: "))
+start = 0
 print("The DFS path is: ", end="")
 dfs(start)
