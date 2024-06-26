@@ -5,7 +5,7 @@ def water_jug(x, y):
         return False
     
     print(x, y)
-    visited[(x, y)] = True
+    visited[(x, y)]=True
     
     if x==aim or y==aim:
         return True
@@ -20,11 +20,10 @@ def water_jug(x, y):
     )
 
 
-jug1 = int(input("Enter capacity of jug1: "))
-jug2 = int(input("Enter capacity of jug2: "))
-aim = int(input("Enter the desired quantity: "))
+jug1 = int(input("Enter the capacity of jug1: "))
+jug2 = int(input("Enter the capacity of jug2: "))
+aim = int(input("Enter the aim: "))
 
 visited = defaultdict(bool)
 
-if not water_jug(0, 0):
-    print("Solution not found")
+water_jug(0, 0)
