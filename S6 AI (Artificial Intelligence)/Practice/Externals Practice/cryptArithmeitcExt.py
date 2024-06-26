@@ -1,6 +1,6 @@
 from itertools import permutations
 
-def csp(word1, word2, result):
+def cap(word1, word2, result):
     letters = set(word1+word2+result)
     if len(letters)>10:
         return []
@@ -10,19 +10,17 @@ def csp(word1, word2, result):
         if any(assigned[word[0]]==0 for word in [word1, word2, result]):
             continue
         
+        num1 = int(''.join(str(assigned[char])  for char in word1))
+        num2 = int(''.join(str(assigned[char])  for char in word2))
+        num3 = int(''.join(str(assigned[char])  for char in result))
         
-        num1 = int(''.join(str(assigned[char]) for char in word1))
-        num2 = int(''.join(str(assigned[char]) for char in word2))
-        num3 = int(''.join(str(assigned[char]) for char in result))
-
-        if num1+num2 == num3:
+        if num1+num2==num3:
             return [(num1, num2, num3)]
-    
+
     return []
 
 
 word1, word2, result = "send", "more", "money"
-solution = csp(word1, word2, result)
-
-for sol in solution:
+answer = cap(word1, word2, result)
+for sol in answer:
     print(sol)
