@@ -14,7 +14,7 @@ def tsp(city, count, path, currentCost):
     global n, graph, minCost, minPath, visited
     visited[city]=True
     path.append(city)
-    
+     
     if count==n-1 and graph[city][0]!=0:
         totalCost = currentCost + graph[city][0]
         if totalCost < minCost:
