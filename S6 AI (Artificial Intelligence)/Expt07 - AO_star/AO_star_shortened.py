@@ -1,4 +1,4 @@
-# This is correct, but not according to what we learned in class, or maams code.
+# Im not sure whether this is correct, and also it's according to what we learned in class, or maams code.
 
 def ao_star_algorithm(graph, start_node, goal_node, heuristics):
     open_set = {start_node}
