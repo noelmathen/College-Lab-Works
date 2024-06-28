@@ -15,7 +15,7 @@ def get_response(user_input):
     return "I'm sorry, I don't quite catch that. Could you repeat yourself?"
 
 while True:
-    user_input = input("You: ")
+    user_input = input("\nYou: ")
     response = get_response(user_input)
     print("niggabot:", response)
     if user_input.lower() == "goodbye":
