@@ -1,0 +1,4 @@
+Product ID,Product Name,Current Stock,Quantity Sold,Remaining Stock,Restock Needed,Suggested Restock Quantity
+102,Wheat Flour,30,25,5,TRUE,45
+103,Sugar,10,15,-5,TRUE,55
+104,Tea Powder,5,10,-5,TRUE,55
