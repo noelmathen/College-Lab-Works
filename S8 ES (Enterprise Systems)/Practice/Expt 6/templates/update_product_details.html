@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Update Product Details</title>
+</head>
+<body>
+  <h1>Update Details for Product ID: {{ product["Product ID"] }}</h1>
+  {% if error %}
+    <p style="color:red;">{{ error }}</p>
+  {% endif %}
+  <form method="POST">
+    <input type="hidden" name="update_product_id" value="{{ product['Product ID'] }}">
+    <p>Product Name: <input type="text" name="product_name" value="{{ product['Product Name'] }}"></p>
+    <p>Category: <input type="text" name="category" value="{{ product['Category'] }}"></p>
+    <p>Price: <input type="text" name="price" value="{{ product['Price'] }}"></p>
+    <p>Stock: <input type="text" name="stock" value="{{ product['Stock'] }}"></p>
+    <p><input type="submit" name="update_submit" value="Update"></p>
+  </form>
+  <p><a href="{{ url_for('home') }}">Back to Home</a></p>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Product</title>
+</head>
+<body>
+  <h1>Add New Product</h1>
+  {% if error %}
+    <p style="color:red;">{{ error }}</p>
+  {% endif %}
+  <form method="POST">
+    <p>Product ID: <input type="text" name="product_id"></p>
+    <p>Product Name: <input type="text" name="product_name"></p>
+    <p>Category: <input type="text" name="category"></p>
+    <p>Price: <input type="text" name="price"></p>
+    <p>Stock: <input type="text" name="stock"></p>
+    <p><input type="submit" value="Add Product"></p>
+  </form>
+  <p><a href="{{ url_for('home') }}">Back to Home</a></p>
+</body>
+</html>
