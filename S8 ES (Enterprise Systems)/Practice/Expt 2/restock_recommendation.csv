@@ -1,0 +1,4 @@
+ProductID,ProductName,AvailableStock,QuantitySold,RemainingStock,RestockNeeded,Suggested Restock Quantity
+101,Rice,60,53.0,7.0,True,43.0
+102,Wheat,45,40.0,5.0,True,45.0
+104,Mango,80,98.0,-18.0,True,68.0
