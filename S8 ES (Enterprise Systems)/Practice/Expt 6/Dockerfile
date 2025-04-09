@@ -18,3 +18,8 @@ ENV FLASK_APP=app.py
 
 # Run the application
 CMD ["python", "app.py"]
+
+
+
+#docker build -t ims-dss .
+#docker run -p 5000:5000 ims-dss
